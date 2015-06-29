@@ -7,6 +7,9 @@ export default class Parallax extends React.Component {
 
 		this.node = null;
 		this.childStyle = this.getChildStyle();
+		this.state = {
+			top: 0
+		};
 		this.autobind();
 	}
 
@@ -38,14 +41,21 @@ export default class Parallax extends React.Component {
 
 	onScroll(event) {
 		let rect = this.node.getBoundingClientRect();
+		if (rect) {
+			this.setState({
+				top: this.node.getBoundingClientRect()
+			});
+		}
 	}
 
 	getParallaxStyle() {
-		return {
+		let style = {
 			position: 'relative',
 			background: this.props.bgImage ? ('url(' + this.props.bgImage + ')') : this.props.bgColor,
+			backgroundSize: 'cover',
 			height: this.props.height
 		};
+		return style;
 	}
 
 	getChildStyle() {
@@ -53,7 +63,7 @@ export default class Parallax extends React.Component {
 			position: 'absolute',
 			top: '50%',
 			left: '50%',
-			webkitTransform: 'translate(-50%, -50%)',
+			WebkitTransform: 'translate(-50%, -50%)',
 			msTransform: 'translate(-50%, -50%)',
 			transform: 'translate(-50%, -50%)'
 		};

@@ -32,6 +32,9 @@ export default class KitchenSink extends React.Component {
 				<Parallax bgColor="darkgrey">
 					guess what?
 				</Parallax>
+				<Parallax bgColor="darkgrey" bgImage="assets/3.jpg">
+					last one...
+				</Parallax>
 				{divs}
 			</div>
 		);
