@@ -1,0 +1,28 @@
+{
+  "parser": "babel-eslint",
+  "env": {
+    "browser": true,
+    "node": true
+  },
+  "rules": {
+    "strict": 0,
+    "quotes": [0],
+    "camelcase": "never",
+    "eol-last": [0],
+    "no-mixed-requires": [0],
+    "no-underscore-dangle": [0],
+    "no-use-before-define": [0, "nofunc"],
+    "no-unused-vars": 0,
+    "no-undef": 0,
+    "no-trailing-spaces": 0,
+    "comma-spacing": 0,
+    "no-alert": 0,
+    "space-infix-ops": 0,
+    "new-cap": 0
+  },
+  "ecmaFeatures": {
+    "blockBindings": true,
+    "forOf": true,
+    "jsx": true
+  }
+}
