@@ -25,11 +25,13 @@ var Parallax = (function (_React$Component) {
 		_get(Object.getPrototypeOf(Parallax.prototype), 'constructor', this).call(this, props);
 
 		this.node = null;
+		this.windowHeight = this.getWindowHeight();
 		this.childStyle = this.getChildStyle();
 		this.state = {
 			top: 0
 		};
 		this.autobind();
+		console.log(this.windowHeight);
 	}
 
 	_inherits(Parallax, _React$Component);
@@ -38,6 +40,7 @@ var Parallax = (function (_React$Component) {
 		key: 'autobind',
 		value: function autobind() {
 			this.onScroll = this.onScroll.bind(this);
+			this.onWindowResize = this.onWindowResize.bind(this);
 		}
 	}, {
 		key: 'render',
@@ -56,6 +59,7 @@ var Parallax = (function (_React$Component) {
 		key: 'componentWillMount',
 		value: function componentWillMount() {
 			document.addEventListener('scroll', this.onScroll, false);
+			window.addEventListener('resize', this.onWindowResize, false);
 		}
 	}, {
 		key: 'componentDidMount',
@@ -66,6 +70,7 @@ var Parallax = (function (_React$Component) {
 		key: 'componentWillUnmount',
 		value: function componentWillUnmount() {
 			document.removeEventListener('scroll', this.onScroll, false);
+			window.removeEventListener('resize', this.onWindowResize, false);
 		}
 	}, {
 		key: 'onScroll',
@@ -73,17 +78,25 @@ var Parallax = (function (_React$Component) {
 			var rect = this.node.getBoundingClientRect();
 			if (rect) {
 				this.setState({
-					top: this.node.getBoundingClientRect()
+					top: this.node.getBoundingClientRect().top
 				});
 			}
 		}
 	}, {
+		key: 'onWindowResize',
+		value: function onWindowResize() {
+			this.windowHeight = this.getWindowHeight();
+		}
+	}, {
 		key: 'getParallaxStyle',
 		value: function getParallaxStyle() {
+			var backPos = this.state.top / this.windowHeight * this.props.strength;
+			console.log(backPos);
 			var style = {
 				position: 'relative',
 				background: this.props.bgImage ? 'url(' + this.props.bgImage + ')' : this.props.bgColor,
 				backgroundSize: 'cover',
+				backgroundPosition: '0px -' + backPos + 'px',
 				height: this.props.height
 			};
 			return style;
@@ -100,6 +113,16 @@ var Parallax = (function (_React$Component) {
 				transform: 'translate(-50%, -50%)'
 			};
 		}
+	}, {
+		key: 'getWindowHeight',
+		value: function getWindowHeight() {
+			var w = window,
+			    d = document,
+			    e = d.documentElement,
+			    g = d.getElementsByTagName('body')[0];
+
+			return w.innerHeight || e.clientHeight || g.clientHeight;
+		}
 	}]);
 
 	return Parallax;
@@ -110,10 +133,12 @@ exports['default'] = Parallax;
 Parallax.propTypes = {
 	backgroundImage: _react2['default'].PropTypes.string,
 	bgColor: _react2['default'].PropTypes.string,
-	height: _react2['default'].PropTypes.number
+	height: _react2['default'].PropTypes.number,
+	strength: _react2['default'].PropTypes.number
 };
 Parallax.defaultProps = {
 	bgColor: '#fff',
-	height: 300
+	height: 300,
+	strength: 100
 };
 module.exports = exports['default'];

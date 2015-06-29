@@ -14,16 +14,12 @@ export default class KitchenSink extends React.Component {
 		let style = {
 			backgroundColor: '#efefef'
 		};
-		let divs = [];
-		for (var i = 0; i < 200; i++) {
-			divs.push(<div>hello {i}</div>);
-		}
 		return (
 			<div style={style}>
 				<Parallax bgColor="white" bgImage="assets/1.jpg">
 					my first parallax
 				</Parallax>
-				<Parallax bgColor="blue">
+				<Parallax bgColor="white">
 					my second parallax
 				</Parallax>
 				<Parallax bgColor="purple" bgImage="assets/2.jpg">
@@ -35,7 +31,6 @@ export default class KitchenSink extends React.Component {
 				<Parallax bgColor="darkgrey" bgImage="assets/3.jpg">
 					last one...
 				</Parallax>
-				{divs}
 			</div>
 		);
 	}
