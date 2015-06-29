@@ -43,7 +43,7 @@ export default class Parallax extends React.Component {
 	getParallaxStyle() {
 		return {
 			position: 'relative',
-			background: this.props.bgColor,
+			background: this.props.bgImage ? ('url(' + this.props.bgImage + ')') : this.props.bgColor,
 			height: this.props.height
 		};
 	}

@@ -20,13 +20,13 @@ export default class KitchenSink extends React.Component {
 		}
 		return (
 			<div style={style}>
-				<Parallax bgColor="white">
+				<Parallax bgColor="white" bgImage="assets/1.jpg">
 					my first parallax
 				</Parallax>
 				<Parallax bgColor="blue">
 					my second parallax
 				</Parallax>
-				<Parallax bgColor="purple">
+				<Parallax bgColor="purple" bgImage="assets/2.jpg">
 					its the third
 				</Parallax>
 				<Parallax bgColor="darkgrey">
