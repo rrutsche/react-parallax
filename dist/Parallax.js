@@ -25,6 +25,7 @@ var Parallax = (function (_React$Component) {
 		_get(Object.getPrototypeOf(Parallax.prototype), 'constructor', this).call(this, props);
 
 		this.node = null;
+		this.childStyle = this.getChildStyle();
 		this.autobind();
 	}
 
@@ -40,8 +41,12 @@ var Parallax = (function (_React$Component) {
 		value: function render() {
 			return _react2['default'].createElement(
 				'div',
-				{ className: 'react-parallax' },
-				'hello parallax'
+				{ className: 'react-parallax', style: this.getParallaxStyle() },
+				_react2['default'].createElement(
+					'div',
+					{ style: this.childStyle },
+					this.props.children
+				)
 			);
 		}
 	}, {
@@ -64,6 +69,27 @@ var Parallax = (function (_React$Component) {
 		value: function onScroll(event) {
 			var rect = this.node.getBoundingClientRect();
 		}
+	}, {
+		key: 'getParallaxStyle',
+		value: function getParallaxStyle() {
+			return {
+				position: 'relative',
+				background: this.props.bgColor,
+				height: this.props.height
+			};
+		}
+	}, {
+		key: 'getChildStyle',
+		value: function getChildStyle() {
+			return {
+				position: 'absolute',
+				top: '50%',
+				left: '50%',
+				webkitTransform: 'translate(-50%, -50%)',
+				msTransform: 'translate(-50%, -50%)',
+				transform: 'translate(-50%, -50%)'
+			};
+		}
 	}]);
 
 	return Parallax;
@@ -73,9 +99,11 @@ exports['default'] = Parallax;
 
 Parallax.propTypes = {
 	backgroundImage: _react2['default'].PropTypes.string,
-	backgroundColor: _react2['default'].PropTypes.string
+	bgColor: _react2['default'].PropTypes.string,
+	height: _react2['default'].PropTypes.number
 };
 Parallax.defaultProps = {
-	backgroundColor: '#fff'
+	bgColor: '#fff',
+	height: 300
 };
 module.exports = exports['default'];

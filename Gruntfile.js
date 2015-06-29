@@ -1,10 +1,12 @@
+var os = require('os');
 module.exports = function (grunt) {
 
 	// load grunt modules
 	require('load-grunt-tasks')(grunt);
 
 	// port
-	var port = grunt.option('port') || grunt.option('p') || 80;
+	var defaultPort = os.platform().indexOf('win') === 0 ? 80 : 8080;
+	var port = grunt.option('port') || grunt.option('p') || defaultPort;
 
 	/**
 	 * GRUNT CONFIG
