@@ -23,7 +23,7 @@ export default class KitchenSink extends React.Component {
 		};
 		return (
 			<div style={style}>
-				<Parallax bgColor="white" bgImage="assets/1.jpg" strength={300}>
+				<Parallax bgColor="white" bgImage="assets/1.jpg" strength={300} log={true}>
 					<br/>
 					<h1 style={fontStyle}>first parallax</h1>
 					<h2 style={fontStyle}>with some crazy text that describes: nothing!</h2>

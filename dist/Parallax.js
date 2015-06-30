@@ -49,6 +49,7 @@ var Parallax = (function (_React$Component) {
 			return _react2["default"].createElement(
 				"div",
 				{ className: "react-parallax", style: this.getParallaxStyle() },
+				this.props.bgImage ? _react2["default"].createElement("img", { src: this.props.bgImage, style: this.getBackgroundStyle(), ref: "bgImage", alt: "" }) : "",
 				_react2["default"].createElement(
 					"div",
 					{ style: this.childStyle, ref: "content" },
@@ -67,8 +68,6 @@ var Parallax = (function (_React$Component) {
 		key: "componentDidMount",
 		value: function componentDidMount() {
 			this.node = _react2["default"].findDOMNode(this);
-			var content = _react2["default"].findDOMNode(this.refs.content);
-			this.contentHeight = content.getBoundingClientRect().height;
 			this.updatePosition();
 		}
 	}, {
@@ -86,10 +85,21 @@ var Parallax = (function (_React$Component) {
 	}, {
 		key: "updatePosition",
 		value: function updatePosition() {
+			var autoHeight = false;
+			var content = _react2["default"].findDOMNode(this.refs.content);
+			this.contentHeight = content.getBoundingClientRect().height;
+			this.contentWidth = this.node.getBoundingClientRect().width;
+
+			var img = _react2["default"].findDOMNode(this.refs.bgImage);
+			if (img && img.naturalWidth / img.naturalHeight * this.contentHeight < this.contentWidth) {
+				autoHeight = true;
+			}
+
 			var rect = this.node.getBoundingClientRect();
 			if (rect) {
 				this.setState({
-					top: this.node.getBoundingClientRect().top
+					top: this.node.getBoundingClientRect().top,
+					autoHeight: autoHeight
 				});
 			}
 		}
@@ -100,15 +110,28 @@ var Parallax = (function (_React$Component) {
 			this.updatePosition();
 		}
 	}, {
+		key: "getBackgroundStyle",
+		value: function getBackgroundStyle() {
+			var backPos = Math.floor((this.state.top + this.contentHeight) / this.windowHeight * this.props.strength);
+			var height = this.state.autoHeight ? "auto" : Math.floor(this.contentHeight + this.props.strength);
+			var width = !this.state.autoHeight ? "auto" : this.contentWidth;
+			var style = {
+				position: "absolute",
+				left: "0",
+				top: "-" + backPos + "px",
+				height: height,
+				width: width
+			};
+			return style;
+		}
+	}, {
 		key: "getParallaxStyle",
 		value: function getParallaxStyle() {
-			var backPos = Math.floor((this.state.top + this.contentHeight) / this.windowHeight * this.props.strength);
 			var style = {
 				position: "relative",
-				background: this.props.bgImage ? "url(" + this.props.bgImage + ")" : this.props.bgColor,
-				backgroundSize: "100% " + Math.floor(this.contentHeight + this.props.strength) + "px",
-				backgroundPosition: "0px -" + backPos + "px",
-				height: this.contentHeight
+				background: this.props.bgColor,
+				height: this.contentHeight,
+				overflow: "hidden"
 			};
 			return style;
 		}
@@ -149,7 +172,7 @@ var Parallax = (function (_React$Component) {
 exports["default"] = Parallax;
 
 Parallax.propTypes = {
-	backgroundImage: _react2["default"].PropTypes.string,
+	bgImage: _react2["default"].PropTypes.string,
 	bgColor: _react2["default"].PropTypes.string,
 	height: _react2["default"].PropTypes.number,
 	strength: _react2["default"].PropTypes.number,

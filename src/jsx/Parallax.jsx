@@ -24,6 +24,7 @@ export default class Parallax extends React.Component {
 	render() {
 		return (
 			<div className="react-parallax" style={this.getParallaxStyle()}>
+				{this.props.bgImage ? <img src={this.props.bgImage} style={this.getBackgroundStyle()} ref="bgImage" alt=""/> : ''}
 				<div style={this.childStyle} ref="content">
 					{this.props.children}
 				</div>
@@ -39,10 +40,7 @@ export default class Parallax extends React.Component {
 
 	componentDidMount() {
 		this.node = React.findDOMNode(this);
-		let content = React.findDOMNode(this.refs.content);
-		this.contentHeight = content.getBoundingClientRect().height;
 		this.updatePosition();
-
 	}
 
 	componentWillUnmount() {
@@ -56,10 +54,21 @@ export default class Parallax extends React.Component {
 	}
 
 	updatePosition() {
+		let autoHeight = false;
+		let content = React.findDOMNode(this.refs.content);
+		this.contentHeight = content.getBoundingClientRect().height;
+		this.contentWidth = this.node.getBoundingClientRect().width;
+
+		let img = React.findDOMNode(this.refs.bgImage);
+		if (img && (img.naturalWidth / img.naturalHeight * this.contentHeight < this.contentWidth)) {
+			autoHeight = true;
+		}
+
 		let rect = this.node.getBoundingClientRect();
 		if (rect) {
 			this.setState({
-				top: this.node.getBoundingClientRect().top
+				top: this.node.getBoundingClientRect().top,
+				autoHeight: autoHeight
 			});
 		}
 	}
@@ -69,14 +78,26 @@ export default class Parallax extends React.Component {
 		this.updatePosition();
 	}
 
-	getParallaxStyle() {
+	getBackgroundStyle() {
 		let backPos = Math.floor(((this.state.top + this.contentHeight) / this.windowHeight) * this.props.strength);
+		let height = this.state.autoHeight ? 'auto' : Math.floor(this.contentHeight + this.props.strength);
+		let width = !this.state.autoHeight ? 'auto' : this.contentWidth;
+		let style = {
+			position: 'absolute',
+			left: '0',
+			top: '-' + backPos + 'px',
+			height: height,
+			width: width
+		};
+		return style;
+	}
+
+	getParallaxStyle() {
 		let style = {
 			position: 'relative',
-			background: this.props.bgImage ? ('url(' + this.props.bgImage + ')') : this.props.bgColor,
-			backgroundSize: '100% ' + Math.floor(this.contentHeight + this.props.strength) + 'px',
-			backgroundPosition: '0px -' + backPos + 'px',
-			height: this.contentHeight
+			background: this.props.bgColor,
+			height: this.contentHeight,
+			overflow: 'hidden'
 		};
 		return style;
 	}
@@ -108,7 +129,7 @@ export default class Parallax extends React.Component {
 	}
 }
 Parallax.propTypes = {
-	backgroundImage: React.PropTypes.string,
+	bgImage: React.PropTypes.string,
 	bgColor: React.PropTypes.string,
 	height: React.PropTypes.number,
 	strength: React.PropTypes.number,
