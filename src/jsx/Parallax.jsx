@@ -66,6 +66,7 @@ export default class Parallax extends React.Component {
 
 	onWindowResize() {
 		this.windowHeight = this.getWindowHeight();
+		this.updatePosition();
 	}
 
 	getParallaxStyle() {

@@ -97,6 +97,7 @@ var Parallax = (function (_React$Component) {
 		key: "onWindowResize",
 		value: function onWindowResize() {
 			this.windowHeight = this.getWindowHeight();
+			this.updatePosition();
 		}
 	}, {
 		key: "getParallaxStyle",
