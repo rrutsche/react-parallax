@@ -101,11 +101,11 @@ var Parallax = (function (_React$Component) {
 	}, {
 		key: "getParallaxStyle",
 		value: function getParallaxStyle() {
-			var backPos = (this.state.top + this.contentHeight) / this.windowHeight * this.props.strength;
+			var backPos = Math.floor((this.state.top + this.contentHeight) / this.windowHeight * this.props.strength);
 			var style = {
 				position: "relative",
 				background: this.props.bgImage ? "url(" + this.props.bgImage + ")" : this.props.bgColor,
-				backgroundSize: "cover",
+				backgroundSize: "100% " + Math.floor(this.contentHeight + this.props.strength) + "px",
 				backgroundPosition: "0px -" + backPos + "px",
 				height: this.contentHeight
 			};

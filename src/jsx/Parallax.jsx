@@ -69,11 +69,11 @@ export default class Parallax extends React.Component {
 	}
 
 	getParallaxStyle() {
-		let backPos = ((this.state.top + this.contentHeight) / this.windowHeight) * this.props.strength;
+		let backPos = Math.floor(((this.state.top + this.contentHeight) / this.windowHeight) * this.props.strength);
 		let style = {
 			position: 'relative',
 			background: this.props.bgImage ? ('url(' + this.props.bgImage + ')') : this.props.bgColor,
-			backgroundSize: 'cover',
+			backgroundSize: '100% ' + Math.floor(this.contentHeight + this.props.strength) + 'px',
 			backgroundPosition: '0px -' + backPos + 'px',
 			height: this.contentHeight
 		};
