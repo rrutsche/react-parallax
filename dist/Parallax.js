@@ -28,10 +28,10 @@ var Parallax = (function (_React$Component) {
 		this.windowHeight = this.getWindowHeight();
 		this.childStyle = this.getChildStyle();
 		this.state = {
-			top: 0
+			top: 0,
+			height: 0
 		};
 		this.autobind();
-		console.log(this.windowHeight);
 	}
 
 	_inherits(Parallax, _React$Component);
@@ -65,6 +65,7 @@ var Parallax = (function (_React$Component) {
 		key: 'componentDidMount',
 		value: function componentDidMount() {
 			this.node = _react2['default'].findDOMNode(this);
+			this.updatePosition();
 		}
 	}, {
 		key: 'componentWillUnmount',
@@ -75,10 +76,16 @@ var Parallax = (function (_React$Component) {
 	}, {
 		key: 'onScroll',
 		value: function onScroll(event) {
+			this.updatePosition();
+		}
+	}, {
+		key: 'updatePosition',
+		value: function updatePosition() {
 			var rect = this.node.getBoundingClientRect();
 			if (rect) {
 				this.setState({
-					top: this.node.getBoundingClientRect().top
+					top: this.node.getBoundingClientRect().top,
+					height: this.node.getBoundingClientRect().height
 				});
 			}
 		}
@@ -90,8 +97,7 @@ var Parallax = (function (_React$Component) {
 	}, {
 		key: 'getParallaxStyle',
 		value: function getParallaxStyle() {
-			var backPos = this.state.top / this.windowHeight * this.props.strength;
-			console.log(backPos);
+			var backPos = (this.state.top + this.state.height) / this.windowHeight * this.props.strength;
 			var style = {
 				position: 'relative',
 				background: this.props.bgImage ? 'url(' + this.props.bgImage + ')' : this.props.bgColor,
@@ -123,6 +129,13 @@ var Parallax = (function (_React$Component) {
 
 			return w.innerHeight || e.clientHeight || g.clientHeight;
 		}
+	}, {
+		key: 'log',
+		value: function log() {
+			if (this.props.log) {
+				console.log(arguments);
+			}
+		}
 	}]);
 
 	return Parallax;
@@ -134,11 +147,13 @@ Parallax.propTypes = {
 	backgroundImage: _react2['default'].PropTypes.string,
 	bgColor: _react2['default'].PropTypes.string,
 	height: _react2['default'].PropTypes.number,
-	strength: _react2['default'].PropTypes.number
+	strength: _react2['default'].PropTypes.number,
+	log: _react2['default'].PropTypes.bool
 };
 Parallax.defaultProps = {
 	bgColor: '#fff',
 	height: 300,
-	strength: 100
+	strength: 100,
+	log: false
 };
 module.exports = exports['default'];

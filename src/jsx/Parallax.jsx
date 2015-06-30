@@ -9,10 +9,10 @@ export default class Parallax extends React.Component {
 		this.windowHeight = this.getWindowHeight();
 		this.childStyle = this.getChildStyle();
 		this.state = {
-			top: 0
+			top: 0,
+			height: 0
 		};
 		this.autobind();
-		console.log(this.windowHeight);
 	}
 
 	autobind() {
@@ -37,7 +37,7 @@ export default class Parallax extends React.Component {
 
 	componentDidMount() {
 		this.node = React.findDOMNode(this);
-
+		this.updatePosition();
 	}
 
 	componentWillUnmount() {
@@ -46,10 +46,15 @@ export default class Parallax extends React.Component {
 	}
 
 	onScroll(event) {
+		this.updatePosition();
+	}
+
+	updatePosition() {
 		let rect = this.node.getBoundingClientRect();
 		if (rect) {
 			this.setState({
-				top: this.node.getBoundingClientRect().top
+				top: this.node.getBoundingClientRect().top,
+				height: this.node.getBoundingClientRect().height
 			});
 		}
 	}
@@ -59,8 +64,7 @@ export default class Parallax extends React.Component {
 	}
 
 	getParallaxStyle() {
-		let backPos = (this.state.top / this.windowHeight) * this.props.strength;
-		console.log(backPos);
+		let backPos = ((this.state.top + this.state.height) / this.windowHeight) * this.props.strength;
 		let style = {
 			position: 'relative',
 			background: this.props.bgImage ? ('url(' + this.props.bgImage + ')') : this.props.bgColor,
@@ -90,15 +94,23 @@ export default class Parallax extends React.Component {
 		
 		return w.innerHeight || e.clientHeight || g.clientHeight;
 	}
+
+	log() {
+		if(this.props.log) {
+			console.log(arguments);
+		}
+	}
 }
 Parallax.propTypes = {
 	backgroundImage: React.PropTypes.string,
 	bgColor: React.PropTypes.string,
 	height: React.PropTypes.number,
-	strength: React.PropTypes.number
+	strength: React.PropTypes.number,
+	log: React.PropTypes.bool
 };
 Parallax.defaultProps = {
 	bgColor: '#fff',
 	height: 300,
-	strength: 100
+	strength: 100,
+	log: false
 };

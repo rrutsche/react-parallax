@@ -16,7 +16,7 @@ export default class KitchenSink extends React.Component {
 		};
 		return (
 			<div style={style}>
-				<Parallax bgColor="white" bgImage="assets/1.jpg">
+				<Parallax bgColor="white" bgImage="assets/1.jpg" log={true} strength={200}>
 					my first parallax
 				</Parallax>
 				<Parallax bgColor="white">
