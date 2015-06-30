@@ -18,12 +18,13 @@ export default class Parallax extends React.Component {
 	autobind() {
 		this.onScroll = this.onScroll.bind(this);
 		this.onWindowResize = this.onWindowResize.bind(this);
+		this.updatePosition = this.updatePosition.bind(this);
 	}
 
 	render() {
 		return (
 			<div className="react-parallax" style={this.getParallaxStyle()}>
-				<div style={this.childStyle}>
+				<div style={this.childStyle} ref="content">
 					{this.props.children}
 				</div>
 			</div>
@@ -33,16 +34,21 @@ export default class Parallax extends React.Component {
 	componentWillMount() {
 		document.addEventListener('scroll', this.onScroll, false);
 		window.addEventListener("resize", this.onWindowResize, false);
+		window.addEventListener("load", this.updatePosition, false);
 	}
 
 	componentDidMount() {
 		this.node = React.findDOMNode(this);
+		let content = React.findDOMNode(this.refs.content);
+		this.contentHeight = content.getBoundingClientRect().height;
 		this.updatePosition();
+
 	}
 
 	componentWillUnmount() {
 		document.removeEventListener('scroll', this.onScroll, false);
 		window.removeEventListener("resize", this.onWindowResize, false);
+		window.removeEventListener("load", this.updatePosition, false);
 	}
 
 	onScroll(event) {
@@ -53,8 +59,7 @@ export default class Parallax extends React.Component {
 		let rect = this.node.getBoundingClientRect();
 		if (rect) {
 			this.setState({
-				top: this.node.getBoundingClientRect().top,
-				height: this.node.getBoundingClientRect().height
+				top: this.node.getBoundingClientRect().top
 			});
 		}
 	}
@@ -64,13 +69,13 @@ export default class Parallax extends React.Component {
 	}
 
 	getParallaxStyle() {
-		let backPos = ((this.state.top + this.state.height) / this.windowHeight) * this.props.strength;
+		let backPos = ((this.state.top + this.contentHeight) / this.windowHeight) * this.props.strength;
 		let style = {
 			position: 'relative',
 			background: this.props.bgImage ? ('url(' + this.props.bgImage + ')') : this.props.bgColor,
 			backgroundSize: 'cover',
 			backgroundPosition: '0px -' + backPos + 'px',
-			height: this.props.height
+			height: this.contentHeight
 		};
 		return style;
 	}
