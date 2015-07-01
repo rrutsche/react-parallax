@@ -2,6 +2,10 @@
   "name": "react-parallax",
   "version": "0.0.1",
   "description": "A React Component for parallax effect.",
+  "repository": { 
+  	"type": "git",
+	"url": "https://github.com/RRutsche/react-parallax.git"
+  },
   "main": "dist/Parallax.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
