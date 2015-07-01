@@ -29,7 +29,7 @@ var Parallax = (function (_React$Component) {
 		this.childStyle = this.getChildStyle();
 		this.state = {
 			top: 0,
-			height: 0
+			autoHeight: false
 		};
 		this.autobind();
 	}
@@ -38,6 +38,10 @@ var Parallax = (function (_React$Component) {
 
 	_createClass(Parallax, [{
 		key: "autobind",
+
+		/**
+   * bind scope to all functions that will be called via eventlistener
+   */
 		value: function autobind() {
 			this.onScroll = this.onScroll.bind(this);
 			this.onWindowResize = this.onWindowResize.bind(this);
@@ -49,16 +53,20 @@ var Parallax = (function (_React$Component) {
 			return _react2["default"].createElement(
 				"div",
 				{ className: "react-parallax", style: this.getParallaxStyle() },
-				this.props.bgImage ? _react2["default"].createElement("img", { src: this.props.bgImage, style: this.getBackgroundStyle(), ref: "bgImage", alt: "" }) : "",
+				this.props.bgImage ? _react2["default"].createElement("img", { className: "react-parallax-bgimage", src: this.props.bgImage, style: this.getBackgroundStyle(), ref: "bgImage", alt: "" }) : "",
 				_react2["default"].createElement(
 					"div",
-					{ style: this.childStyle, ref: "content" },
+					{ className: "react-parallax-content", style: this.childStyle, ref: "content" },
 					this.props.children
 				)
 			);
 		}
 	}, {
 		key: "componentWillMount",
+
+		/**
+   * bind some eventlisteners for page load, scroll and resize
+   */
 		value: function componentWillMount() {
 			document.addEventListener("scroll", this.onScroll, false);
 			window.addEventListener("resize", this.onWindowResize, false);
@@ -66,12 +74,20 @@ var Parallax = (function (_React$Component) {
 		}
 	}, {
 		key: "componentDidMount",
+
+		/**
+   * save component ref after rendering and update all values
+   */
 		value: function componentDidMount() {
 			this.node = _react2["default"].findDOMNode(this);
 			this.updatePosition();
 		}
 	}, {
 		key: "componentWillUnmount",
+
+		/**
+   * remove all eventlisteners before component is destroyed
+   */
 		value: function componentWillUnmount() {
 			document.removeEventListener("scroll", this.onScroll, false);
 			window.removeEventListener("resize", this.onWindowResize, false);
@@ -84,17 +100,25 @@ var Parallax = (function (_React$Component) {
 		}
 	}, {
 		key: "updatePosition",
+
+		/**
+   * updates scroll position of this component and also its width and height.
+   * defines, if the background image should have autoHeight or autoWidth to
+   * fit the component space optimally
+   */
 		value: function updatePosition() {
 			var autoHeight = false;
 			var content = _react2["default"].findDOMNode(this.refs.content);
 			this.contentHeight = content.getBoundingClientRect().height;
 			this.contentWidth = this.node.getBoundingClientRect().width;
 
+			// set autoHeight or autoWidth
 			var img = _react2["default"].findDOMNode(this.refs.bgImage);
 			if (img && img.naturalWidth / img.naturalHeight * this.contentHeight < this.contentWidth) {
 				autoHeight = true;
 			}
 
+			// save scroll position
 			var rect = this.node.getBoundingClientRect();
 			if (rect) {
 				this.setState({
@@ -105,12 +129,20 @@ var Parallax = (function (_React$Component) {
 		}
 	}, {
 		key: "onWindowResize",
+
+		/**
+   * update window height and positions on window resize
+   */
 		value: function onWindowResize() {
 			this.windowHeight = this.getWindowHeight();
 			this.updatePosition();
 		}
 	}, {
 		key: "getBackgroundStyle",
+
+		/**
+   * returns styles for the background image, including translation by defined strength
+   */
 		value: function getBackgroundStyle() {
 			var backPos = Math.floor((this.state.top + this.contentHeight) / this.windowHeight * this.props.strength);
 			var height = this.state.autoHeight ? "auto" : Math.floor(this.contentHeight + this.props.strength);
@@ -126,6 +158,10 @@ var Parallax = (function (_React$Component) {
 		}
 	}, {
 		key: "getParallaxStyle",
+
+		/**
+   * returns general styles for the component
+   */
 		value: function getParallaxStyle() {
 			var style = {
 				position: "relative",
@@ -137,6 +173,10 @@ var Parallax = (function (_React$Component) {
 		}
 	}, {
 		key: "getChildStyle",
+
+		/**
+   * returns styles for the component content.
+   */
 		value: function getChildStyle() {
 			return {
 				position: "absolute",
@@ -145,6 +185,14 @@ var Parallax = (function (_React$Component) {
 				WebkitTransform: "translate(-50%, -50%)",
 				msTransform: "translate(-50%, -50%)",
 				transform: "translate(-50%, -50%)"
+			};
+		}
+	}, {
+		key: "getBlurStyle",
+		value: function getBlurStyle() {
+			return {
+				WebkitFilter: "blur(" + this.props.blur + "px)",
+				filter: "blur(" + this.props.blur + "px)"
 			};
 		}
 	}, {
@@ -157,13 +205,6 @@ var Parallax = (function (_React$Component) {
 
 			return w.innerHeight || e.clientHeight || g.clientHeight;
 		}
-	}, {
-		key: "log",
-		value: function log() {
-			if (this.props.log) {
-				console.log(arguments);
-			}
-		}
 	}]);
 
 	return Parallax;
@@ -171,17 +212,22 @@ var Parallax = (function (_React$Component) {
 
 exports["default"] = Parallax;
 
+/**
+ * @param {String} bgImage - path to the background image that makes parallax effect visible
+ * @param {String} bgColor - css value for a background color (visible only if bgImage is NOT set), eg.: #ddd, yellow, rgb(34,21,125)
+ * @param {Number} strength - parallax effect strength (in pixel), default 100
+ * @param {Number} blur - pixel value for background image blur, default: 0
+ */
 Parallax.propTypes = {
 	bgImage: _react2["default"].PropTypes.string,
 	bgColor: _react2["default"].PropTypes.string,
-	height: _react2["default"].PropTypes.number,
 	strength: _react2["default"].PropTypes.number,
-	log: _react2["default"].PropTypes.bool
+	blur: _react2["default"].PropTypes.number
 };
 Parallax.defaultProps = {
 	bgColor: "#fff",
-	height: 300,
 	strength: 100,
+	blur: 0,
 	log: false
 };
 module.exports = exports["default"];
