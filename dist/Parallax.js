@@ -152,7 +152,9 @@ var Parallax = (function (_React$Component) {
 				left: "0",
 				top: "-" + backPos + "px",
 				height: height,
-				width: width
+				width: width,
+				WebkitFilter: "blur(" + this.props.blur + "px)",
+				filter: "blur(" + this.props.blur + "px)"
 			};
 			return style;
 		}
@@ -185,14 +187,6 @@ var Parallax = (function (_React$Component) {
 				WebkitTransform: "translate(-50%, -50%)",
 				msTransform: "translate(-50%, -50%)",
 				transform: "translate(-50%, -50%)"
-			};
-		}
-	}, {
-		key: "getBlurStyle",
-		value: function getBlurStyle() {
-			return {
-				WebkitFilter: "blur(" + this.props.blur + "px)",
-				filter: "blur(" + this.props.blur + "px)"
 			};
 		}
 	}, {

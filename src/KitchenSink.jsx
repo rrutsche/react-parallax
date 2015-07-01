@@ -32,12 +32,7 @@ export default class KitchenSink extends React.Component {
 					<br/>
 
 				</Parallax>
-				<Parallax bgColor="white">
-					<br/>
-					<h1 style={fontStyle}>second parallax</h1>
-					<br/>
-				</Parallax>
-				<Parallax bgColor="purple" bgImage="assets/2.jpg">
+				<Parallax bgColor="purple" bgImage="assets/2.jpg" blur={3}>
 					<br/>
 					<h1 style={fontStyle}>its the third</h1>
 					<h2 style={fontStyle}>text just has to fill the container to make the image visible</h2>

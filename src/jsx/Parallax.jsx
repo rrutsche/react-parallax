@@ -114,7 +114,9 @@ export default class Parallax extends React.Component {
 			left: '0',
 			top: '-' + backPos + 'px',
 			height: height,
-			width: width
+			width: width,
+			WebkitFilter: 'blur(' + this.props.blur + 'px)',
+			filter: 'blur(' + this.props.blur + 'px)'
 		};
 		return style;
 	}
@@ -143,13 +145,6 @@ export default class Parallax extends React.Component {
 			WebkitTransform: 'translate(-50%, -50%)',
 			msTransform: 'translate(-50%, -50%)',
 			transform: 'translate(-50%, -50%)'
-		};
-	}
-
-	getBlurStyle() {
-		return {
-			WebkitFilter: 'blur(' + this.props.blur + 'px)',
-			filter: 'blur(' + this.props.blur + 'px)'
 		};
 	}
 
