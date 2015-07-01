@@ -10,7 +10,7 @@ npm install react-parallax --save-dev
 
 ## Usage
 
-```js
+```
 var Parallax = require('react-parallax');
 
 var TheContainer = React.createClass({
@@ -44,27 +44,10 @@ var TheContainer = React.createClass({
 
 # Props
 
-/**
- * path to the background image that makes parallax effect visible
- * @type {String}
- */
-bgImage: React.PropTypes.string
-/**
- * css value for a background color (visible only if bgImage is NOT set), eg.: #ddd, yellow, rgb(34,21,125)
- * @type {String}
- */
-bgColor: React.PropTypes.string
-/**
- * parallax effect strength (in pixel), default 100
- * this will define the amount of pixels the background image is translated
- * @type {Number}
- */
-strength: React.PropTypes.number
-/**
- * pixel value for background image blur, default: 0
- * @type {Number}
- */
-blur: React.PropTypes.number
+* bgImage: path to the background image that makes parallax effect visible - (type: String)
+* bgColor: css value for a background color (visible only if bgImage is NOT set), eg.: #ddd, yellow, rgb(34,21,125) - (type: String)
+* strength: parallax effect strength (in pixel), default 100. this will define the amount of pixels the background image is translated - (type: Number)
+* blur: pixel value for background image blur, default: 0 - (type: Number)
 
 # Children
 
