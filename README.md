@@ -8,6 +8,8 @@
 npm install react-parallax --save-dev
 ```
 
+## [Demo](http://rrutsche.github.io/#parallax)
+
 ## Usage
 
 ```
