@@ -183,12 +183,7 @@ var Parallax = (function (_React$Component) {
    */
 		value: function getChildStyle() {
 			return {
-				position: "absolute",
-				top: "50%",
-				left: "50%",
-				WebkitTransform: "translate(-50%, -50%)",
-				msTransform: "translate(-50%, -50%)",
-				transform: "translate(-50%, -50%)"
+				position: "relative"
 			};
 		}
 	}, {

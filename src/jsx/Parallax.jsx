@@ -141,12 +141,7 @@ export default class Parallax extends React.Component {
 	 */
 	getChildStyle() {
 		return {
-			position: 'absolute',
-			top: '50%',
-			left: '50%',
-			WebkitTransform: 'translate(-50%, -50%)',
-			msTransform: 'translate(-50%, -50%)',
-			transform: 'translate(-50%, -50%)'
+			position: 'relative'
 		};
 	}
 
