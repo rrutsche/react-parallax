@@ -8,6 +8,7 @@ export default class Parallax extends React.Component {
 		this.node = null;
 		this.windowHeight = this.getWindowHeight();
 		this.childStyle = this.getChildStyle();
+		this.parallaxStyle = this.getParallaxStyle();
 		this.state = {
 			top: 0,
 			autoHeight: false
@@ -26,7 +27,7 @@ export default class Parallax extends React.Component {
 
 	render() {
 		return (
-			<div className="react-parallax" style={this.getParallaxStyle()}>
+			<div className="react-parallax" style={this.parallaxStyle}>
 				{this.props.bgImage ? (
 					<img className="react-parallax-bgimage" src={this.props.bgImage} style={this.getBackgroundStyle()} ref="bgImage" alt=""/>
 				) : ''}
@@ -82,7 +83,6 @@ export default class Parallax extends React.Component {
 		let img = React.findDOMNode(this.refs.bgImage);
 		if (img && (img.naturalWidth / (img.naturalHeight - this.props.strength) * this.contentHeight < this.contentWidth)) {
 			autoHeight = true;
-			console.log(autoHeight);
 		}
 
 		// save scroll position
@@ -130,7 +130,6 @@ export default class Parallax extends React.Component {
 		let style = {
 			position: 'relative',
 			background: this.props.bgColor,
-			height: this.contentHeight,
 			overflow: 'hidden'
 		};
 		return style;
