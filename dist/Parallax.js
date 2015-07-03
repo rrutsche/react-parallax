@@ -114,8 +114,9 @@ var Parallax = (function (_React$Component) {
 
 			// set autoHeight or autoWidth
 			var img = _react2["default"].findDOMNode(this.refs.bgImage);
-			if (img && img.naturalWidth / img.naturalHeight * this.contentHeight < this.contentWidth) {
+			if (img && img.naturalWidth / (img.naturalHeight - this.props.strength) * this.contentHeight < this.contentWidth) {
 				autoHeight = true;
+				console.log(autoHeight);
 			}
 
 			// save scroll position
@@ -149,8 +150,9 @@ var Parallax = (function (_React$Component) {
 			var width = !this.state.autoHeight ? "auto" : this.contentWidth;
 			var style = {
 				position: "absolute",
-				left: "0",
-				top: "-" + backPos + "px",
+				left: "50%",
+				WebkitTransform: "translate3d(-50%, -" + backPos + "px, 0)",
+				transform: "translate3d(-50%, 0, 0)",
 				height: height,
 				width: width,
 				WebkitFilter: "blur(" + this.props.blur + "px)",
