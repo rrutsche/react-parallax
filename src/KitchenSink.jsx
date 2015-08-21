@@ -24,7 +24,7 @@ export default class KitchenSink extends React.Component {
 		};
 		return (
 			<div style={style}>
-				<Parallax bgColor="white" bgImage="assets/1.jpg" strength={400} log={true}>
+				<Parallax bgImage="assets/3.jpg" strength={300} log={true}>
 					<br/><br/><br/><br/>
 					<h1 style={fontStyle}>first parallax</h1>
 					<br/>
@@ -44,15 +44,15 @@ export default class KitchenSink extends React.Component {
 					<h2 style={fontStyle}>because we can</h2>
 					<br/><br/><br/><br/>
 				</div>
-				<Parallax bgImage="assets/2.jpg" strength={300} blur={3}>
+				<Parallax bgImage="assets/2.jpg" blur={3}>
 					<br/><br/><br/><br/>
-					<h1 style={fontStyle}>its the third</h1>
-					<h2 style={fontStyle}>text just has to fill the container to make the image visible</h2>
+					<h1 style={fontStyle}>second one</h1>
 					<br/>
 					<br/>
-					<h2 style={fontStyle}>it's just there</h2>
-					<br/><br/><br/><br/>
-					
+					<h2 style={fontStyle}>it's also filled</h2>
+					<br/><br/>
+					<img src="http://www.fillmurray.com/g/500/400" alt="fillmurray"/>
+					<br/><br/>
 				</Parallax>
 				<Parallax bgColor="darkgrey">
 					<br/><br/><br/><br/>
@@ -60,13 +60,12 @@ export default class KitchenSink extends React.Component {
 					<h1 style={fontStyle}>what?</h1>
 					<br/><br/><br/><br/>
 				</Parallax>
-				<Parallax bgImage="assets/3.jpg" strength={300}>
+				<Parallax bgImage="assets/1.jpg">
 					<br/><br/><br/><br/>
 					<h1 style={fontStyle}>last one...</h1>
-					<h2 style={fontStyle}>one more placeholder</h2>
 					<br/>
 					<br/>
-					<h2 style={fontStyle}>empty</h2>
+					<img src="http://www.fillmurray.com/g/600/500" alt="fillmurray"/>
 					<br/><br/><br/><br/>
 					
 				</Parallax>

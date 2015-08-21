@@ -23,6 +23,7 @@ export default class Parallax extends React.Component {
 		this.onScroll = this.onScroll.bind(this);
 		this.onWindowResize = this.onWindowResize.bind(this);
 		this.updatePosition = this.updatePosition.bind(this);
+		this.onWindowLoad = this.onWindowLoad.bind(this);
 	}
 
 	render() {
@@ -44,7 +45,7 @@ export default class Parallax extends React.Component {
 	componentWillMount() {
 		document.addEventListener('scroll', this.onScroll, false);
 		window.addEventListener("resize", this.onWindowResize, false);
-		window.addEventListener("load", this.updatePosition, false);
+		window.addEventListener("load", this.onWindowLoad, false);
 	}
 
 	/**
@@ -61,10 +62,15 @@ export default class Parallax extends React.Component {
 	componentWillUnmount() {
 		document.removeEventListener('scroll', this.onScroll, false);
 		window.removeEventListener("resize", this.onWindowResize, false);
-		window.removeEventListener("load", this.updatePosition, false);
+		window.removeEventListener("load", this.onWindowLoad, false);
 	}
 
 	onScroll(event) {
+		this.updatePosition();
+	}
+
+	onWindowLoad() {
+		this.log('windowLoad');
 		this.updatePosition();
 	}
 
@@ -74,6 +80,7 @@ export default class Parallax extends React.Component {
 	 * fit the component space optimally
 	 */
 	updatePosition() {
+		this.log('updatePosition');
 		let autoHeight = false;
 		let content = React.findDOMNode(this.refs.content);
 		this.contentHeight = content.getBoundingClientRect().height;
@@ -114,7 +121,7 @@ export default class Parallax extends React.Component {
 			position: 'absolute',
 			left: '50%',
 			WebkitTransform: 'translate3d(-50%, -' + backPos + 'px, 0)',
-			transform: 'translate3d(-50%, 0, 0)',
+			transform: 'translate3d(-50%, -' + backPos + 'px, 0)',
 			height: height,
 			width: width,
 			WebkitFilter: 'blur(' + this.props.blur + 'px)',
@@ -151,6 +158,12 @@ export default class Parallax extends React.Component {
 			g = d.getElementsByTagName('body')[0];
 		
 		return w.innerHeight || e.clientHeight || g.clientHeight;
+	}
+
+	log() {
+		if (this.props.log) {
+			console.log(arguments);
+		}
 	}
 }
 /**
