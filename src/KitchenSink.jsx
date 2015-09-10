@@ -24,7 +24,7 @@ export default class KitchenSink extends React.Component {
 		};
 		return (
 			<div style={style}>
-				<Parallax bgImage="assets/3.jpg" strength={300} log={true}>
+				<Parallax bgImage="assets/3.jpg" strength={300}>
 					<br/><br/><br/><br/>
 					<h1 style={fontStyle}>first parallax</h1>
 					<br/>
@@ -44,9 +44,9 @@ export default class KitchenSink extends React.Component {
 					<h2 style={fontStyle}>because we can</h2>
 					<br/><br/><br/><br/>
 				</div>
-				<Parallax bgImage="assets/2.jpg" blur={3}>
+				<Parallax bgImage="assets/2.jpg" blur={3} disabled={true} log={true}>
 					<br/><br/><br/><br/>
-					<h1 style={fontStyle}>second one</h1>
+					<h1 style={fontStyle}>second one!!</h1>
 					<br/>
 					<br/>
 					<h2 style={fontStyle}>it's also filled</h2>

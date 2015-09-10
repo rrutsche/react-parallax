@@ -103,7 +103,6 @@ var Parallax = (function (_React$Component) {
 	}, {
 		key: "onWindowLoad",
 		value: function onWindowLoad() {
-			this.log("windowLoad");
 			this.updatePosition();
 		}
 	}, {
@@ -115,7 +114,6 @@ var Parallax = (function (_React$Component) {
    * fit the component space optimally
    */
 		value: function updatePosition() {
-			this.log("updatePosition");
 			var autoHeight = false;
 			var content = _react2["default"].findDOMNode(this.refs.content);
 			this.contentHeight = content.getBoundingClientRect().height;
@@ -153,7 +151,10 @@ var Parallax = (function (_React$Component) {
    * returns styles for the background image, including translation by defined strength
    */
 		value: function getBackgroundStyle() {
-			var backPos = Math.floor((this.state.top + this.contentHeight) / this.windowHeight * this.props.strength);
+			var backPos = 0;
+			if (this.props.disabled !== true) {
+				backPos = Math.floor((this.state.top + this.contentHeight) / this.windowHeight * this.props.strength);
+			}
 			var height = this.state.autoHeight ? "auto" : Math.floor(this.contentHeight + this.props.strength);
 			var width = !this.state.autoHeight ? "auto" : this.contentWidth;
 			var style = {
@@ -233,6 +234,7 @@ Parallax.defaultProps = {
 	bgColor: "#fff",
 	strength: 100,
 	blur: 0,
-	log: false
+	log: false,
+	disabled: false
 };
 module.exports = exports["default"];

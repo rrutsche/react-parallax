@@ -70,7 +70,6 @@ export default class Parallax extends React.Component {
 	}
 
 	onWindowLoad() {
-		this.log('windowLoad');
 		this.updatePosition();
 	}
 
@@ -80,7 +79,6 @@ export default class Parallax extends React.Component {
 	 * fit the component space optimally
 	 */
 	updatePosition() {
-		this.log('updatePosition');
 		let autoHeight = false;
 		let content = React.findDOMNode(this.refs.content);
 		this.contentHeight = content.getBoundingClientRect().height;
@@ -114,7 +112,10 @@ export default class Parallax extends React.Component {
 	 * returns styles for the background image, including translation by defined strength
 	 */
 	getBackgroundStyle() {
-		let backPos = Math.floor(((this.state.top + this.contentHeight) / this.windowHeight) * this.props.strength);
+		let backPos = 0;
+		if (this.props.disabled !== true) {
+			backPos = Math.floor(((this.state.top + this.contentHeight) / this.windowHeight) * this.props.strength);
+		}
 		let height = this.state.autoHeight ? 'auto' : Math.floor(this.contentHeight + this.props.strength);
 		let width = !this.state.autoHeight ? 'auto' : this.contentWidth;
 		let style = {
@@ -182,5 +183,6 @@ Parallax.defaultProps = {
 	bgColor: '#fff',
 	strength: 100,
 	blur: 0,
-	log: false
+	log: false,
+	disabled: false
 };
