@@ -75,16 +75,6 @@ var Parallax = (function (_React$Component) {
 			window.addEventListener("load", this.onWindowLoad, false);
 		}
 	}, {
-		key: "componentDidMount",
-
-		/**
-   * save component ref after rendering and update all values
-   */
-		value: function componentDidMount() {
-			this.node = _react2["default"].findDOMNode(this);
-			this.updatePosition();
-		}
-	}, {
 		key: "componentWillUnmount",
 
 		/**
@@ -94,6 +84,17 @@ var Parallax = (function (_React$Component) {
 			document.removeEventListener("scroll", this.onScroll, false);
 			window.removeEventListener("resize", this.onWindowResize, false);
 			window.removeEventListener("load", this.onWindowLoad, false);
+		}
+	}, {
+		key: "componentDidMount",
+
+		/**
+   * save component ref after rendering, update all values and set static style values
+   */
+		value: function componentDidMount() {
+			this.node = _react2["default"].findDOMNode(this);
+			this.updatePosition();
+			this.setInitialBackgroundStyles();
 		}
 	}, {
 		key: "onScroll",
@@ -135,6 +136,23 @@ var Parallax = (function (_React$Component) {
 			}
 		}
 	}, {
+		key: "setInitialBackgroundStyles",
+
+		/**
+   * defines all static values for the background image
+   */
+		value: function setInitialBackgroundStyles() {
+			var img = this.refs.bgImage ? _react2["default"].findDOMNode(this.refs.bgImage) : null;
+			if (img) {
+				img.style.position = "absolute";
+				img.style.left = "50%";
+				img.style.WebkitTransformStyle = "preserve-3d";
+				img.style.WebkitBackfaceVisibility = "hidden";
+				img.style.MozBackfaceVisibility = "hidden";
+				img.style.MsBackfaceVisibility = "hidden";
+			}
+		}
+	}, {
 		key: "onWindowResize",
 
 		/**
@@ -158,15 +176,15 @@ var Parallax = (function (_React$Component) {
 			var height = this.state.autoHeight ? "auto" : Math.floor(this.contentHeight + this.props.strength);
 			var width = !this.state.autoHeight ? "auto" : this.contentWidth;
 			var style = {
-				position: "absolute",
-				left: "50%",
 				WebkitTransform: "translate3d(-50%, -" + backPos + "px, 0)",
 				transform: "translate3d(-50%, -" + backPos + "px, 0)",
-				height: height,
-				width: width,
-				WebkitFilter: "blur(" + this.props.blur + "px)",
-				filter: "blur(" + this.props.blur + "px)"
+				height: "4514px",
+				width: "auto"
 			};
+			if (this.props.blur) {
+				style.WebkitFilter = "blur(" + this.props.blur + "px)";
+				style.filter = "blur(" + this.props.blur + "px)";
+			}
 			return style;
 		}
 	}, {
@@ -179,7 +197,10 @@ var Parallax = (function (_React$Component) {
 			var style = {
 				position: "relative",
 				background: this.props.bgColor,
-				overflow: "hidden"
+				overflow: "hidden",
+				WebkitBackfaceVisibility: "hidden",
+				MozBackfaceVisibility: "hidden",
+				MsBackfaceVisibility: "hidden"
 			};
 			return style;
 		}

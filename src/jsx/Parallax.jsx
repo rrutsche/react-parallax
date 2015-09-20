@@ -48,13 +48,6 @@ export default class Parallax extends React.Component {
 		window.addEventListener("load", this.onWindowLoad, false);
 	}
 
-	/**
-	 * save component ref after rendering and update all values
-	 */
-	componentDidMount() {
-		this.node = React.findDOMNode(this);
-		this.updatePosition();
-	}
 
 	/**
 	 * remove all eventlisteners before component is destroyed
@@ -63,6 +56,15 @@ export default class Parallax extends React.Component {
 		document.removeEventListener('scroll', this.onScroll, false);
 		window.removeEventListener("resize", this.onWindowResize, false);
 		window.removeEventListener("load", this.onWindowLoad, false);
+	}
+
+	/**
+	 * save component ref after rendering, update all values and set static style values
+	 */
+	componentDidMount() {
+		this.node = React.findDOMNode(this);
+		this.updatePosition();
+		this.setInitialBackgroundStyles();
 	}
 
 	onScroll(event) {
@@ -101,6 +103,21 @@ export default class Parallax extends React.Component {
 	}
 
 	/**
+	 * defines all static values for the background image
+	 */
+	setInitialBackgroundStyles() {
+		let img = this.refs.bgImage ? React.findDOMNode(this.refs.bgImage) : null;
+		if (img) {
+			img.style.position = 'absolute';
+			img.style.left = '50%';
+			img.style.WebkitTransformStyle = 'preserve-3d';
+			img.style.WebkitBackfaceVisibility = 'hidden';
+			img.style.MozBackfaceVisibility = 'hidden';
+			img.style.MsBackfaceVisibility = 'hidden';
+		}
+	}
+
+	/**
 	 * update window height and positions on window resize
 	 */
 	onWindowResize() {
@@ -119,15 +136,15 @@ export default class Parallax extends React.Component {
 		let height = this.state.autoHeight ? 'auto' : Math.floor(this.contentHeight + this.props.strength);
 		let width = !this.state.autoHeight ? 'auto' : this.contentWidth;
 		let style = {
-			position: 'absolute',
-			left: '50%',
 			WebkitTransform: 'translate3d(-50%, -' + backPos + 'px, 0)',
 			transform: 'translate3d(-50%, -' + backPos + 'px, 0)',
-			height: height,
-			width: width,
-			WebkitFilter: 'blur(' + this.props.blur + 'px)',
-			filter: 'blur(' + this.props.blur + 'px)'
+			height: '4514px',
+			width: 'auto'
 		};
+		if (this.props.blur) {
+			style.WebkitFilter = 'blur(' + this.props.blur + 'px)';
+			style.filter = 'blur(' + this.props.blur + 'px)';
+		}
 		return style;
 	}
 
@@ -138,7 +155,10 @@ export default class Parallax extends React.Component {
 		let style = {
 			position: 'relative',
 			background: this.props.bgColor,
-			overflow: 'hidden'
+			overflow: 'hidden',
+			WebkitBackfaceVisibility: 'hidden',
+			MozBackfaceVisibility: 'hidden',
+			MsBackfaceVisibility: 'hidden'
 		};
 		return style;
 	}
