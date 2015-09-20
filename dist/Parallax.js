@@ -27,7 +27,6 @@ var Parallax = (function (_React$Component) {
 		this.node = null;
 		this.windowHeight = this.getWindowHeight();
 		this.childStyle = this.getChildStyle();
-		this.parallaxStyle = this.getParallaxStyle();
 		this.state = {
 			top: 0,
 			autoHeight: false
@@ -54,8 +53,8 @@ var Parallax = (function (_React$Component) {
 		value: function render() {
 			return _react2["default"].createElement(
 				"div",
-				{ className: "react-parallax", style: this.parallaxStyle },
-				this.props.bgImage ? _react2["default"].createElement("img", { className: "react-parallax-bgimage", src: this.props.bgImage, style: this.getBackgroundStyle(), ref: "bgImage", alt: "" }) : "",
+				{ className: "react-parallax" },
+				this.props.bgImage ? _react2["default"].createElement("img", { className: "react-parallax-bgimage", src: this.props.bgImage, style: this.getBackgroundPosition(), ref: "bgImage", alt: "" }) : "",
 				_react2["default"].createElement(
 					"div",
 					{ className: "react-parallax-content", style: this.childStyle, ref: "content" },
@@ -94,6 +93,7 @@ var Parallax = (function (_React$Component) {
 		value: function componentDidMount() {
 			this.node = _react2["default"].findDOMNode(this);
 			this.updatePosition();
+			this.setParallaxStyle();
 			this.setInitialBackgroundStyles();
 		}
 	}, {
@@ -163,12 +163,12 @@ var Parallax = (function (_React$Component) {
 			this.updatePosition();
 		}
 	}, {
-		key: "getBackgroundStyle",
+		key: "getBackgroundPosition",
 
 		/**
-   * returns styles for the background image, including translation by defined strength
+   * returns position for the background image
    */
-		value: function getBackgroundStyle() {
+		value: function getBackgroundPosition() {
 			var backPos = 0;
 			if (this.props.disabled !== true) {
 				backPos = Math.floor((this.state.top + this.contentHeight) / this.windowHeight * this.props.strength);
@@ -178,8 +178,8 @@ var Parallax = (function (_React$Component) {
 			var style = {
 				WebkitTransform: "translate3d(-50%, -" + backPos + "px, 0)",
 				transform: "translate3d(-50%, -" + backPos + "px, 0)",
-				height: "4514px",
-				width: "auto"
+				height: height,
+				width: width
 			};
 			if (this.props.blur) {
 				style.WebkitFilter = "blur(" + this.props.blur + "px)";
@@ -188,21 +188,16 @@ var Parallax = (function (_React$Component) {
 			return style;
 		}
 	}, {
-		key: "getParallaxStyle",
+		key: "setParallaxStyle",
 
 		/**
-   * returns general styles for the component
+   * defines styles for the parallax node that do not change during use
    */
-		value: function getParallaxStyle() {
-			var style = {
-				position: "relative",
-				background: this.props.bgColor,
-				overflow: "hidden",
-				WebkitBackfaceVisibility: "hidden",
-				MozBackfaceVisibility: "hidden",
-				MsBackfaceVisibility: "hidden"
-			};
-			return style;
+		value: function setParallaxStyle() {
+			if (this.node) {
+				this.node.style.position = "relative";
+				this.node.style.background = this.props.bgColor;
+			}
 		}
 	}, {
 		key: "getChildStyle",

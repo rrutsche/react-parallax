@@ -8,7 +8,6 @@ export default class Parallax extends React.Component {
 		this.node = null;
 		this.windowHeight = this.getWindowHeight();
 		this.childStyle = this.getChildStyle();
-		this.parallaxStyle = this.getParallaxStyle();
 		this.state = {
 			top: 0,
 			autoHeight: false
@@ -28,9 +27,9 @@ export default class Parallax extends React.Component {
 
 	render() {
 		return (
-			<div className="react-parallax" style={this.parallaxStyle}>
+			<div className="react-parallax">
 				{this.props.bgImage ? (
-					<img className="react-parallax-bgimage" src={this.props.bgImage} style={this.getBackgroundStyle()} ref="bgImage" alt=""/>
+					<img className="react-parallax-bgimage" src={this.props.bgImage} style={this.getBackgroundPosition()} ref="bgImage" alt=""/>
 				) : ''}
 				<div className="react-parallax-content" style={this.childStyle} ref="content">
 					{this.props.children}
@@ -64,6 +63,7 @@ export default class Parallax extends React.Component {
 	componentDidMount() {
 		this.node = React.findDOMNode(this);
 		this.updatePosition();
+		this.setParallaxStyle();
 		this.setInitialBackgroundStyles();
 	}
 
@@ -126,9 +126,9 @@ export default class Parallax extends React.Component {
 	}
 
 	/**
-	 * returns styles for the background image, including translation by defined strength
+	 * returns position for the background image
 	 */
-	getBackgroundStyle() {
+	getBackgroundPosition() {
 		let backPos = 0;
 		if (this.props.disabled !== true) {
 			backPos = Math.floor(((this.state.top + this.contentHeight) / this.windowHeight) * this.props.strength);
@@ -138,8 +138,8 @@ export default class Parallax extends React.Component {
 		let style = {
 			WebkitTransform: 'translate3d(-50%, -' + backPos + 'px, 0)',
 			transform: 'translate3d(-50%, -' + backPos + 'px, 0)',
-			height: '4514px',
-			width: 'auto'
+			height: height,
+			width: width
 		};
 		if (this.props.blur) {
 			style.WebkitFilter = 'blur(' + this.props.blur + 'px)';
@@ -149,18 +149,13 @@ export default class Parallax extends React.Component {
 	}
 
 	/**
-	 * returns general styles for the component
+	 * defines styles for the parallax node that do not change during use
 	 */
-	getParallaxStyle() {
-		let style = {
-			position: 'relative',
-			background: this.props.bgColor,
-			overflow: 'hidden',
-			WebkitBackfaceVisibility: 'hidden',
-			MozBackfaceVisibility: 'hidden',
-			MsBackfaceVisibility: 'hidden'
-		};
-		return style;
+	setParallaxStyle() {
+		if (this.node) {
+			this.node.style.position = 'relative';
+			this.node.style.background = this.props.bgColor;
+		}
 	}
 
 	/**
