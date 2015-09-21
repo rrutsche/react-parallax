@@ -118,6 +118,12 @@ var Parallax = (function (_React$Component) {
    * fit the component space optimally
    */
 		value: function updatePosition() {
+			var stamp = Date.now();
+			if (stamp - this.timestamp < 10) {
+				return;
+			}
+			console.log(stamp - this.timestamp);
+			this.timestamp = stamp;
 			var img = _react2["default"].findDOMNode(this.refs.bgImage);
 			var autoHeight = false;
 			var content = _react2["default"].findDOMNode(this.refs.content);
