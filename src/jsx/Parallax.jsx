@@ -8,6 +8,7 @@ export default class Parallax extends React.Component {
 		this.node = null;
 		this.windowHeight = this.getWindowHeight();
 		this.childStyle = this.getChildStyle();
+		this.timestamp = Date.now();
 		this.state = {
 			top: 0,
 			autoHeight: false
@@ -68,7 +69,9 @@ export default class Parallax extends React.Component {
 	}
 
 	onScroll(event) {
-		this.updatePosition();
+		if (this.isScrolledIntoView(this.node)) {
+			window.requestAnimationFrame(this.updatePosition);
+		}
 	}
 
 	onWindowLoad() {
@@ -81,13 +84,13 @@ export default class Parallax extends React.Component {
 	 * fit the component space optimally
 	 */
 	updatePosition() {
+		let img = React.findDOMNode(this.refs.bgImage);
 		let autoHeight = false;
 		let content = React.findDOMNode(this.refs.content);
 		this.contentHeight = content.getBoundingClientRect().height;
 		this.contentWidth = this.node.getBoundingClientRect().width;
 
 		// set autoHeight or autoWidth
-		let img = React.findDOMNode(this.refs.bgImage);
 		if (img && (img.naturalWidth / (img.naturalHeight - this.props.strength) * this.contentHeight < this.contentWidth)) {
 			autoHeight = true;
 		}
@@ -154,6 +157,7 @@ export default class Parallax extends React.Component {
 	setParallaxStyle() {
 		if (this.node) {
 			this.node.style.position = 'relative';
+			this.node.style.overflow = 'hidden';
 			this.node.style.background = this.props.bgColor;
 		}
 	}
@@ -174,6 +178,14 @@ export default class Parallax extends React.Component {
 			g = d.getElementsByTagName('body')[0];
 		
 		return w.innerHeight || e.clientHeight || g.clientHeight;
+	}
+
+	isScrolledIntoView(element) {
+		let elementTop = element.getBoundingClientRect().top,
+			elementBottom = element.getBoundingClientRect().bottom;
+		return elementTop <= 0 && elementBottom >= 0 ||
+				elementTop >= 0 && elementBottom <= window.innerHeight ||
+				elementTop <= window.innerHeight && elementBottom >= window.innerHeight;
 	}
 
 	log() {

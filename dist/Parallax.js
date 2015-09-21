@@ -27,6 +27,7 @@ var Parallax = (function (_React$Component) {
 		this.node = null;
 		this.windowHeight = this.getWindowHeight();
 		this.childStyle = this.getChildStyle();
+		this.timestamp = Date.now();
 		this.state = {
 			top: 0,
 			autoHeight: false
@@ -99,7 +100,9 @@ var Parallax = (function (_React$Component) {
 	}, {
 		key: "onScroll",
 		value: function onScroll(event) {
-			this.updatePosition();
+			if (this.isScrolledIntoView(this.node)) {
+				window.requestAnimationFrame(this.updatePosition);
+			}
 		}
 	}, {
 		key: "onWindowLoad",
@@ -115,13 +118,13 @@ var Parallax = (function (_React$Component) {
    * fit the component space optimally
    */
 		value: function updatePosition() {
+			var img = _react2["default"].findDOMNode(this.refs.bgImage);
 			var autoHeight = false;
 			var content = _react2["default"].findDOMNode(this.refs.content);
 			this.contentHeight = content.getBoundingClientRect().height;
 			this.contentWidth = this.node.getBoundingClientRect().width;
 
 			// set autoHeight or autoWidth
-			var img = _react2["default"].findDOMNode(this.refs.bgImage);
 			if (img && img.naturalWidth / (img.naturalHeight - this.props.strength) * this.contentHeight < this.contentWidth) {
 				autoHeight = true;
 			}
@@ -196,6 +199,7 @@ var Parallax = (function (_React$Component) {
 		value: function setParallaxStyle() {
 			if (this.node) {
 				this.node.style.position = "relative";
+				this.node.style.overflow = "hidden";
 				this.node.style.background = this.props.bgColor;
 			}
 		}
@@ -219,6 +223,13 @@ var Parallax = (function (_React$Component) {
 			    g = d.getElementsByTagName("body")[0];
 
 			return w.innerHeight || e.clientHeight || g.clientHeight;
+		}
+	}, {
+		key: "isScrolledIntoView",
+		value: function isScrolledIntoView(element) {
+			var elementTop = element.getBoundingClientRect().top,
+			    elementBottom = element.getBoundingClientRect().bottom;
+			return elementTop <= 0 && elementBottom >= 0 || elementTop >= 0 && elementBottom <= window.innerHeight || elementTop <= window.innerHeight && elementBottom >= window.innerHeight;
 		}
 	}, {
 		key: "log",

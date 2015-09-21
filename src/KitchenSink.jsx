@@ -24,50 +24,39 @@ export default class KitchenSink extends React.Component {
 		};
 		return (
 			<div style={style}>
-				<Parallax bgImage="assets/3.jpg" strength={300}>
+				<Parallax bgImage="assets/1.jpg" strength={300}>
 					<br/><br/><br/><br/>
-					<h1 style={fontStyle}>first parallax</h1>
 					<br/>
+					<h1 style={fontStyle}>One morning, when Gregor Samsa woke from troubled dreams, he found himself transformed in his bed into a horrible vermin. He lay on his armour-like back, and if he lifted his head a little he could see his brown belly, slightly domed and divided by arches into stiff sections. The bedding was hardly able to cover it and seemed ready to slide off any moment. His many legs, pitifully thin compared with the size of the rest of him, waved about helplessly as he looked. "What's happened to me?" he thought. It wasn't a dream. His room, a proper human room although a little too small, lay peacefully between its four familiar walls. A collection of textile samples lay spread out on the table - Samsa was a travelling salesman - and above it there hung a picture that he had recently cut out of an illustrated magazine and housed in a nice, gilded frame. It showed a lady fitted out with a fur hat and fur boa who sat upright, raising a heavy fur muff that covered the whole of her lower arm towards the viewer. Gregor then turned to look out the window at the dull weather. Drops</h1>
 					<br/>
-					<br/><br/><br/><br/>
-					<img src="http://www.fillmurray.com/400/400" alt="fill murray"/>
+					<h1 style={fontStyle}>...</h1>
+					<h1 style={fontStyle}>some content</h1>
 					<br/>
+					<img src="http://www.fillmurray.com/100/300" alt="fill murray"/>
+					<img src="http://www.fillmurray.com/400/300" alt="fill murray"/>
+					<h1 style={fontStyle}>more and more content</h1>
+					<h1 style={fontStyle}>...</h1>
 					<br/>
-					<h2 style={fontStyle}>filled with murray</h2>
 					<br/>
 				</Parallax>
-				<div>
+				<Parallax bgImage="assets/2.jpg" strength={300}>
 					<br/><br/><br/><br/>
-					<h1 style={fontStyle}>none-parallax content</h1>
 					<br/>
-					<h2 style={fontStyle}>-------------</h2>
-					<h2 style={fontStyle}>because we can</h2>
-					<br/><br/><br/><br/>
-				</div>
-				<Parallax bgImage="assets/2.jpg" blur={3} disabled={true} log={true}>
-					<br/><br/><br/><br/>
-					<h1 style={fontStyle}>second one!!</h1>
+					<h1 style={fontStyle}>One morning, when Gregor Samsa woke from troubled dreams, he found himself transformed in his bed into a horrible vermin. He lay on his armour-like back, and if he lifted his head a little he could see his brown belly, slightly domed and divided by arches into stiff sections. The bedding was hardly able to cover it and seemed ready to slide off any moment. His many legs, pitifully thin compared with the size of the rest of him, waved about helplessly as he looked. "What's happened to me?" he thought. It wasn't a dream. His room, a proper human room although a little too small, lay peacefully between its four familiar walls. A collection of textile samples lay spread out on the table - Samsa was a travelling salesman - and above it there hung a picture that he had recently cut out of an illustrated magazine and housed in a nice, gilded frame. It showed a lady fitted out with a fur hat and fur boa who sat upright, raising a heavy fur muff that covered the whole of her lower arm towards the viewer. Gregor then turned to look out the window at the dull weather. Drops</h1>
+					<h1 style={fontStyle}>...</h1>
 					<br/>
-					<br/>
-					<h2 style={fontStyle}>it's also filled</h2>
-					<br/><br/>
-					<img src="http://www.fillmurray.com/g/500/400" alt="fillmurray"/>
-					<br/><br/>
-				</Parallax>
-				<Parallax bgColor="darkgrey">
-					<br/><br/><br/><br/>
-					<h1 style={fontStyle}>guess</h1>
-					<h1 style={fontStyle}>what?</h1>
-					<br/><br/><br/><br/>
-				</Parallax>
-				<Parallax bgImage="assets/1.jpg">
-					<br/><br/><br/><br/>
-					<h1 style={fontStyle}>last one...</h1>
+					<img src="http://www.fillmurray.com/200/300" alt="fill murray"/>
+					<img src="http://www.fillmurray.com/100/300" alt="fill murray"/>
+					<h1 style={fontStyle}>...</h1>
+					<h1 style={fontStyle}>...</h1>
+					<h1 style={fontStyle}>...</h1>
+					<h1 style={fontStyle}>...</h1>
+					<h1 style={fontStyle}>...</h1>
+					<h1 style={fontStyle}>...</h1>
+					<img src="http://www.fillmurray.com/300/300" alt="fill murray"/>
+					<img src="http://www.fillmurray.com/200/300" alt="fill murray"/>
 					<br/>
 					<br/>
-					<img src="http://www.fillmurray.com/g/600/500" alt="fillmurray"/>
-					<br/><br/><br/><br/>
-					
 				</Parallax>
 			</div>
 		);
