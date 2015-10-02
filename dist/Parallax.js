@@ -122,7 +122,6 @@ var Parallax = (function (_React$Component) {
 			if (stamp - this.timestamp < 10) {
 				return;
 			}
-			console.log(stamp - this.timestamp);
 			this.timestamp = stamp;
 			var img = _react2["default"].findDOMNode(this.refs.bgImage);
 			var autoHeight = false;
