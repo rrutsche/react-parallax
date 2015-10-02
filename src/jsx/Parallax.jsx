@@ -88,7 +88,6 @@ export default class Parallax extends React.Component {
 		if (stamp - this.timestamp < 10) {
 			return;
 		}
-		console.log(stamp - this.timestamp);
 		this.timestamp = stamp;
 		let img = React.findDOMNode(this.refs.bgImage);
 		let autoHeight = false;
