@@ -34,14 +34,14 @@ module.exports = function (grunt) {
 			// restart grunt on Gruntfile change
 			gruntfile: {
 				files: ['Gruntfile.js', 'package.json'],
-				tasks: ['logSettings', 'eslint', 'build-kitchensink'],
+				tasks: ['eslint', 'build-kitchensink'],
 				reload: true,
 				livereload: false
 			},
 			// restart grunt on Gruntfile change
 			karmafile: {
 				files: 'karma.conf.js',
-				tasks: ['logSettings', 'test'],
+				tasks: ['test'],
 				livereload: false
 			},
 			// Re-build kitchensink
@@ -52,15 +52,15 @@ module.exports = function (grunt) {
 			// livereload on html change
 			html: {
 				files: 'src/*.html',
-				tasks: ['logSettings', 'copy:kitchensink']
+				tasks: ['copy:kitchensink']
 			},
 			assets: {
 				files: ['src/assets/**/*'],
-				tasks: ['logSettings', 'copy:assets']
+				tasks: ['copy:assets']
 			},
 			test: {
 				files: ['src/test/**/*.js', 'src/test/**/*.jsx'],
-				tasks: ['logSettings', 'test'],
+				tasks: ['test'],
 				livereload: false
 			}
 		},
@@ -124,6 +124,17 @@ module.exports = function (grunt) {
 			}
 		},
 
+		uglify: {
+			options: {
+				mangle: false
+			},
+			dist: {
+				files: {
+					'dist/Parallax.js': ['dist/Parallax.js']
+				}
+			}
+		},
+
 		eslint: {
 			target: ['Gruntfile.js', 'src/**/*.js', 'src/**/*.jsx', 'src/test/**/*.js', 'src/test/**/*.jsx']
 		},
@@ -140,21 +151,14 @@ module.exports = function (grunt) {
 		}
 	});
 
-	// Show current settings
-	grunt.registerTask('logSettings', 'Echos settings to console', function () {
-		grunt.log.subhead('Settings:');
-		grunt.log.writeln('-----------------------');
-		grunt.log.writeln('Server port: ' + port);
-		grunt.log.writeln('-----------------------');
-	});
 
-	grunt.registerTask('build-dist', ['clean:dist', 'eslint', 'babel:dist', 'copy']);
+	grunt.registerTask('build-dist', ['clean:dist', 'eslint', 'babel:dist', 'uglify:dist', 'copy']);
 	grunt.registerTask('build-kitchensink', ['clean:kitchensink', 'eslint', 'babel:dist', 'browserify:kitchensink', 'copy']);
 	grunt.registerTask('build-test', ['clean:test', 'eslint', 'browserify:test']);
 
 	// registering test task (Use test-debug to debug tests)
-	grunt.registerTask('default', ['logSettings', 'build-kitchensink', 'connect', 'watch']);
-	grunt.registerTask('dist', ['logSettings', 'build-dist']);
+	grunt.registerTask('default', ['build-kitchensink', 'connect', 'watch']);
+	grunt.registerTask('dist', ['build-dist']);
 	grunt.registerTask('test', ['build-dist','build-test', 'karma:defaultBrowser']);
 	grunt.registerTask('test-debug', ['build-dist','build-test', 'karma:defaultBrowser_keepalive']);
 };
