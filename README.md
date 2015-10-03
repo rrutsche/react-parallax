@@ -21,21 +21,10 @@ var TheContainer = React.createClass({
       <div>
       	<Parallax bgImage="assets/1.jpg" strength={300}>
 			<h1>first parallax section</h1>
-			<h2>with some crazy text</h2>
-			<br/>
-			<h2>it's just there to fill the website</h2>
-			<br/>
-		</Parallax>
-		<Parallax bgColor="white">
-			<br/>
-			<h1>second parallax is without bg image</h1>
-			<br/>
 		</Parallax>
 		<Parallax bgImage="assets/2.jpg">
 			<br/>
-			<h1>its the third</h1>
-			<br/>
-			<h2>hello hello</h2>
+			<h1>second parallax </h1>
 			<br/>
 		</Parallax>
       </div>
