@@ -30,7 +30,7 @@ export default class Parallax extends React.Component {
 		return (
 			<div className="react-parallax">
 				{this.props.bgImage ? (
-					<img className="react-parallax-bgimage" src={this.props.bgImage} style={this.getBackgroundPosition()} ref="bgImage" alt=""/>
+					<img className="react-parallax-bgimage" src={this.props.bgImage} style={this.getImagePosition()} ref="bgImage" alt=""/>
 				) : ''}
 				<div className="react-parallax-content" style={this.childStyle} ref="content">
 					{this.props.children}
@@ -63,14 +63,17 @@ export default class Parallax extends React.Component {
 	 */
 	componentDidMount() {
 		this.node = React.findDOMNode(this);
+		this.img = this.refs.bgImage ? React.findDOMNode(this.refs.bgImage) : null;
 		this.updatePosition();
 		this.setParallaxStyle();
 		this.setInitialBackgroundStyles();
 	}
 
 	onScroll(event) {
-		if (this.isScrolledIntoView(this.node)) {
+		let stamp = Date.now();
+		if (stamp - this.timestamp >= 10 && this.isScrolledIntoView(this.node)) {
 			window.requestAnimationFrame(this.updatePosition);
+			this.timestamp = stamp;
 		}
 	}
 
@@ -84,19 +87,13 @@ export default class Parallax extends React.Component {
 	 * fit the component space optimally
 	 */
 	updatePosition() {
-		let stamp = Date.now();
-		if (stamp - this.timestamp < 10) {
-			return;
-		}
-		this.timestamp = stamp;
-		let img = React.findDOMNode(this.refs.bgImage);
 		let autoHeight = false;
 		let content = React.findDOMNode(this.refs.content);
 		this.contentHeight = content.getBoundingClientRect().height;
 		this.contentWidth = this.node.getBoundingClientRect().width;
 
 		// set autoHeight or autoWidth
-		if (img && (img.naturalWidth / (img.naturalHeight - this.props.strength) * this.contentHeight < this.contentWidth)) {
+		if (this.img && (this.img.naturalWidth / (this.img.naturalHeight - this.props.strength) * this.contentHeight < this.contentWidth)) {
 			autoHeight = true;
 		}
 
@@ -114,14 +111,13 @@ export default class Parallax extends React.Component {
 	 * defines all static values for the background image
 	 */
 	setInitialBackgroundStyles() {
-		let img = this.refs.bgImage ? React.findDOMNode(this.refs.bgImage) : null;
-		if (img) {
-			img.style.position = 'absolute';
-			img.style.left = '50%';
-			img.style.WebkitTransformStyle = 'preserve-3d';
-			img.style.WebkitBackfaceVisibility = 'hidden';
-			img.style.MozBackfaceVisibility = 'hidden';
-			img.style.MsBackfaceVisibility = 'hidden';
+		if (this.img) {
+			this.img.style.position = 'absolute';
+			this.img.style.left = '50%';
+			this.img.style.WebkitTransformStyle = 'preserve-3d';
+			this.img.style.WebkitBackfaceVisibility = 'hidden';
+			this.img.style.MozBackfaceVisibility = 'hidden';
+			this.img.style.MsBackfaceVisibility = 'hidden';
 		}
 	}
 
@@ -136,7 +132,7 @@ export default class Parallax extends React.Component {
 	/**
 	 * returns position for the background image
 	 */
-	getBackgroundPosition() {
+	getImagePosition() {
 		let backPos = 0;
 		if (this.props.disabled !== true) {
 			backPos = Math.floor(((this.state.top + this.contentHeight) / this.windowHeight) * this.props.strength);

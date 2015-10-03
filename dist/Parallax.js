@@ -12,13 +12,15 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "d
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var _react = require("react");
+var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
 var Parallax = (function (_React$Component) {
+	_inherits(Parallax, _React$Component);
+
 	function Parallax(props) {
 		_classCallCheck(this, Parallax);
 
@@ -35,14 +37,19 @@ var Parallax = (function (_React$Component) {
 		this.autobind();
 	}
 
-	_inherits(Parallax, _React$Component);
+	/**
+  * @param {String} bgImage - path to the background image that makes parallax effect visible
+  * @param {String} bgColor - css value for a background color (visible only if bgImage is NOT set), eg.: #ddd, yellow, rgb(34,21,125)
+  * @param {Number} strength - parallax effect strength (in pixel), default 100
+  * @param {Number} blur - pixel value for background image blur, default: 0
+  */
+
+	/**
+  * bind scope to all functions that will be called via eventlistener
+  */
 
 	_createClass(Parallax, [{
 		key: "autobind",
-
-		/**
-   * bind scope to all functions that will be called via eventlistener
-   */
 		value: function autobind() {
 			this.onScroll = this.onScroll.bind(this);
 			this.onWindowResize = this.onWindowResize.bind(this);
@@ -55,7 +62,7 @@ var Parallax = (function (_React$Component) {
 			return _react2["default"].createElement(
 				"div",
 				{ className: "react-parallax" },
-				this.props.bgImage ? _react2["default"].createElement("img", { className: "react-parallax-bgimage", src: this.props.bgImage, style: this.getBackgroundPosition(), ref: "bgImage", alt: "" }) : "",
+				this.props.bgImage ? _react2["default"].createElement("img", { className: "react-parallax-bgimage", src: this.props.bgImage, style: this.getImagePosition(), ref: "bgImage", alt: "" }) : '',
 				_react2["default"].createElement(
 					"div",
 					{ className: "react-parallax-content", style: this.childStyle, ref: "content" },
@@ -63,36 +70,37 @@ var Parallax = (function (_React$Component) {
 				)
 			);
 		}
-	}, {
-		key: "componentWillMount",
 
 		/**
    * bind some eventlisteners for page load, scroll and resize
    */
+	}, {
+		key: "componentWillMount",
 		value: function componentWillMount() {
-			document.addEventListener("scroll", this.onScroll, false);
+			document.addEventListener('scroll', this.onScroll, false);
 			window.addEventListener("resize", this.onWindowResize, false);
 			window.addEventListener("load", this.onWindowLoad, false);
 		}
-	}, {
-		key: "componentWillUnmount",
 
 		/**
    * remove all eventlisteners before component is destroyed
    */
+	}, {
+		key: "componentWillUnmount",
 		value: function componentWillUnmount() {
-			document.removeEventListener("scroll", this.onScroll, false);
+			document.removeEventListener('scroll', this.onScroll, false);
 			window.removeEventListener("resize", this.onWindowResize, false);
 			window.removeEventListener("load", this.onWindowLoad, false);
 		}
-	}, {
-		key: "componentDidMount",
 
 		/**
    * save component ref after rendering, update all values and set static style values
    */
+	}, {
+		key: "componentDidMount",
 		value: function componentDidMount() {
 			this.node = _react2["default"].findDOMNode(this);
+			this.img = this.refs.bgImage ? _react2["default"].findDOMNode(this.refs.bgImage) : null;
 			this.updatePosition();
 			this.setParallaxStyle();
 			this.setInitialBackgroundStyles();
@@ -100,8 +108,10 @@ var Parallax = (function (_React$Component) {
 	}, {
 		key: "onScroll",
 		value: function onScroll(event) {
-			if (this.isScrolledIntoView(this.node)) {
+			var stamp = Date.now();
+			if (stamp - this.timestamp >= 10 && this.isScrolledIntoView(this.node)) {
 				window.requestAnimationFrame(this.updatePosition);
+				this.timestamp = stamp;
 			}
 		}
 	}, {
@@ -109,28 +119,22 @@ var Parallax = (function (_React$Component) {
 		value: function onWindowLoad() {
 			this.updatePosition();
 		}
-	}, {
-		key: "updatePosition",
 
 		/**
    * updates scroll position of this component and also its width and height.
    * defines, if the background image should have autoHeight or autoWidth to
    * fit the component space optimally
    */
+	}, {
+		key: "updatePosition",
 		value: function updatePosition() {
-			var stamp = Date.now();
-			if (stamp - this.timestamp < 10) {
-				return;
-			}
-			this.timestamp = stamp;
-			var img = _react2["default"].findDOMNode(this.refs.bgImage);
 			var autoHeight = false;
 			var content = _react2["default"].findDOMNode(this.refs.content);
 			this.contentHeight = content.getBoundingClientRect().height;
 			this.contentWidth = this.node.getBoundingClientRect().width;
 
 			// set autoHeight or autoWidth
-			if (img && img.naturalWidth / (img.naturalHeight - this.props.strength) * this.contentHeight < this.contentWidth) {
+			if (this.img && this.img.naturalWidth / (this.img.naturalHeight - this.props.strength) * this.contentHeight < this.contentWidth) {
 				autoHeight = true;
 			}
 
@@ -143,80 +147,79 @@ var Parallax = (function (_React$Component) {
 				});
 			}
 		}
-	}, {
-		key: "setInitialBackgroundStyles",
 
 		/**
    * defines all static values for the background image
    */
+	}, {
+		key: "setInitialBackgroundStyles",
 		value: function setInitialBackgroundStyles() {
-			var img = this.refs.bgImage ? _react2["default"].findDOMNode(this.refs.bgImage) : null;
-			if (img) {
-				img.style.position = "absolute";
-				img.style.left = "50%";
-				img.style.WebkitTransformStyle = "preserve-3d";
-				img.style.WebkitBackfaceVisibility = "hidden";
-				img.style.MozBackfaceVisibility = "hidden";
-				img.style.MsBackfaceVisibility = "hidden";
+			if (this.img) {
+				this.img.style.position = 'absolute';
+				this.img.style.left = '50%';
+				this.img.style.WebkitTransformStyle = 'preserve-3d';
+				this.img.style.WebkitBackfaceVisibility = 'hidden';
+				this.img.style.MozBackfaceVisibility = 'hidden';
+				this.img.style.MsBackfaceVisibility = 'hidden';
 			}
 		}
-	}, {
-		key: "onWindowResize",
 
 		/**
    * update window height and positions on window resize
    */
+	}, {
+		key: "onWindowResize",
 		value: function onWindowResize() {
 			this.windowHeight = this.getWindowHeight();
 			this.updatePosition();
 		}
-	}, {
-		key: "getBackgroundPosition",
 
 		/**
    * returns position for the background image
    */
-		value: function getBackgroundPosition() {
+	}, {
+		key: "getImagePosition",
+		value: function getImagePosition() {
 			var backPos = 0;
 			if (this.props.disabled !== true) {
 				backPos = Math.floor((this.state.top + this.contentHeight) / this.windowHeight * this.props.strength);
 			}
-			var height = this.state.autoHeight ? "auto" : Math.floor(this.contentHeight + this.props.strength);
-			var width = !this.state.autoHeight ? "auto" : this.contentWidth;
+			var height = this.state.autoHeight ? 'auto' : Math.floor(this.contentHeight + this.props.strength);
+			var width = !this.state.autoHeight ? 'auto' : this.contentWidth;
 			var style = {
-				WebkitTransform: "translate3d(-50%, -" + backPos + "px, 0)",
-				transform: "translate3d(-50%, -" + backPos + "px, 0)",
+				WebkitTransform: 'translate3d(-50%, -' + backPos + 'px, 0)',
+				transform: 'translate3d(-50%, -' + backPos + 'px, 0)',
 				height: height,
 				width: width
 			};
 			if (this.props.blur) {
-				style.WebkitFilter = "blur(" + this.props.blur + "px)";
-				style.filter = "blur(" + this.props.blur + "px)";
+				style.WebkitFilter = 'blur(' + this.props.blur + 'px)';
+				style.filter = 'blur(' + this.props.blur + 'px)';
 			}
 			return style;
 		}
-	}, {
-		key: "setParallaxStyle",
 
 		/**
    * defines styles for the parallax node that do not change during use
    */
+	}, {
+		key: "setParallaxStyle",
 		value: function setParallaxStyle() {
 			if (this.node) {
-				this.node.style.position = "relative";
-				this.node.style.overflow = "hidden";
+				this.node.style.position = 'relative';
+				this.node.style.overflow = 'hidden';
 				this.node.style.background = this.props.bgColor;
 			}
 		}
-	}, {
-		key: "getChildStyle",
 
 		/**
    * returns styles for the component content.
    */
+	}, {
+		key: "getChildStyle",
 		value: function getChildStyle() {
 			return {
-				position: "relative"
+				position: 'relative'
 			};
 		}
 	}, {
@@ -225,7 +228,7 @@ var Parallax = (function (_React$Component) {
 			var w = window,
 			    d = document,
 			    e = d.documentElement,
-			    g = d.getElementsByTagName("body")[0];
+			    g = d.getElementsByTagName('body')[0];
 
 			return w.innerHeight || e.clientHeight || g.clientHeight;
 		}
@@ -249,13 +252,6 @@ var Parallax = (function (_React$Component) {
 })(_react2["default"].Component);
 
 exports["default"] = Parallax;
-
-/**
- * @param {String} bgImage - path to the background image that makes parallax effect visible
- * @param {String} bgColor - css value for a background color (visible only if bgImage is NOT set), eg.: #ddd, yellow, rgb(34,21,125)
- * @param {Number} strength - parallax effect strength (in pixel), default 100
- * @param {Number} blur - pixel value for background image blur, default: 0
- */
 Parallax.propTypes = {
 	bgImage: _react2["default"].PropTypes.string,
 	bgColor: _react2["default"].PropTypes.string,
@@ -263,7 +259,7 @@ Parallax.propTypes = {
 	blur: _react2["default"].PropTypes.number
 };
 Parallax.defaultProps = {
-	bgColor: "#fff",
+	bgColor: '#fff',
 	strength: 100,
 	blur: 0,
 	log: false,
