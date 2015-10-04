@@ -3,3 +3,4 @@
 .sass-cache/
 /test
 /npm-debug.log
+.DS_Store

@@ -138,11 +138,11 @@ var Parallax = (function (_React$Component) {
 				autoHeight = true;
 			}
 
-			// save scroll position
+			// update scroll position
 			var rect = this.node.getBoundingClientRect();
 			if (rect) {
 				this.setState({
-					top: this.node.getBoundingClientRect().top,
+					top: rect.top,
 					autoHeight: autoHeight
 				});
 			}

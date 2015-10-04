@@ -97,11 +97,11 @@ export default class Parallax extends React.Component {
 			autoHeight = true;
 		}
 
-		// save scroll position
+		// update scroll position
 		let rect = this.node.getBoundingClientRect();
 		if (rect) {
 			this.setState({
-				top: this.node.getBoundingClientRect().top,
+				top: rect.top,
 				autoHeight: autoHeight
 			});
 		}
