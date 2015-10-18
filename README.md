@@ -2,6 +2,8 @@
 
 > A react component for simple parallax effect
 
+### React 0.14.0 or higher is required since version 0.2.0
+
 ## Install
 
 ```sh
