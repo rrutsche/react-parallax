@@ -20,7 +20,14 @@ import fastClick from 'fastclick';
 })();
 
 let app = document.getElementById('app');
-ReactDOM.render(
-    <KitchenSink />,
-    app
-);
+if (ReactDOM.render) {
+	ReactDOM.render(
+		<KitchenSink />,
+		app
+	);
+} else {
+	React.render(
+		<KitchenSink />,
+		app
+	);
+}

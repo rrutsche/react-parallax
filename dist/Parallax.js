@@ -30,6 +30,9 @@ var Parallax = (function (_React$Component) {
 
 		_get(Object.getPrototypeOf(Parallax.prototype), 'constructor', this).call(this, props);
 
+		// make dom functionality depend on the installed react version
+		this.ReactDOM = _reactDom2['default'].findDOMNode ? _reactDom2['default'] : _react2['default'];
+
 		this.node = null;
 		this.windowHeight = this.getWindowHeight();
 		this.childStyle = this.getChildStyle();
@@ -99,8 +102,8 @@ var Parallax = (function (_React$Component) {
 	}, {
 		key: 'componentDidMount',
 		value: function componentDidMount() {
-			this.node = _reactDom2['default'].findDOMNode(this);
-			this.img = this.refs.bgImage ? _reactDom2['default'].findDOMNode(this.refs.bgImage) : null;
+			this.node = this.ReactDOM.findDOMNode(this);
+			this.img = this.refs.bgImage ? this.ReactDOM.findDOMNode(this.refs.bgImage) : null;
 			this.updatePosition();
 			this.setParallaxStyle();
 			this.setInitialBackgroundStyles();
@@ -129,7 +132,7 @@ var Parallax = (function (_React$Component) {
 		key: 'updatePosition',
 		value: function updatePosition() {
 			var autoHeight = false;
-			var content = _reactDom2['default'].findDOMNode(this.refs.content);
+			var content = this.ReactDOM.findDOMNode(this.refs.content);
 			this.contentHeight = content.getBoundingClientRect().height;
 			this.contentWidth = this.node.getBoundingClientRect().width;
 

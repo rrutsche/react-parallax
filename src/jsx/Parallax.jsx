@@ -6,6 +6,9 @@ export default class Parallax extends React.Component {
 	constructor(props) {
 		super(props);
 
+		// make dom functionality depend on the installed react version
+		this.ReactDOM = ReactDOM.findDOMNode ? ReactDOM : React;
+
 		this.node = null;
 		this.windowHeight = this.getWindowHeight();
 		this.childStyle = this.getChildStyle();
@@ -59,8 +62,8 @@ export default class Parallax extends React.Component {
 	 * save component ref after rendering, update all values and set static style values
 	 */
 	componentDidMount() {
-		this.node = ReactDOM.findDOMNode(this);
-		this.img = this.refs.bgImage ? ReactDOM.findDOMNode(this.refs.bgImage) : null;
+		this.node = this.ReactDOM.findDOMNode(this);
+		this.img = this.refs.bgImage ? this.ReactDOM.findDOMNode(this.refs.bgImage) : null;
 		this.updatePosition();
 		this.setParallaxStyle();
 		this.setInitialBackgroundStyles();
@@ -85,7 +88,7 @@ export default class Parallax extends React.Component {
 	 */
 	updatePosition() {
 		let autoHeight = false;
-		let content = ReactDOM.findDOMNode(this.refs.content);
+		let content = this.ReactDOM.findDOMNode(this.refs.content);
 		this.contentHeight = content.getBoundingClientRect().height;
 		this.contentWidth = this.node.getBoundingClientRect().width;
 
