@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import KitchenSink from './KitchenSink.jsx';
 import fastClick from 'fastclick';
 
@@ -7,7 +8,6 @@ import fastClick from 'fastclick';
 
 	// add fastclick and touch handling to app
 	fastClick(document.body);
-	React.initializeTouchEvents(true);
 
 
 	// listen to device ready and disable android back button
@@ -19,8 +19,8 @@ import fastClick from 'fastclick';
 	function backKeyDown() {}
 })();
 
-
-React.render(
+let app = document.getElementById('app');
+ReactDOM.render(
     <KitchenSink />,
-    document.body
+    app
 );

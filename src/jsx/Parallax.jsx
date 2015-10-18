@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 
 export default class Parallax extends React.Component {
 
@@ -9,10 +10,6 @@ export default class Parallax extends React.Component {
 		this.windowHeight = this.getWindowHeight();
 		this.childStyle = this.getChildStyle();
 		this.timestamp = Date.now();
-		this.state = {
-			top: 0,
-			autoHeight: false
-		};
 		this.autobind();
 	}
 
@@ -30,7 +27,7 @@ export default class Parallax extends React.Component {
 		return (
 			<div className="react-parallax">
 				{this.props.bgImage ? (
-					<img className="react-parallax-bgimage" src={this.props.bgImage} style={this.getImagePosition()} ref="bgImage" alt=""/>
+					<img className="react-parallax-bgimage" src={this.props.bgImage} ref="bgImage" alt=""/>
 				) : ''}
 				<div className="react-parallax-content" style={this.childStyle} ref="content">
 					{this.props.children}
@@ -62,8 +59,8 @@ export default class Parallax extends React.Component {
 	 * save component ref after rendering, update all values and set static style values
 	 */
 	componentDidMount() {
-		this.node = React.findDOMNode(this);
-		this.img = this.refs.bgImage ? React.findDOMNode(this.refs.bgImage) : null;
+		this.node = ReactDOM.findDOMNode(this);
+		this.img = this.refs.bgImage ? ReactDOM.findDOMNode(this.refs.bgImage) : null;
 		this.updatePosition();
 		this.setParallaxStyle();
 		this.setInitialBackgroundStyles();
@@ -88,7 +85,7 @@ export default class Parallax extends React.Component {
 	 */
 	updatePosition() {
 		let autoHeight = false;
-		let content = React.findDOMNode(this.refs.content);
+		let content = ReactDOM.findDOMNode(this.refs.content);
 		this.contentHeight = content.getBoundingClientRect().height;
 		this.contentWidth = this.node.getBoundingClientRect().width;
 
@@ -100,10 +97,30 @@ export default class Parallax extends React.Component {
 		// update scroll position
 		let rect = this.node.getBoundingClientRect();
 		if (rect) {
-			this.setState({
-				top: rect.top,
-				autoHeight: autoHeight
-			});
+			this.setImagePosition(rect.top, autoHeight);
+		}
+
+	}
+
+	/**
+	 * returns position for the background image
+	 */
+	setImagePosition(top, autoHeight=false) {
+		let backPos = 0;
+		if (this.props.disabled !== true) {
+			backPos = Math.floor(((top + this.contentHeight) / this.windowHeight) * this.props.strength);
+		}
+		let height = autoHeight ? 'auto' : Math.floor(this.contentHeight + this.props.strength);
+		let width = !autoHeight ? 'auto' : this.contentWidth;
+		
+		this.img.style.WebkitTransform = 'translate3d(-50%, -' + backPos + 'px, 0)';
+		this.img.style.transform = 'translate3d(-50%, -' + backPos + 'px, 0)';
+		this.img.style.height = height;
+		this.img.style.width = width;
+		
+		if (this.props.blur) {
+			this.img.style.WebkitFilter = 'blur(' + this.props.blur + 'px)';
+			this.img.style.filter = 'blur(' + this.props.blur + 'px)';
 		}
 	}
 
@@ -129,28 +146,6 @@ export default class Parallax extends React.Component {
 		this.updatePosition();
 	}
 
-	/**
-	 * returns position for the background image
-	 */
-	getImagePosition() {
-		let backPos = 0;
-		if (this.props.disabled !== true) {
-			backPos = Math.floor(((this.state.top + this.contentHeight) / this.windowHeight) * this.props.strength);
-		}
-		let height = this.state.autoHeight ? 'auto' : Math.floor(this.contentHeight + this.props.strength);
-		let width = !this.state.autoHeight ? 'auto' : this.contentWidth;
-		let style = {
-			WebkitTransform: 'translate3d(-50%, -' + backPos + 'px, 0)',
-			transform: 'translate3d(-50%, -' + backPos + 'px, 0)',
-			height: height,
-			width: width
-		};
-		if (this.props.blur) {
-			style.WebkitFilter = 'blur(' + this.props.blur + 'px)';
-			style.filter = 'blur(' + this.props.blur + 'px)';
-		}
-		return style;
-	}
 
 	/**
 	 * defines styles for the parallax node that do not change during use

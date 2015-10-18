@@ -1,22 +1,26 @@
-"use strict";
+'use strict';
 
-Object.defineProperty(exports, "__esModule", {
+Object.defineProperty(exports, '__esModule', {
 	value: true
 });
 
-var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
-var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+var _get = function get(_x2, _x3, _x4) { var _again = true; _function: while (_again) { var object = _x2, property = _x3, receiver = _x4; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x2 = parent; _x3 = property; _x4 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
+
+var _reactDom = require('react-dom');
+
+var _reactDom2 = _interopRequireDefault(_reactDom);
 
 var Parallax = (function (_React$Component) {
 	_inherits(Parallax, _React$Component);
@@ -24,16 +28,12 @@ var Parallax = (function (_React$Component) {
 	function Parallax(props) {
 		_classCallCheck(this, Parallax);
 
-		_get(Object.getPrototypeOf(Parallax.prototype), "constructor", this).call(this, props);
+		_get(Object.getPrototypeOf(Parallax.prototype), 'constructor', this).call(this, props);
 
 		this.node = null;
 		this.windowHeight = this.getWindowHeight();
 		this.childStyle = this.getChildStyle();
 		this.timestamp = Date.now();
-		this.state = {
-			top: 0,
-			autoHeight: false
-		};
 		this.autobind();
 	}
 
@@ -49,7 +49,7 @@ var Parallax = (function (_React$Component) {
   */
 
 	_createClass(Parallax, [{
-		key: "autobind",
+		key: 'autobind',
 		value: function autobind() {
 			this.onScroll = this.onScroll.bind(this);
 			this.onWindowResize = this.onWindowResize.bind(this);
@@ -57,15 +57,15 @@ var Parallax = (function (_React$Component) {
 			this.onWindowLoad = this.onWindowLoad.bind(this);
 		}
 	}, {
-		key: "render",
+		key: 'render',
 		value: function render() {
-			return _react2["default"].createElement(
-				"div",
-				{ className: "react-parallax" },
-				this.props.bgImage ? _react2["default"].createElement("img", { className: "react-parallax-bgimage", src: this.props.bgImage, style: this.getImagePosition(), ref: "bgImage", alt: "" }) : '',
-				_react2["default"].createElement(
-					"div",
-					{ className: "react-parallax-content", style: this.childStyle, ref: "content" },
+			return _react2['default'].createElement(
+				'div',
+				{ className: 'react-parallax' },
+				this.props.bgImage ? _react2['default'].createElement('img', { className: 'react-parallax-bgimage', src: this.props.bgImage, ref: 'bgImage', alt: '' }) : '',
+				_react2['default'].createElement(
+					'div',
+					{ className: 'react-parallax-content', style: this.childStyle, ref: 'content' },
 					this.props.children
 				)
 			);
@@ -75,7 +75,7 @@ var Parallax = (function (_React$Component) {
    * bind some eventlisteners for page load, scroll and resize
    */
 	}, {
-		key: "componentWillMount",
+		key: 'componentWillMount',
 		value: function componentWillMount() {
 			document.addEventListener('scroll', this.onScroll, false);
 			window.addEventListener("resize", this.onWindowResize, false);
@@ -86,7 +86,7 @@ var Parallax = (function (_React$Component) {
    * remove all eventlisteners before component is destroyed
    */
 	}, {
-		key: "componentWillUnmount",
+		key: 'componentWillUnmount',
 		value: function componentWillUnmount() {
 			document.removeEventListener('scroll', this.onScroll, false);
 			window.removeEventListener("resize", this.onWindowResize, false);
@@ -97,16 +97,16 @@ var Parallax = (function (_React$Component) {
    * save component ref after rendering, update all values and set static style values
    */
 	}, {
-		key: "componentDidMount",
+		key: 'componentDidMount',
 		value: function componentDidMount() {
-			this.node = _react2["default"].findDOMNode(this);
-			this.img = this.refs.bgImage ? _react2["default"].findDOMNode(this.refs.bgImage) : null;
+			this.node = _reactDom2['default'].findDOMNode(this);
+			this.img = this.refs.bgImage ? _reactDom2['default'].findDOMNode(this.refs.bgImage) : null;
 			this.updatePosition();
 			this.setParallaxStyle();
 			this.setInitialBackgroundStyles();
 		}
 	}, {
-		key: "onScroll",
+		key: 'onScroll',
 		value: function onScroll(event) {
 			var stamp = Date.now();
 			if (stamp - this.timestamp >= 10 && this.isScrolledIntoView(this.node)) {
@@ -115,7 +115,7 @@ var Parallax = (function (_React$Component) {
 			}
 		}
 	}, {
-		key: "onWindowLoad",
+		key: 'onWindowLoad',
 		value: function onWindowLoad() {
 			this.updatePosition();
 		}
@@ -126,10 +126,10 @@ var Parallax = (function (_React$Component) {
    * fit the component space optimally
    */
 	}, {
-		key: "updatePosition",
+		key: 'updatePosition',
 		value: function updatePosition() {
 			var autoHeight = false;
-			var content = _react2["default"].findDOMNode(this.refs.content);
+			var content = _reactDom2['default'].findDOMNode(this.refs.content);
 			this.contentHeight = content.getBoundingClientRect().height;
 			this.contentWidth = this.node.getBoundingClientRect().width;
 
@@ -141,10 +141,33 @@ var Parallax = (function (_React$Component) {
 			// update scroll position
 			var rect = this.node.getBoundingClientRect();
 			if (rect) {
-				this.setState({
-					top: rect.top,
-					autoHeight: autoHeight
-				});
+				this.setImagePosition(rect.top, autoHeight);
+			}
+		}
+
+		/**
+   * returns position for the background image
+   */
+	}, {
+		key: 'setImagePosition',
+		value: function setImagePosition(top) {
+			var autoHeight = arguments.length <= 1 || arguments[1] === undefined ? false : arguments[1];
+
+			var backPos = 0;
+			if (this.props.disabled !== true) {
+				backPos = Math.floor((top + this.contentHeight) / this.windowHeight * this.props.strength);
+			}
+			var height = autoHeight ? 'auto' : Math.floor(this.contentHeight + this.props.strength);
+			var width = !autoHeight ? 'auto' : this.contentWidth;
+
+			this.img.style.WebkitTransform = 'translate3d(-50%, -' + backPos + 'px, 0)';
+			this.img.style.transform = 'translate3d(-50%, -' + backPos + 'px, 0)';
+			this.img.style.height = height;
+			this.img.style.width = width;
+
+			if (this.props.blur) {
+				this.img.style.WebkitFilter = 'blur(' + this.props.blur + 'px)';
+				this.img.style.filter = 'blur(' + this.props.blur + 'px)';
 			}
 		}
 
@@ -152,7 +175,7 @@ var Parallax = (function (_React$Component) {
    * defines all static values for the background image
    */
 	}, {
-		key: "setInitialBackgroundStyles",
+		key: 'setInitialBackgroundStyles',
 		value: function setInitialBackgroundStyles() {
 			if (this.img) {
 				this.img.style.position = 'absolute';
@@ -168,42 +191,17 @@ var Parallax = (function (_React$Component) {
    * update window height and positions on window resize
    */
 	}, {
-		key: "onWindowResize",
+		key: 'onWindowResize',
 		value: function onWindowResize() {
 			this.windowHeight = this.getWindowHeight();
 			this.updatePosition();
 		}
 
 		/**
-   * returns position for the background image
-   */
-	}, {
-		key: "getImagePosition",
-		value: function getImagePosition() {
-			var backPos = 0;
-			if (this.props.disabled !== true) {
-				backPos = Math.floor((this.state.top + this.contentHeight) / this.windowHeight * this.props.strength);
-			}
-			var height = this.state.autoHeight ? 'auto' : Math.floor(this.contentHeight + this.props.strength);
-			var width = !this.state.autoHeight ? 'auto' : this.contentWidth;
-			var style = {
-				WebkitTransform: 'translate3d(-50%, -' + backPos + 'px, 0)',
-				transform: 'translate3d(-50%, -' + backPos + 'px, 0)',
-				height: height,
-				width: width
-			};
-			if (this.props.blur) {
-				style.WebkitFilter = 'blur(' + this.props.blur + 'px)';
-				style.filter = 'blur(' + this.props.blur + 'px)';
-			}
-			return style;
-		}
-
-		/**
    * defines styles for the parallax node that do not change during use
    */
 	}, {
-		key: "setParallaxStyle",
+		key: 'setParallaxStyle',
 		value: function setParallaxStyle() {
 			if (this.node) {
 				this.node.style.position = 'relative';
@@ -216,14 +214,14 @@ var Parallax = (function (_React$Component) {
    * returns styles for the component content.
    */
 	}, {
-		key: "getChildStyle",
+		key: 'getChildStyle',
 		value: function getChildStyle() {
 			return {
 				position: 'relative'
 			};
 		}
 	}, {
-		key: "getWindowHeight",
+		key: 'getWindowHeight',
 		value: function getWindowHeight() {
 			var w = window,
 			    d = document,
@@ -233,14 +231,14 @@ var Parallax = (function (_React$Component) {
 			return w.innerHeight || e.clientHeight || g.clientHeight;
 		}
 	}, {
-		key: "isScrolledIntoView",
+		key: 'isScrolledIntoView',
 		value: function isScrolledIntoView(element) {
 			var elementTop = element.getBoundingClientRect().top,
 			    elementBottom = element.getBoundingClientRect().bottom;
 			return elementTop <= 0 && elementBottom >= 0 || elementTop >= 0 && elementBottom <= window.innerHeight || elementTop <= window.innerHeight && elementBottom >= window.innerHeight;
 		}
 	}, {
-		key: "log",
+		key: 'log',
 		value: function log() {
 			if (this.props.log) {
 				console.log(arguments);
@@ -249,14 +247,14 @@ var Parallax = (function (_React$Component) {
 	}]);
 
 	return Parallax;
-})(_react2["default"].Component);
+})(_react2['default'].Component);
 
-exports["default"] = Parallax;
+exports['default'] = Parallax;
 Parallax.propTypes = {
-	bgImage: _react2["default"].PropTypes.string,
-	bgColor: _react2["default"].PropTypes.string,
-	strength: _react2["default"].PropTypes.number,
-	blur: _react2["default"].PropTypes.number
+	bgImage: _react2['default'].PropTypes.string,
+	bgColor: _react2['default'].PropTypes.string,
+	strength: _react2['default'].PropTypes.number,
+	blur: _react2['default'].PropTypes.number
 };
 Parallax.defaultProps = {
 	bgColor: '#fff',
@@ -265,4 +263,4 @@ Parallax.defaultProps = {
 	log: false,
 	disabled: false
 };
-module.exports = exports["default"];
+module.exports = exports['default'];
