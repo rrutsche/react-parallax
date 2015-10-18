@@ -33,7 +33,6 @@
     "karma-chrome-launcher": "~0.1.8",
     "karma-jasmine": "~0.3.5",
     "load-grunt-tasks": "~3.1.0",
-    "react": "0.13.2",
     "react-tools": "0.13.2",
     "reactify": "~1.1.0"
   },
@@ -51,5 +50,9 @@
     "parallax",
     "scroll",
     "jsx"
-  ]
+  ],
+  "dependencies": {
+    "react": "^0.13.2",
+    "react-dom": "^0.14.0"
+  }
 }
