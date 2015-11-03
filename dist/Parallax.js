@@ -149,7 +149,7 @@ var Parallax = (function (_React$Component) {
 		}
 
 		/**
-   * returns position for the background image
+   * sets position for the background image
    */
 	}, {
 		key: 'setImagePosition',
@@ -158,13 +158,13 @@ var Parallax = (function (_React$Component) {
 
 			var backPos = 0;
 			if (this.props.disabled !== true) {
-				backPos = Math.floor((top + this.contentHeight) / this.windowHeight * this.props.strength);
+				backPos = Math.floor((top + this.contentHeight) / this.windowHeight * this.props.strength) * -1;
 			}
 			var height = autoHeight ? 'auto' : Math.floor(this.contentHeight + this.props.strength);
 			var width = !autoHeight ? 'auto' : this.contentWidth;
 
-			this.img.style.WebkitTransform = 'translate3d(-50%, -' + backPos + 'px, 0)';
-			this.img.style.transform = 'translate3d(-50%, -' + backPos + 'px, 0)';
+			this.img.style.WebkitTransform = 'translate3d(-50%, ' + backPos + 'px, 0)';
+			this.img.style.transform = 'translate3d(-50%, ' + backPos + 'px, 0)';
 			this.img.style.height = height;
 			this.img.style.width = width;
 

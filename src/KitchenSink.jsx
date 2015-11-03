@@ -34,7 +34,7 @@ export default class KitchenSink extends React.Component {
 					<h1 style={fontStyle2}>One morning, when Gregor Samsa woke from troubled dreams, he found himself transformed in his bed into a horrible vermin. He lay on his armour-like back, and if he lifted his head a little he could see his brown belly, slightly domed and divided by arches into stiff sections.</h1>
 					<br/>
 				</div>
-				<Parallax bgImage="assets/1.jpg" strength={300} log={true}>
+				<Parallax bgImage="assets/1.jpg" strength={-300} log={true}>
 					<h1 style={fontStyle}>...</h1>
 					<h1 style={fontStyle}>some content</h1>
 					<br/>
