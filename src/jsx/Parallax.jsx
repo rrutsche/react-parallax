@@ -10,7 +10,7 @@ export default class Parallax extends React.Component {
 		this.ReactDOM = ReactDOM.findDOMNode ? ReactDOM : React;
 
 		this.node = null;
-		this.bgChildren = this.extractBGChildren();
+		// this.bgChildren = this.extractBGChildren();
 		this.windowHeight = this.getWindowHeight();
 		this.childStyle = this.getChildStyle();
 		this.timestamp = Date.now();
@@ -35,11 +35,11 @@ export default class Parallax extends React.Component {
 				{this.props.bgImage ? (
 					<img className="react-parallax-bgimage" src={this.props.bgImage} ref="bgImage" alt=""/>
 				) : ''}
-				{this.bgChildren.length > 0 ? (
+				{/*this.bgChildren.length > 0 ? (
 					<div ref="background">
 						{this.bgChildren}
 					</div>
-				) : ''}
+				) : ''*/}
 				<div className="react-parallax-content" style={this.childStyle} ref="content">
 					{this.props.children}
 				</div>
@@ -71,12 +71,12 @@ export default class Parallax extends React.Component {
 	 */
 	componentDidMount() {
 		this.node = this.ReactDOM.findDOMNode(this);
-		this.bg = this.ReactDOM.findDOMNode(this.refs.background);
+		// this.bg = this.ReactDOM.findDOMNode(this.refs.background);
 		this.img = this.refs.bgImage ? this.ReactDOM.findDOMNode(this.refs.bgImage) : null;
 		this.updatePosition();
 		this.setParallaxStyle();
 		this.setInitialBackgroundStyles(this.img);
-		this.setInitialBackgroundStyles(this.bg);
+		// this.setInitialBackgroundStyles(this.bg);
 	}
 
 	onScroll(event) {
@@ -91,19 +91,19 @@ export default class Parallax extends React.Component {
 		this.updatePosition();
 	}
 
-	extractBGChildren() {
-		let bgChildren = [];
-		if (this.props.children) {
-			for (var i = this.props.children.length - 1; i >= 0; i--) {
-				let child = this.props.children[i];
-				if (child.type && typeof child.type === 'function' && child.type.name === 'Background') {
-					bgChildren = bgChildren.concat(this.props.children.splice(i, 1));
-				}
-			}
-		}
-		bgChildren.reverse();
-		return bgChildren;
-	}
+	// extractBGChildren() {
+	// 	let bgChildren = [];
+	// 	if (this.props.children) {
+	// 		for (var i = this.props.children.length - 1; i >= 0; i--) {
+	// 			let child = this.props.children[i];
+	// 			if (child.type && typeof child.type === 'function' && child.type.name === 'Background') {
+	// 				bgChildren = bgChildren.concat(this.props.children.splice(i, 1));
+	// 			}
+	// 		}
+	// 	}
+	// 	bgChildren.reverse();
+	// 	return bgChildren;
+	// }
 
 	/**
 	 * updates scroll position of this component and also its width and height.
@@ -126,9 +126,9 @@ export default class Parallax extends React.Component {
 		if (rect && this.img) {
 			this.setImagePosition(rect.top, autoHeight);
 		}
-		if (rect && this.bg) {
-			this.setBackgroundPosition(rect.top);
-		}
+		// if (rect && this.bg) {
+		// 	this.setBackgroundPosition(rect.top);
+		// }
 
 	}
 
@@ -156,11 +156,11 @@ export default class Parallax extends React.Component {
 		}
 	}
 
-	setBackgroundPosition(top) {
-		let backPos = backPos = Math.floor(((top + this.contentHeight) / this.windowHeight) * this.props.strength) * -1;
-		this.bg.style.WebkitTransform = 'translate3d(-50%, ' + backPos + 'px, 0)';
-		this.bg.style.transform = 'translate3d(-50%, ' + backPos + 'px, 0)';
-	}
+	// setBackgroundPosition(top) {
+	// 	let backPos = backPos = Math.floor(((top + this.contentHeight) / this.windowHeight) * this.props.strength) * -1;
+	// 	this.bg.style.WebkitTransform = 'translate3d(-50%, ' + backPos + 'px, 0)';
+	// 	this.bg.style.transform = 'translate3d(-50%, ' + backPos + 'px, 0)';
+	// }
 
 	/**
 	 * defines all static values for the background image

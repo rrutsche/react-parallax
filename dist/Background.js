@@ -44,6 +44,6 @@ var Background = (function (_React$Component) {
 exports["default"] = Background;
 
 Background.propTypes = {
-	children: _react2["default"].PropTypes.element
+	children: _react2["default"].PropTypes.oneOfType([_react2["default"].PropTypes.element, _react2["default"].PropTypes.array])
 };
 module.exports = exports["default"];
