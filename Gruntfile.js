@@ -107,7 +107,7 @@ module.exports = function (grunt) {
 			},
 			dist: {
 				files: {
-					'dist/index.js': 'src/jsx/Parallax.jsx'
+					'dist/index.js': 'src/jsx/index.jsx'
 				}
 			}
 		},

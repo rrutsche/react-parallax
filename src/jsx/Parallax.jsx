@@ -10,10 +10,13 @@ export default class Parallax extends React.Component {
 		this.ReactDOM = ReactDOM.findDOMNode ? ReactDOM : React;
 
 		this.node = null;
+		this.bgChildren = this.extractBGChildren();
 		this.windowHeight = this.getWindowHeight();
 		this.childStyle = this.getChildStyle();
 		this.timestamp = Date.now();
 		this.autobind();
+
+		
 	}
 
 	/**
@@ -31,6 +34,11 @@ export default class Parallax extends React.Component {
 			<div className="react-parallax">
 				{this.props.bgImage ? (
 					<img className="react-parallax-bgimage" src={this.props.bgImage} ref="bgImage" alt=""/>
+				) : ''}
+				{this.bgChildren.length > 0 ? (
+					<div ref="background">
+						{this.bgChildren}
+					</div>
 				) : ''}
 				<div className="react-parallax-content" style={this.childStyle} ref="content">
 					{this.props.children}
@@ -63,10 +71,12 @@ export default class Parallax extends React.Component {
 	 */
 	componentDidMount() {
 		this.node = this.ReactDOM.findDOMNode(this);
+		this.bg = this.ReactDOM.findDOMNode(this.refs.background);
 		this.img = this.refs.bgImage ? this.ReactDOM.findDOMNode(this.refs.bgImage) : null;
 		this.updatePosition();
 		this.setParallaxStyle();
-		this.setInitialBackgroundStyles();
+		this.setInitialBackgroundStyles(this.img);
+		this.setInitialBackgroundStyles(this.bg);
 	}
 
 	onScroll(event) {
@@ -79,6 +89,19 @@ export default class Parallax extends React.Component {
 
 	onWindowLoad() {
 		this.updatePosition();
+	}
+
+	extractBGChildren() {
+		let bgChildren = [];
+		if (this.props.children) {
+			for (var i = this.props.children.length - 1; i >= 0; i--) {
+				let child = this.props.children[i];
+				if (child.type && typeof child.type === 'function' && child.type.name === 'Background') {
+					bgChildren = bgChildren.concat(this.props.children.splice(i, 1));
+				}
+			}
+		}
+		return bgChildren;
 	}
 
 	/**
@@ -99,8 +122,11 @@ export default class Parallax extends React.Component {
 
 		// update scroll position
 		let rect = this.node.getBoundingClientRect();
-		if (rect) {
+		if (rect && this.img) {
 			this.setImagePosition(rect.top, autoHeight);
+		}
+		if (rect && this.bg) {
+			this.setBackgroundPosition(rect.top);
 		}
 
 	}
@@ -109,13 +135,15 @@ export default class Parallax extends React.Component {
 	 * sets position for the background image
 	 */
 	setImagePosition(top, autoHeight=false) {
-		let backPos = 0;
-		if (this.props.disabled !== true) {
-			backPos = Math.floor(((top + this.contentHeight) / this.windowHeight) * this.props.strength) * -1;
-		}
-		let height = autoHeight ? 'auto' : Math.floor(this.contentHeight + this.props.strength);
+		let height = autoHeight ? 'auto' : Math.floor(this.contentHeight + Math.abs(this.props.strength));
 		let width = !autoHeight ? 'auto' : this.contentWidth;
 		
+		// don't do unneccessary style processing if parallax is disabled
+		if (this.props.disabled === true) {
+			return;
+		}
+
+		let backPos = backPos = Math.floor(((top + this.contentHeight) / this.windowHeight) * this.props.strength) * -1;
 		this.img.style.WebkitTransform = 'translate3d(-50%, ' + backPos + 'px, 0)';
 		this.img.style.transform = 'translate3d(-50%, ' + backPos + 'px, 0)';
 		this.img.style.height = height;
@@ -127,17 +155,23 @@ export default class Parallax extends React.Component {
 		}
 	}
 
+	setBackgroundPosition(top) {
+		let backPos = backPos = Math.floor(((top + this.contentHeight) / this.windowHeight) * this.props.strength) * -1;
+		this.bg.style.WebkitTransform = 'translate3d(-50%, ' + backPos + 'px, 0)';
+		this.bg.style.transform = 'translate3d(-50%, ' + backPos + 'px, 0)';
+	}
+
 	/**
 	 * defines all static values for the background image
 	 */
-	setInitialBackgroundStyles() {
-		if (this.img) {
-			this.img.style.position = 'absolute';
-			this.img.style.left = '50%';
-			this.img.style.WebkitTransformStyle = 'preserve-3d';
-			this.img.style.WebkitBackfaceVisibility = 'hidden';
-			this.img.style.MozBackfaceVisibility = 'hidden';
-			this.img.style.MsBackfaceVisibility = 'hidden';
+	setInitialBackgroundStyles(node) {
+		if (node) {
+			node.style.position = 'absolute';
+			node.style.left = '50%';
+			node.style.WebkitTransformStyle = 'preserve-3d';
+			node.style.WebkitBackfaceVisibility = 'hidden';
+			node.style.MozBackfaceVisibility = 'hidden';
+			node.style.MsBackfaceVisibility = 'hidden';
 		}
 	}
 
