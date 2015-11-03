@@ -101,6 +101,7 @@ export default class Parallax extends React.Component {
 				}
 			}
 		}
+		bgChildren.reverse();
 		return bgChildren;
 	}
 

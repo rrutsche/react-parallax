@@ -142,6 +142,7 @@ var Parallax = (function (_React$Component) {
 					}
 				}
 			}
+			bgChildren.reverse();
 			return bgChildren;
 		}
 
