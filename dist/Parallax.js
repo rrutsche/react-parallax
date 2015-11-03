@@ -34,7 +34,7 @@ var Parallax = (function (_React$Component) {
 		this.ReactDOM = _reactDom2['default'].findDOMNode ? _reactDom2['default'] : _react2['default'];
 
 		this.node = null;
-		// this.bgChildren = this.extractBGChildren();
+		this.bgChildren = this.extractBGChildren();
 		this.windowHeight = this.getWindowHeight();
 		this.childStyle = this.getChildStyle();
 		this.timestamp = Date.now();
@@ -67,6 +67,13 @@ var Parallax = (function (_React$Component) {
 				'div',
 				{ className: 'react-parallax' },
 				this.props.bgImage ? _react2['default'].createElement('img', { className: 'react-parallax-bgimage', src: this.props.bgImage, ref: 'bgImage', alt: '' }) : '',
+				'this.bgChildren.length > 0 ? (',
+				_react2['default'].createElement(
+					'div',
+					{ ref: 'background' },
+					this.bgChildren
+				),
+				') : \'\'}',
 				_react2['default'].createElement(
 					'div',
 					{ className: 'react-parallax-content', style: this.childStyle, ref: 'content' },
@@ -104,12 +111,12 @@ var Parallax = (function (_React$Component) {
 		key: 'componentDidMount',
 		value: function componentDidMount() {
 			this.node = this.ReactDOM.findDOMNode(this);
-			// this.bg = this.ReactDOM.findDOMNode(this.refs.background);
+			this.bg = this.ReactDOM.findDOMNode(this.refs.background);
 			this.img = this.refs.bgImage ? this.ReactDOM.findDOMNode(this.refs.bgImage) : null;
 			this.updatePosition();
 			this.setParallaxStyle();
 			this.setInitialBackgroundStyles(this.img);
-			// this.setInitialBackgroundStyles(this.bg);
+			this.setInitialBackgroundStyles(this.bg);
 		}
 	}, {
 		key: 'onScroll',
@@ -125,20 +132,21 @@ var Parallax = (function (_React$Component) {
 		value: function onWindowLoad() {
 			this.updatePosition();
 		}
-
-		// extractBGChildren() {
-		// 	let bgChildren = [];
-		// 	if (this.props.children) {
-		// 		for (var i = this.props.children.length - 1; i >= 0; i--) {
-		// 			let child = this.props.children[i];
-		// 			if (child.type && typeof child.type === 'function' && child.type.name === 'Background') {
-		// 				bgChildren = bgChildren.concat(this.props.children.splice(i, 1));
-		// 			}
-		// 		}
-		// 	}
-		// 	bgChildren.reverse();
-		// 	return bgChildren;
-		// }
+	}, {
+		key: 'extractBGChildren',
+		value: function extractBGChildren() {
+			var bgChildren = [];
+			if (this.props.children) {
+				for (var i = this.props.children.length - 1; i >= 0; i--) {
+					var child = this.props.children[i];
+					if (child.type && typeof child.type === 'function' && child.type.name === 'Background') {
+						bgChildren = bgChildren.concat(this.props.children.splice(i, 1));
+					}
+				}
+			}
+			bgChildren.reverse();
+			return bgChildren;
+		}
 
 		/**
    * updates scroll position of this component and also its width and height.
@@ -163,9 +171,9 @@ var Parallax = (function (_React$Component) {
 			if (rect && this.img) {
 				this.setImagePosition(rect.top, autoHeight);
 			}
-			// if (rect && this.bg) {
-			// 	this.setBackgroundPosition(rect.top);
-			// }
+			if (rect && this.bg) {
+				this.setBackgroundPosition(rect.top);
+			}
 		}
 
 		/**
@@ -195,12 +203,13 @@ var Parallax = (function (_React$Component) {
 				this.img.style.filter = 'blur(' + this.props.blur + 'px)';
 			}
 		}
-
-		// setBackgroundPosition(top) {
-		// 	let backPos = backPos = Math.floor(((top + this.contentHeight) / this.windowHeight) * this.props.strength) * -1;
-		// 	this.bg.style.WebkitTransform = 'translate3d(-50%, ' + backPos + 'px, 0)';
-		// 	this.bg.style.transform = 'translate3d(-50%, ' + backPos + 'px, 0)';
-		// }
+	}, {
+		key: 'setBackgroundPosition',
+		value: function setBackgroundPosition(top) {
+			var backPos = backPos = Math.floor((top + this.contentHeight) / this.windowHeight * this.props.strength) * -1;
+			this.bg.style.WebkitTransform = 'translate3d(-50%, ' + backPos + 'px, 0)';
+			this.bg.style.transform = 'translate3d(-50%, ' + backPos + 'px, 0)';
+		}
 
 		/**
    * defines all static values for the background image
@@ -295,8 +304,3 @@ Parallax.defaultProps = {
 	disabled: false
 };
 module.exports = exports['default'];
-/*this.bgChildren.length > 0 ? (
-<div ref="background">
-	{this.bgChildren}
-</div>
-) : ''*/
