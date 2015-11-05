@@ -1,7 +1,4 @@
-import Parallax from './Parallax';
-import Background from './Background';
+import ReactParallax from './Parallax';
 
-export default Parallax;
-export { Parallax as Parallax };
-
-export { Background as Background };
+// export let Parallax = ReactParallax;
+export default ReactParallax;

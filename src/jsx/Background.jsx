@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default class Background extends React.Component {
+export class Background extends React.Component {
 	render() {
 		return (
 			<div ref="reactParallaxBackground" className="react-parallax-background">{this.props.children}</div>
