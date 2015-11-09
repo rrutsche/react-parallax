@@ -176,9 +176,10 @@ var Parallax = (function (_React$Component) {
 			this.contentWidth = this.node.getBoundingClientRect().width;
 
 			// set autoHeight or autoWidth
-			if (this.img && this.img.naturalWidth / (this.img.naturalHeight - this.props.strength) * this.contentHeight < this.contentWidth) {
+			if (this.img && this.img.naturalWidth / this.img.naturalHeight > this.contentWidth / (this.contentHeight + 2 * this.props.strength)) {
 				autoHeight = true;
 			}
+			console.log('update autoHeight', autoHeight);
 
 			// update scroll position
 			var rect = this.node.getBoundingClientRect();
