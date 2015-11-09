@@ -10,13 +10,11 @@ export default class Parallax extends React.Component {
 		this.ReactDOM = ReactDOM.findDOMNode ? ReactDOM : React;
 
 		this.node = null;
-		this.bgChildren = this.extractBGChildren();
+		this.splitChildren = this.splitChildren();
 		this.windowHeight = this.getWindowHeight();
 		this.childStyle = this.getChildStyle();
 		this.timestamp = Date.now();
-		this.autobind();
-
-		
+		this.autobind();		
 	}
 
 	/**
@@ -35,13 +33,13 @@ export default class Parallax extends React.Component {
 				{this.props.bgImage ? (
 					<img className="react-parallax-bgimage" src={this.props.bgImage} ref="bgImage" alt=""/>
 				) : ''}
-				this.bgChildren.length > 0 ? (
+				this.splitChildren.bgChildren.length > 0 ? (
 					<div ref="background">
-						{this.bgChildren}
+						{this.splitChildren.bgChildren}
 					</div>
 				) : ''}
 				<div className="react-parallax-content" style={this.childStyle} ref="content">
-					{this.props.children}
+					{this.splitChildren.children}
 				</div>
 			</div>
 		);
@@ -91,18 +89,19 @@ export default class Parallax extends React.Component {
 		this.updatePosition();
 	}
 
-	extractBGChildren() {
+	splitChildren() {
 		let bgChildren = [];
-		if (this.props.children) {
-			for (var i = this.props.children.length - 1; i >= 0; i--) {
-				let child = this.props.children[i];
-				if (child.type && typeof child.type === 'function' && child.type.name === 'Background') {
-					bgChildren = bgChildren.concat(this.props.children.splice(i, 1));
-				}
+		let children = React.Children.toArray(this.props.children);
+		children.forEach(function(child, index) {
+			if (child.type && typeof child.type === 'function' && child.type.name === 'Background') {
+				bgChildren = bgChildren.concat(children.splice(index, 1));
 			}
-		}
-		bgChildren.reverse();
-		return bgChildren;
+		});
+
+		return {
+			bgChildren: bgChildren,
+			children: children
+		};
 	}
 
 	/**

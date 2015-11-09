@@ -1,4 +1,6 @@
-import ReactParallax from './Parallax';
+module.exports = require('./Parallax');
 
-// export let Parallax = ReactParallax;
-export default ReactParallax;
+module.exports.Parallax = require('./Parallax');
+
+module.exports.Background = require('./Background');
+

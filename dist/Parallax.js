@@ -34,7 +34,7 @@ var Parallax = (function (_React$Component) {
 		this.ReactDOM = _reactDom2['default'].findDOMNode ? _reactDom2['default'] : _react2['default'];
 
 		this.node = null;
-		this.bgChildren = this.extractBGChildren();
+		this.splitChildren = this.splitChildren();
 		this.windowHeight = this.getWindowHeight();
 		this.childStyle = this.getChildStyle();
 		this.timestamp = Date.now();
@@ -67,17 +67,17 @@ var Parallax = (function (_React$Component) {
 				'div',
 				{ className: 'react-parallax' },
 				this.props.bgImage ? _react2['default'].createElement('img', { className: 'react-parallax-bgimage', src: this.props.bgImage, ref: 'bgImage', alt: '' }) : '',
-				'this.bgChildren.length > 0 ? (',
+				'this.splitChildren.bgChildren.length > 0 ? (',
 				_react2['default'].createElement(
 					'div',
 					{ ref: 'background' },
-					this.bgChildren
+					this.splitChildren.bgChildren
 				),
 				') : \'\'}',
 				_react2['default'].createElement(
 					'div',
 					{ className: 'react-parallax-content', style: this.childStyle, ref: 'content' },
-					this.props.children
+					this.splitChildren.children
 				)
 			);
 		}
@@ -133,19 +133,20 @@ var Parallax = (function (_React$Component) {
 			this.updatePosition();
 		}
 	}, {
-		key: 'extractBGChildren',
-		value: function extractBGChildren() {
+		key: 'splitChildren',
+		value: function splitChildren() {
 			var bgChildren = [];
-			if (this.props.children) {
-				for (var i = this.props.children.length - 1; i >= 0; i--) {
-					var child = this.props.children[i];
-					if (child.type && typeof child.type === 'function' && child.type.name === 'Background') {
-						bgChildren = bgChildren.concat(this.props.children.splice(i, 1));
-					}
+			var children = _react2['default'].Children.toArray(this.props.children);
+			children.forEach(function (child, index) {
+				if (child.type && typeof child.type === 'function' && child.type.name === 'Background') {
+					bgChildren = bgChildren.concat(children.splice(index, 1));
 				}
-			}
-			bgChildren.reverse();
-			return bgChildren;
+			});
+
+			return {
+				bgChildren: bgChildren,
+				children: children
+			};
 		}
 
 		/**

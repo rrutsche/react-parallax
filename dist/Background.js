@@ -27,6 +27,13 @@ var Background = (function (_React$Component) {
 		_get(Object.getPrototypeOf(Background.prototype), "constructor", this).apply(this, arguments);
 	}
 
+	// Background.propTypes = {
+	// 	children: React.PropTypes.oneOfType([
+	// 		React.PropTypes.element,
+	// 		React.PropTypes.array
+	// 	])
+	// };
+
 	_createClass(Background, [{
 		key: "render",
 		value: function render() {
@@ -41,8 +48,5 @@ var Background = (function (_React$Component) {
 	return Background;
 })(_react2["default"].Component);
 
-exports.Background = Background;
-
-Background.propTypes = {
-	children: _react2["default"].PropTypes.oneOfType([_react2["default"].PropTypes.element, _react2["default"].PropTypes.array])
-};
+exports["default"] = Background;
+module.exports = exports["default"];
