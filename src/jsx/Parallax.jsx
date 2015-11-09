@@ -131,7 +131,6 @@ export default class Parallax extends React.Component {
 		if (this.img && (this.img.naturalWidth / this.img.naturalHeight > this.contentWidth / (this.contentHeight + 2*this.props.strength))) {
 			autoHeight = true;
 		}
-		console.log('update autoHeight', autoHeight);
 
 		// update scroll position
 		let rect = this.node.getBoundingClientRect();
