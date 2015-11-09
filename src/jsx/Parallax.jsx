@@ -89,6 +89,14 @@ export default class Parallax extends React.Component {
 		this.updatePosition();
 	}
 
+	/**
+	 * Extracts children with type Background from others and returns an object with both arrays:
+	 * 	 {
+	 * 		bgChildren: bgChildren, // typeof child === 'Background'
+	 * 	 	children: children // rest of this.props.children
+	 *   }
+	 * @return {Object} splitchildren object
+	 */
 	splitChildren() {
 		let bgChildren = [];
 		let children = React.Children.toArray(this.props.children);

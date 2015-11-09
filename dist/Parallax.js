@@ -132,6 +132,15 @@ var Parallax = (function (_React$Component) {
 		value: function onWindowLoad() {
 			this.updatePosition();
 		}
+
+		/**
+   * Extracts children with type Background from others and returns an object with both arrays:
+   * 	 {
+   * 		bgChildren: bgChildren, // typeof child === 'Background'
+   * 	 	children: children // rest of this.props.children
+   *   }
+   * @return {Object} splitchildren object
+   */
 	}, {
 		key: 'splitChildren',
 		value: function splitChildren() {
