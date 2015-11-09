@@ -110,9 +110,13 @@ var Parallax = (function (_React$Component) {
 	}, {
 		key: 'componentDidMount',
 		value: function componentDidMount() {
+			// ref to component itself
 			this.node = this.ReactDOM.findDOMNode(this);
+			// ref to wrapp with Background children
 			this.bg = this.ReactDOM.findDOMNode(this.refs.background);
+			// bg image ref
 			this.img = this.refs.bgImage ? this.ReactDOM.findDOMNode(this.refs.bgImage) : null;
+
 			this.updatePosition();
 			this.setParallaxStyle();
 			this.setInitialBackgroundStyles(this.img);
@@ -178,10 +182,12 @@ var Parallax = (function (_React$Component) {
 
 			// update scroll position
 			var rect = this.node.getBoundingClientRect();
+			// update bg image position if set
 			if (rect && this.img) {
 				this.setImagePosition(rect.top, autoHeight);
 			}
-			if (rect && this.bg) {
+			// update position of Background children if exist
+			if (rect && this.bg && this.splitChildren.bgChildren.length > 0) {
 				this.setBackgroundPosition(rect.top);
 			}
 		}
