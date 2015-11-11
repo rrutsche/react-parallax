@@ -43,6 +43,8 @@ var Parallax = (function (_React$Component) {
 
 	/**
   * @param {String} bgImage - path to the background image that makes parallax effect visible
+  * @param {String} bgWidth - set bgImage width manually
+  * @param {String} bgHeight - set bgImage height manually
   * @param {String} bgColor - css value for a background color (visible only if bgImage is NOT set), eg.: #ddd, yellow, rgb(34,21,125)
   * @param {Number} strength - parallax effect strength (in pixel), default 100
   * @param {Number} blur - pixel value for background image blur, default: 0
@@ -200,8 +202,8 @@ var Parallax = (function (_React$Component) {
 		value: function setImagePosition(top) {
 			var autoHeight = arguments.length <= 1 || arguments[1] === undefined ? false : arguments[1];
 
-			var height = autoHeight ? 'auto' : Math.floor(this.contentHeight + Math.abs(this.props.strength)) + 'px';
-			var width = !autoHeight ? 'auto' : this.contentWidth + 'px';
+			var height = this.props.bgHeight || (autoHeight ? 'auto' : Math.floor(this.contentHeight + Math.abs(this.props.strength)) + 'px');
+			var width = this.props.bgWidth || (!autoHeight ? 'auto' : this.contentWidth + 'px');
 
 			// don't do unneccessary style processing if parallax is disabled
 			if (this.props.disabled === true) {
@@ -312,6 +314,8 @@ var Parallax = (function (_React$Component) {
 exports['default'] = Parallax;
 Parallax.propTypes = {
 	bgImage: _react2['default'].PropTypes.string,
+	bgWidth: _react2['default'].PropTypes.string,
+	bgHeight: _react2['default'].PropTypes.string,
 	bgColor: _react2['default'].PropTypes.string,
 	strength: _react2['default'].PropTypes.number,
 	blur: _react2['default'].PropTypes.number
