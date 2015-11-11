@@ -33,7 +33,7 @@ export default class Parallax extends React.Component {
 				{this.props.bgImage ? (
 					<img className="react-parallax-bgimage" src={this.props.bgImage} ref="bgImage" alt=""/>
 				) : ''}
-				this.splitChildren.bgChildren.length > 0 ? (
+				{this.splitChildren.bgChildren.length > 0 ? (
 					<div ref="background">
 						{this.splitChildren.bgChildren}
 					</div>

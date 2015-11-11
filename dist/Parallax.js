@@ -68,13 +68,11 @@ var Parallax = (function (_React$Component) {
 				'div',
 				{ className: 'react-parallax ' + (this.props.className ? this.props.className : '') },
 				this.props.bgImage ? _react2['default'].createElement('img', { className: 'react-parallax-bgimage', src: this.props.bgImage, ref: 'bgImage', alt: '' }) : '',
-				'this.splitChildren.bgChildren.length > 0 ? (',
-				_react2['default'].createElement(
+				this.splitChildren.bgChildren.length > 0 ? _react2['default'].createElement(
 					'div',
 					{ ref: 'background' },
 					this.splitChildren.bgChildren
-				),
-				') : \'\'}',
+				) : '',
 				_react2['default'].createElement(
 					'div',
 					{ className: 'react-parallax-content', style: this.childStyle, ref: 'content' },
