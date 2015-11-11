@@ -45,7 +45,6 @@ var Parallax = (function (_React$Component) {
   * @param {String} bgImage - path to the background image that makes parallax effect visible
   * @param {String} bgWidth - set bgImage width manually
   * @param {String} bgHeight - set bgImage height manually
-  * @param {String} bgColor - css value for a background color (visible only if bgImage is NOT set), eg.: #ddd, yellow, rgb(34,21,125)
   * @param {Number} strength - parallax effect strength (in pixel), default 100
   * @param {Number} blur - pixel value for background image blur, default: 0
   */
@@ -67,7 +66,7 @@ var Parallax = (function (_React$Component) {
 		value: function render() {
 			return _react2['default'].createElement(
 				'div',
-				{ className: 'react-parallax' },
+				{ className: 'react-parallax ' + (this.props.className ? this.props.className : '') },
 				this.props.bgImage ? _react2['default'].createElement('img', { className: 'react-parallax-bgimage', src: this.props.bgImage, ref: 'bgImage', alt: '' }) : '',
 				'this.splitChildren.bgChildren.length > 0 ? (',
 				_react2['default'].createElement(
@@ -268,7 +267,6 @@ var Parallax = (function (_React$Component) {
 			if (this.node) {
 				this.node.style.position = 'relative';
 				this.node.style.overflow = 'hidden';
-				this.node.style.background = this.props.bgColor;
 			}
 		}
 
@@ -316,12 +314,10 @@ Parallax.propTypes = {
 	bgImage: _react2['default'].PropTypes.string,
 	bgWidth: _react2['default'].PropTypes.string,
 	bgHeight: _react2['default'].PropTypes.string,
-	bgColor: _react2['default'].PropTypes.string,
 	strength: _react2['default'].PropTypes.number,
 	blur: _react2['default'].PropTypes.number
 };
 Parallax.defaultProps = {
-	bgColor: '#fff',
 	strength: 100,
 	blur: 0,
 	log: false,

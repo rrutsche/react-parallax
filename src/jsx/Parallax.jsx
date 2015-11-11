@@ -29,7 +29,7 @@ export default class Parallax extends React.Component {
 
 	render() {
 		return (
-			<div className="react-parallax">
+			<div className={'react-parallax ' + (this.props.className ? this.props.className : '')}>
 				{this.props.bgImage ? (
 					<img className="react-parallax-bgimage" src={this.props.bgImage} ref="bgImage" alt=""/>
 				) : ''}
@@ -209,7 +209,6 @@ export default class Parallax extends React.Component {
 		if (this.node) {
 			this.node.style.position = 'relative';
 			this.node.style.overflow = 'hidden';
-			this.node.style.background = this.props.bgColor;
 		}
 	}
 
@@ -249,7 +248,6 @@ export default class Parallax extends React.Component {
  * @param {String} bgImage - path to the background image that makes parallax effect visible
  * @param {String} bgWidth - set bgImage width manually
  * @param {String} bgHeight - set bgImage height manually
- * @param {String} bgColor - css value for a background color (visible only if bgImage is NOT set), eg.: #ddd, yellow, rgb(34,21,125)
  * @param {Number} strength - parallax effect strength (in pixel), default 100
  * @param {Number} blur - pixel value for background image blur, default: 0
  */
@@ -257,12 +255,10 @@ Parallax.propTypes = {
 	bgImage: React.PropTypes.string,
 	bgWidth: React.PropTypes.string,
 	bgHeight: React.PropTypes.string,
-	bgColor: React.PropTypes.string,
 	strength: React.PropTypes.number,
 	blur: React.PropTypes.number
 };
 Parallax.defaultProps = {
-	bgColor: '#fff',
 	strength: 100,
 	blur: 0,
 	log: false,
