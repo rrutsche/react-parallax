@@ -21,14 +21,21 @@ var TheContainer = React.createClass({
   render: function () {
     return (
       <div>
-      	<Parallax bgImage="assets/1.jpg" strength={300}>
-			<h1>first parallax section</h1>
-		</Parallax>
-		<Parallax bgImage="assets/2.jpg">
-			<br/>
-			<h1>second parallax </h1>
-			<br/>
-		</Parallax>
+	<Parallax bgImage="assets/1.jpg" strength={400}>
+	  <br/>
+	    <h1>
+	      A collection of textile samples lay spread out on the table - Samsa was a travelling salesman - and 			above it there hung a picture that he had recently cut out of an illustrated magazine and housed 			in a nice, gilded frame. It showed a lady fitted out with a fur hat and fur boa who sat  			upright, raising a heavy fur muff that covered the whole of her lower arm towards the viewer. Gregor 		then turned to look out the window at the dull weather. Drops
+	     </h1>
+	</Parallax>
+	<div>
+	<Parallax strength={300}>
+	  <Background>
+	    <img src="http://www.fillmurray.com/400/300" alt="fill murray"/>
+	    <div style={{width: 800, height: 300, backgroundColor: '#450093'}}></div>
+	    <img src="http://www.fillmurray.com/500/300" alt="fill murray"/>
+	  </Background>
+	  <h1>A collection of textile samples lay spread out on the table ...</h1>
+	</Parallax>
       </div>
     )
   }
@@ -42,6 +49,10 @@ var TheContainer = React.createClass({
 * strength: parallax effect strength (in pixel), default 100. this will define the amount of pixels the background image is translated - (type: Number)
 * blur: pixel value for background image blur, default: 0 - (type: Number)
 * disabled: turns off parallax effect if set to true, default: false - (type: Boolean)
+
+# Background Component
+
+As shown in the example: For more flexibility and styling purposes you can now add a ```<Background></Background>``` section to your Parallax Container. Child nodes inside this Background will be positioned like the bgImage behind the other children. Different from the bgImage there is no automatic scaling.
 
 # Children
 
