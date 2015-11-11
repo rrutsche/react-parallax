@@ -176,7 +176,7 @@ var Parallax = (function (_React$Component) {
 			this.contentWidth = this.node.getBoundingClientRect().width;
 
 			// set autoHeight or autoWidth
-			if (this.img && this.img.naturalWidth / this.img.naturalHeight > this.contentWidth / (this.contentHeight + 2 * this.props.strength)) {
+			if (this.img && this.img.naturalWidth / this.img.naturalHeight < this.contentWidth / (this.contentHeight + this.props.strength)) {
 				autoHeight = true;
 			}
 
@@ -200,15 +200,19 @@ var Parallax = (function (_React$Component) {
 		value: function setImagePosition(top) {
 			var autoHeight = arguments.length <= 1 || arguments[1] === undefined ? false : arguments[1];
 
-			var height = autoHeight ? 'auto' : Math.floor(this.contentHeight + Math.abs(this.props.strength));
-			var width = !autoHeight ? 'auto' : this.contentWidth;
+			var height = autoHeight ? 'auto' : Math.floor(this.contentHeight + Math.abs(this.props.strength)) + 'px';
+			var width = !autoHeight ? 'auto' : this.contentWidth + 'px';
 
 			// don't do unneccessary style processing if parallax is disabled
 			if (this.props.disabled === true) {
 				return;
 			}
 
-			var backPos = backPos = Math.floor((top + this.contentHeight) / this.windowHeight * this.props.strength) * -1;
+			// @TODO: change position calculation to avoid position lag on small screens with large parallax content
+			// calculate content position relative to window height with centered anchor
+			// let yPercentage = 100 * (top + this.contentHeight * 0.5) / (this.windowHeight);
+
+			var backPos = backPos = Math.floor((top + this.contentHeight - 0.25 * this.props.strength) / this.windowHeight * this.props.strength) * -1;
 			this.img.style.WebkitTransform = 'translate3d(-50%, ' + backPos + 'px, 0)';
 			this.img.style.transform = 'translate3d(-50%, ' + backPos + 'px, 0)';
 			this.img.style.height = height;
@@ -222,7 +226,7 @@ var Parallax = (function (_React$Component) {
 	}, {
 		key: 'setBackgroundPosition',
 		value: function setBackgroundPosition(top) {
-			var backPos = backPos = Math.floor((top + this.contentHeight) / this.windowHeight * this.props.strength) * -1;
+			var backPos = backPos = Math.floor((top + this.contentHeight - 0.25 * this.props.strength) / this.windowHeight * this.props.strength) * -1;
 			this.bg.style.WebkitTransform = 'translate3d(-50%, ' + backPos + 'px, 0)';
 			this.bg.style.transform = 'translate3d(-50%, ' + backPos + 'px, 0)';
 		}

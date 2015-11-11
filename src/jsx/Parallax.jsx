@@ -128,7 +128,7 @@ export default class Parallax extends React.Component {
 		this.contentWidth = this.node.getBoundingClientRect().width;
 
 		// set autoHeight or autoWidth
-		if (this.img && (this.img.naturalWidth / this.img.naturalHeight > this.contentWidth / (this.contentHeight + 2*this.props.strength))) {
+		if (this.img && (this.img.naturalWidth / this.img.naturalHeight < this.contentWidth / (this.contentHeight + this.props.strength))) {
 			autoHeight = true;
 		}
 
@@ -149,15 +149,19 @@ export default class Parallax extends React.Component {
 	 * sets position for the background image
 	 */
 	setImagePosition(top, autoHeight=false) {
-		let height = autoHeight ? 'auto' : Math.floor(this.contentHeight + Math.abs(this.props.strength));
-		let width = !autoHeight ? 'auto' : this.contentWidth;
+		let height = autoHeight ? 'auto' : Math.floor(this.contentHeight + Math.abs(this.props.strength)) + 'px';
+		let width = !autoHeight ? 'auto' : this.contentWidth + 'px';
 		
 		// don't do unneccessary style processing if parallax is disabled
 		if (this.props.disabled === true) {
 			return;
 		}
 
-		let backPos = backPos = Math.floor(((top + this.contentHeight) / this.windowHeight) * this.props.strength) * -1;
+		// @TODO: change position calculation to avoid position lag on small screens with large parallax content
+		// calculate content position relative to window height with centered anchor
+		// let yPercentage = 100 * (top + this.contentHeight * 0.5) / (this.windowHeight);
+
+		let backPos = backPos = Math.floor(((top + this.contentHeight - 0.25*this.props.strength) / this.windowHeight) * this.props.strength) * -1;
 		this.img.style.WebkitTransform = 'translate3d(-50%, ' + backPos + 'px, 0)';
 		this.img.style.transform = 'translate3d(-50%, ' + backPos + 'px, 0)';
 		this.img.style.height = height;
@@ -170,7 +174,7 @@ export default class Parallax extends React.Component {
 	}
 
 	setBackgroundPosition(top) {
-		let backPos = backPos = Math.floor(((top + this.contentHeight) / this.windowHeight) * this.props.strength) * -1;
+		let backPos = backPos = Math.floor(((top + this.contentHeight - 0.25*this.props.strength) / this.windowHeight) * this.props.strength) * -1;
 		this.bg.style.WebkitTransform = 'translate3d(-50%, ' + backPos + 'px, 0)';
 		this.bg.style.transform = 'translate3d(-50%, ' + backPos + 'px, 0)';
 	}
