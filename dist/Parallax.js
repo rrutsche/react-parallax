@@ -30,6 +30,8 @@ var Parallax = (function (_React$Component) {
 
 		_get(Object.getPrototypeOf(Parallax.prototype), 'constructor', this).call(this, props);
 
+		this.canUseDOM = !!(typeof window !== 'undefined' && window.document && window.document.createElement);
+
 		// make dom functionality depend on the installed react version
 		this.ReactDOM = _reactDom2['default'].findDOMNode ? _reactDom2['default'] : _react2['default'];
 
@@ -82,33 +84,30 @@ var Parallax = (function (_React$Component) {
 		}
 
 		/**
-   * bind some eventlisteners for page load, scroll and resize
-   */
-	}, {
-		key: 'componentWillMount',
-		value: function componentWillMount() {
-			document.addEventListener('scroll', this.onScroll, false);
-			window.addEventListener("resize", this.onWindowResize, false);
-			window.addEventListener("load", this.onWindowLoad, false);
-		}
-
-		/**
    * remove all eventlisteners before component is destroyed
    */
 	}, {
 		key: 'componentWillUnmount',
 		value: function componentWillUnmount() {
-			document.removeEventListener('scroll', this.onScroll, false);
-			window.removeEventListener("resize", this.onWindowResize, false);
-			window.removeEventListener("load", this.onWindowLoad, false);
+			if (this.canUseDOM) {
+				document.removeEventListener('scroll', this.onScroll, false);
+				window.removeEventListener("resize", this.onWindowResize, false);
+				window.removeEventListener("load", this.onWindowLoad, false);
+			}
 		}
 
 		/**
+   * bind some eventlisteners for page load, scroll and resize
    * save component ref after rendering, update all values and set static style values
    */
 	}, {
 		key: 'componentDidMount',
 		value: function componentDidMount() {
+			if (this.canUseDOM) {
+				document.addEventListener('scroll', this.onScroll, false);
+				window.addEventListener("resize", this.onWindowResize, false);
+				window.addEventListener("load", this.onWindowLoad, false);
+			}
 			// ref to component itself
 			this.node = this.ReactDOM.findDOMNode(this);
 			// ref to wrapp with Background children
@@ -124,6 +123,9 @@ var Parallax = (function (_React$Component) {
 	}, {
 		key: 'onScroll',
 		value: function onScroll(event) {
+			if (!this.canUseDOM) {
+				return;
+			}
 			var stamp = Date.now();
 			if (stamp - this.timestamp >= 10 && this.isScrolledIntoView(this.node)) {
 				window.requestAnimationFrame(this.updatePosition);
@@ -281,6 +283,10 @@ var Parallax = (function (_React$Component) {
 	}, {
 		key: 'getWindowHeight',
 		value: function getWindowHeight() {
+			if (!this.canUseDOM) {
+				return 0;
+			}
+
 			var w = window,
 			    d = document,
 			    e = d.documentElement,
@@ -291,6 +297,9 @@ var Parallax = (function (_React$Component) {
 	}, {
 		key: 'isScrolledIntoView',
 		value: function isScrolledIntoView(element) {
+			if (!this.canUseDOM) {
+				return false;
+			}
 			var elementTop = element.getBoundingClientRect().top,
 			    elementBottom = element.getBoundingClientRect().bottom;
 			return elementTop <= 0 && elementBottom >= 0 || elementTop >= 0 && elementBottom <= window.innerHeight || elementTop <= window.innerHeight && elementBottom >= window.innerHeight;

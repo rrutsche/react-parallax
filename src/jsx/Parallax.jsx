@@ -6,6 +6,8 @@ export default class Parallax extends React.Component {
 	constructor(props) {
 		super(props);
 
+		this.canUseDOM = !!((typeof window !== 'undefined' && window.document && window.document.createElement));
+
 		// make dom functionality depend on the installed react version
 		this.ReactDOM = ReactDOM.findDOMNode ? ReactDOM : React;
 
@@ -45,29 +47,28 @@ export default class Parallax extends React.Component {
 		);
 	}
 
-	/**
-	 * bind some eventlisteners for page load, scroll and resize
-	 */
-	componentWillMount() {
-		document.addEventListener('scroll', this.onScroll, false);
-		window.addEventListener("resize", this.onWindowResize, false);
-		window.addEventListener("load", this.onWindowLoad, false);
-	}
-
 
 	/**
 	 * remove all eventlisteners before component is destroyed
 	 */
 	componentWillUnmount() {
-		document.removeEventListener('scroll', this.onScroll, false);
-		window.removeEventListener("resize", this.onWindowResize, false);
-		window.removeEventListener("load", this.onWindowLoad, false);
+		if (this.canUseDOM) {
+			document.removeEventListener('scroll', this.onScroll, false);
+			window.removeEventListener("resize", this.onWindowResize, false);
+			window.removeEventListener("load", this.onWindowLoad, false);
+		}
 	}
 
 	/**
+	 * bind some eventlisteners for page load, scroll and resize
 	 * save component ref after rendering, update all values and set static style values
 	 */
 	componentDidMount() {
+		if (this.canUseDOM) {
+			document.addEventListener('scroll', this.onScroll, false);
+			window.addEventListener("resize", this.onWindowResize, false);
+			window.addEventListener("load", this.onWindowLoad, false);
+		}
 		// ref to component itself
 		this.node = this.ReactDOM.findDOMNode(this);
 		// ref to wrapp with Background children
@@ -82,6 +83,9 @@ export default class Parallax extends React.Component {
 	}
 
 	onScroll(event) {
+		if (!this.canUseDOM) {
+			return;
+		}
 		let stamp = Date.now();
 		if (stamp - this.timestamp >= 10 && this.isScrolledIntoView(this.node)) {
 			window.requestAnimationFrame(this.updatePosition);
@@ -222,6 +226,10 @@ export default class Parallax extends React.Component {
 	}
 
 	getWindowHeight() {
+		if (!this.canUseDOM) {
+			return 0;
+		}
+
 		let w = window,
 			d = document,
 			e = d.documentElement,
@@ -231,6 +239,9 @@ export default class Parallax extends React.Component {
 	}
 
 	isScrolledIntoView(element) {
+		if (!this.canUseDOM) {
+			return false;
+		}
 		let elementTop = element.getBoundingClientRect().top,
 			elementBottom = element.getBoundingClientRect().bottom;
 		return elementTop <= 0 && elementBottom >= 0 ||
