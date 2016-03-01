@@ -8,7 +8,7 @@ var nodeModulesDir = path.join(ROOT_PATH, 'node_modules');
 
 //Common configuration settings
 module.exports = {
-  entry: path.resolve(ROOT_PATH, 'src/index.jsx'),
+  entry: [path.resolve(ROOT_PATH, 'src/index.jsx')],
   resolve: {
     extensions: ['', '.js', '.jsx'],
     modulesDirectories: ['node_modules']
@@ -21,8 +21,8 @@ module.exports = {
     loaders: [
       {
         test: /\.(js|jsx)$/,
-        loader: 'babel?optional[]=runtime&stage=0',
-        include: path.resolve(ROOT_PATH, 'app')
+        loader: 'babel',
+        include: path.resolve(ROOT_PATH, 'src')
       },
       {
         test: /\.json/,
@@ -35,17 +35,18 @@ module.exports = {
       },
       {
         test: /\.scss$/,
-        loader: ExtractTextPlugin.extract('css!sass')
+        loaders: ['style', 'css', 'sass']
       },
       {
-        test: /\.(jpe|jpg|woff|woff2|eot|ttf|svg)(\?.*$|$)/,
+        test: /\.(jpe|jpg|gif|woff|woff2|eot|ttf|svg)(\?.*$|$)/,
         loader: 'file'
       }
     ]
   },
   plugins: [
-    new ExtractTextPlugin('style.css', {
-      allChunks: true
+    new HtmlWebpackPlugin({
+     template: './index.html',
+     inject: 'body'
     })
   ]
 };

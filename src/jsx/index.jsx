@@ -1,6 +1,10 @@
-module.exports = require('./Parallax');
+import Parallax from './Parallax';
 
-module.exports.Parallax = require('./Parallax');
+import Background from './Background';
 
-module.exports.Background = require('./Background');
+export default Parallax;
 
+export {
+	Parallax,
+	Background
+};

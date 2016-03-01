@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-export default class Parallax extends React.Component {
+class Parallax extends React.Component {
 
 	constructor(props) {
 		super(props);
@@ -12,7 +12,7 @@ export default class Parallax extends React.Component {
 		this.ReactDOM = ReactDOM.findDOMNode ? ReactDOM : React;
 
 		this.node = null;
-		this.splitChildren = this.splitChildren();
+		this.splitChildren = this.getSplitChildren();
 		this.windowHeight = this.getWindowHeight();
 		this.childStyle = this.getChildStyle();
 		this.timestamp = Date.now();
@@ -36,7 +36,7 @@ export default class Parallax extends React.Component {
 					<img className="react-parallax-bgimage" src={this.props.bgImage} ref="bgImage" alt=""/>
 				) : ''}
 				{this.splitChildren.bgChildren.length > 0 ? (
-					<div ref="background">
+					<div ref={(bg) => this.bgMounted(bg)}>
 						{this.splitChildren.bgChildren}
 					</div>
 				) : ''}
@@ -71,8 +71,6 @@ export default class Parallax extends React.Component {
 		}
 		// ref to component itself
 		this.node = this.ReactDOM.findDOMNode(this);
-		// ref to wrapp with Background children
-		this.bg = this.ReactDOM.findDOMNode(this.refs.background);
 		// bg image ref
 		this.img = this.refs.bgImage ? this.ReactDOM.findDOMNode(this.refs.bgImage) : null;
 
@@ -80,6 +78,11 @@ export default class Parallax extends React.Component {
 		this.setParallaxStyle();
 		this.setInitialBackgroundStyles(this.img);
 		this.setInitialBackgroundStyles(this.bg);
+	}
+
+	bgMounted(bg) {
+		// ref to wrapp with Background children
+		this.bg = this.ReactDOM.findDOMNode(bg);
 	}
 
 	onScroll(event) {
@@ -105,10 +108,12 @@ export default class Parallax extends React.Component {
 	 *   }
 	 * @return {Object} splitchildren object
 	 */
-	splitChildren() {
+	getSplitChildren() {
+		console.log('getSplitChildren');
 		let bgChildren = [];
 		let children = React.Children.toArray(this.props.children);
 		children.forEach(function(child, index) {
+			console.log('splitchildren', child.type.name);
 			if (child.type && typeof child.type === 'function' && child.type.name === 'Background') {
 				bgChildren = bgChildren.concat(children.splice(index, 1));
 			}
@@ -275,3 +280,5 @@ Parallax.defaultProps = {
 	log: false,
 	disabled: false
 };
+
+export default Parallax;
