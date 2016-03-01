@@ -109,16 +109,13 @@ class Parallax extends React.Component {
 	 * @return {Object} splitchildren object
 	 */
 	getSplitChildren() {
-		console.log('getSplitChildren');
 		let bgChildren = [];
 		let children = React.Children.toArray(this.props.children);
 		children.forEach(function(child, index) {
-			console.log('splitchildren', child.type.name);
 			if (child.type && typeof child.type === 'function' && child.type.name === 'Background') {
 				bgChildren = bgChildren.concat(children.splice(index, 1));
 			}
 		});
-
 		return {
 			bgChildren: bgChildren,
 			children: children
