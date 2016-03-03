@@ -1,5 +1,5 @@
 import React from 'react';
-import { Parallax, Background } from './jsx/index.jsx';
+import { Parallax, Background } from '../dist/index';
 
 export default class KitchenSink extends React.Component {
 

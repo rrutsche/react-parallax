@@ -13,6 +13,7 @@ class Parallax extends React.Component {
 
 		this.node = null;
 		this.splitChildren = this.getSplitChildren();
+
 		this.windowHeight = this.getWindowHeight();
 		this.childStyle = this.getChildStyle();
 		this.timestamp = Date.now();
@@ -36,7 +37,7 @@ class Parallax extends React.Component {
 					<img className="react-parallax-bgimage" src={this.props.bgImage} ref="bgImage" alt=""/>
 				) : ''}
 				{this.splitChildren.bgChildren.length > 0 ? (
-					<div ref={(bg) => this.bgMounted(bg)}>
+					<div className="react-parallax-background-children" ref={(bg) => this.bgMounted(bg)}>
 						{this.splitChildren.bgChildren}
 					</div>
 				) : ''}
@@ -112,7 +113,7 @@ class Parallax extends React.Component {
 		let bgChildren = [];
 		let children = React.Children.toArray(this.props.children);
 		children.forEach(function(child, index) {
-			if (child.type && typeof child.type === 'function' && child.type.name === 'Background') {
+			if (child.type && child.type.prototype && child.type.prototype.isParallaxBackground) {
 				bgChildren = bgChildren.concat(children.splice(index, 1));
 			}
 		});
