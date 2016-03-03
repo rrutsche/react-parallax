@@ -1,12 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+import { isScrolledIntoView, getWindowHeight, canUseDOM, getPosition } from '../util/Util';
+
 class Parallax extends React.Component {
 
 	constructor(props) {
 		super(props);
 
-		this.canUseDOM = !!((typeof window !== 'undefined' && window.document && window.document.createElement));
+		this.canUseDOM = canUseDOM();
 
 		// make dom functionality depend on the installed react version
 		this.ReactDOM = ReactDOM.findDOMNode ? ReactDOM : React;
@@ -14,7 +16,7 @@ class Parallax extends React.Component {
 		this.node = null;
 		this.splitChildren = this.getSplitChildren();
 
-		this.windowHeight = this.getWindowHeight();
+		this.windowHeight = getWindowHeight(this.canUseDOM);
 		this.childStyle = this.getChildStyle();
 		this.timestamp = Date.now();
 		this.autobind();		
@@ -91,7 +93,7 @@ class Parallax extends React.Component {
 			return;
 		}
 		let stamp = Date.now();
-		if (stamp - this.timestamp >= 10 && this.isScrolledIntoView(this.node)) {
+		if (stamp - this.timestamp >= 100 && isScrolledIntoView(this.node, this.canUseDOM)) {
 			window.requestAnimationFrame(this.updatePosition);
 			this.timestamp = stamp;
 		}
@@ -149,7 +151,7 @@ class Parallax extends React.Component {
 		if (rect && this.bg && this.splitChildren.bgChildren.length > 0) {
 			this.setBackgroundPosition(rect.top);
 		}
-
+		getPosition(this.node, this.canUseDOM);
 	}
 
 	/**
@@ -204,7 +206,7 @@ class Parallax extends React.Component {
 	 * update window height and positions on window resize
 	 */
 	onWindowResize() {
-		this.windowHeight = this.getWindowHeight();
+		this.windowHeight = getWindowHeight(this.canUseDOM);
 		this.updatePosition();
 	}
 
@@ -226,30 +228,6 @@ class Parallax extends React.Component {
 		return {
 			position: 'relative'
 		};
-	}
-
-	getWindowHeight() {
-		if (!this.canUseDOM) {
-			return 0;
-		}
-
-		let w = window,
-			d = document,
-			e = d.documentElement,
-			g = d.getElementsByTagName('body')[0];
-		
-		return w.innerHeight || e.clientHeight || g.clientHeight;
-	}
-
-	isScrolledIntoView(element) {
-		if (!this.canUseDOM) {
-			return false;
-		}
-		let elementTop = element.getBoundingClientRect().top,
-			elementBottom = element.getBoundingClientRect().bottom;
-		return elementTop <= 0 && elementBottom >= 0 ||
-				elementTop >= 0 && elementBottom <= window.innerHeight ||
-				elementTop <= window.innerHeight && elementBottom >= window.innerHeight;
 	}
 
 	log() {
