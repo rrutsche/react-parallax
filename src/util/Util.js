@@ -44,6 +44,5 @@ export function getPosition(element) {
         yPosition += (element.offsetTop - element.scrollTop + element.clientTop);
         element = element.offsetParent;
     }
-    console.log(yPosition / window.innerHeight);
     return { y: yPosition };
 }
