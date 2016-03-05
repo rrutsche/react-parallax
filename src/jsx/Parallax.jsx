@@ -14,12 +14,20 @@ class Parallax extends React.Component {
 		this.ReactDOM = ReactDOM.findDOMNode ? ReactDOM : React;
 
 		this.node = null;
-		this.splitChildren = this.getSplitChildren();
+		this.state = {
+			splitChildren: this.getSplitChildren(props)
+		};
 
 		this.windowHeight = getWindowHeight(this.canUseDOM);
 		this.childStyle = this.getChildStyle();
 		this.timestamp = Date.now();
 		this.autobind();		
+	}
+
+	componentWillReceiveProps(nextProps) {
+		this.setState({
+			splitChildren: this.getSplitChildren(nextProps)
+		});
 	}
 
 	/**
@@ -33,18 +41,19 @@ class Parallax extends React.Component {
 	}
 
 	render() {
+		console.log('render');
 		return (
 			<div className={'react-parallax ' + (this.props.className ? this.props.className : '')}>
 				{this.props.bgImage ? (
 					<img className="react-parallax-bgimage" src={this.props.bgImage} ref="bgImage" alt=""/>
 				) : ''}
-				{this.splitChildren.bgChildren.length > 0 ? (
+				{this.state.splitChildren.bgChildren.length > 0 ? (
 					<div className="react-parallax-background-children" ref={(bg) => this.bgMounted(bg)}>
-						{this.splitChildren.bgChildren}
+						{this.state.splitChildren.bgChildren}
 					</div>
 				) : ''}
 				<div className="react-parallax-content" style={this.childStyle} ref="content">
-					{this.splitChildren.children}
+					{this.state.splitChildren.children}
 				</div>
 			</div>
 		);
@@ -93,7 +102,7 @@ class Parallax extends React.Component {
 			return;
 		}
 		let stamp = Date.now();
-		if (stamp - this.timestamp >= 100 && isScrolledIntoView(this.node, this.canUseDOM)) {
+		if (stamp - this.timestamp >= 10 && isScrolledIntoView(this.node, this.canUseDOM)) {
 			window.requestAnimationFrame(this.updatePosition);
 			this.timestamp = stamp;
 		}
@@ -111,9 +120,9 @@ class Parallax extends React.Component {
 	 *   }
 	 * @return {Object} splitchildren object
 	 */
-	getSplitChildren() {
+	getSplitChildren(props) {
 		let bgChildren = [];
-		let children = React.Children.toArray(this.props.children);
+		let children = React.Children.toArray(props.children);
 		children.forEach(function(child, index) {
 			if (child.type && child.type.prototype && child.type.prototype.isParallaxBackground) {
 				bgChildren = bgChildren.concat(children.splice(index, 1));
@@ -148,10 +157,10 @@ class Parallax extends React.Component {
 			this.setImagePosition(rect.top, autoHeight);
 		}
 		// update position of Background children if exist
-		if (rect && this.bg && this.splitChildren.bgChildren.length > 0) {
+		if (rect && this.bg && this.state.splitChildren.bgChildren.length > 0) {
 			this.setBackgroundPosition(rect.top);
 		}
-		getPosition(this.node, this.canUseDOM);
+		// getPosition(this.node, this.canUseDOM);
 	}
 
 	/**
