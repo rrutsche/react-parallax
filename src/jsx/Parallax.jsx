@@ -41,7 +41,6 @@ class Parallax extends React.Component {
 	}
 
 	render() {
-		console.log('render');
 		return (
 			<div className={'react-parallax ' + (this.props.className ? this.props.className : '')}>
 				{this.props.bgImage ? (
