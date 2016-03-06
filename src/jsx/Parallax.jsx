@@ -14,20 +14,15 @@ class Parallax extends React.Component {
 		this.ReactDOM = ReactDOM.findDOMNode ? ReactDOM : React;
 
 		this.node = null;
-		this.state = {
-			splitChildren: this.getSplitChildren(props)
-		};
-
+		this.splitChildren = this.getSplitChildren(this.props);
 		this.windowHeight = getWindowHeight(this.canUseDOM);
 		this.childStyle = this.getChildStyle();
 		this.timestamp = Date.now();
-		this.autobind();		
+		this.autobind();
 	}
 
 	componentWillReceiveProps(nextProps) {
-		this.setState({
-			splitChildren: this.getSplitChildren(nextProps)
-		});
+		this.splitChildren = this.getSplitChildren(nextProps);
 	}
 
 	/**
@@ -46,13 +41,13 @@ class Parallax extends React.Component {
 				{this.props.bgImage ? (
 					<img className="react-parallax-bgimage" src={this.props.bgImage} ref="bgImage" alt=""/>
 				) : ''}
-				{this.state.splitChildren.bgChildren.length > 0 ? (
+				{this.splitChildren.bgChildren.length > 0 ? (
 					<div className="react-parallax-background-children" ref={(bg) => this.bgMounted(bg)}>
-						{this.state.splitChildren.bgChildren}
+						{this.splitChildren.bgChildren}
 					</div>
 				) : ''}
 				<div className="react-parallax-content" style={this.childStyle} ref="content">
-					{this.state.splitChildren.children}
+					{this.splitChildren.children}
 				</div>
 			</div>
 		);
@@ -156,7 +151,7 @@ class Parallax extends React.Component {
 			this.setImagePosition(rect.top, autoHeight);
 		}
 		// update position of Background children if exist
-		if (rect && this.bg && this.state.splitChildren.bgChildren.length > 0) {
+		if (rect && this.bg && this.splitChildren.bgChildren.length > 0) {
 			this.setBackgroundPosition(rect.top);
 		}
 		// getPosition(this.node, this.canUseDOM);
@@ -168,7 +163,7 @@ class Parallax extends React.Component {
 	setImagePosition(top, autoHeight=false) {
 		let height = this.props.bgHeight || (autoHeight ? 'auto' : Math.floor(this.contentHeight + Math.abs(this.props.strength)) + 'px');
 		let width = this.props.bgWidth || (!autoHeight ? 'auto' : this.contentWidth + 'px');
-		
+
 		// don't do unneccessary style processing if parallax is disabled
 		if (this.props.disabled === true) {
 			return;
@@ -183,7 +178,7 @@ class Parallax extends React.Component {
 		this.img.style.transform = 'translate3d(-50%, ' + backPos + 'px, 0)';
 		this.img.style.height = height;
 		this.img.style.width = width;
-		
+
 		if (this.props.blur) {
 			this.img.style.WebkitFilter = 'blur(' + this.props.blur + 'px)';
 			this.img.style.filter = 'blur(' + this.props.blur + 'px)';
