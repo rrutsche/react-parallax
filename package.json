@@ -1,7 +1,7 @@
 {
   "name": "react-parallax",
   "author": "Richard Rutsche",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "description": "A React Component for parallax effect.",
   "repository": {
     "type": "git",
