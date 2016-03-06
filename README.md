@@ -2,12 +2,12 @@
 
 > A react component for simple parallax effect
 
-### React 0.14.0 or higher is required since version 0.2.0
+##### Note: As of the ES6 import/export handling the `Parallax` Component has now also be imported like the `Background` Component: ```import { Parallax } from 'react-parallax';```
 
 ## Install
 
 ```sh
-npm install react-parallax --save-dev
+npm install react-parallax --save
 ```
 
 ## [Demo](http://rrutsche.github.io/#parallax)
@@ -15,17 +15,15 @@ npm install react-parallax --save-dev
 ## Default Usage
 
 ```
-var Parallax = require('react-parallax');
+import { Parallax } from 'react-parallax';
 
-var TheContainer = React.createClass({
+const TheContainer = React.createClass({
 	render: function () {
   	return (
     	<div>
 				<Parallax bgImage="assets/1.jpg" strength={400}>
 					<br/>
-					<h1>
-					A collection of textile samples lay spread out on the table - Samsa was a travelling salesman - and 									above it there hung a picture that he had recently cut out of an illustrated magazine and housed 		in a 						nice, gilded frame. It showed a lady fitted out with a fur hat and fur boa who sat upright, raising a heavy 					fur muff that covered the whole of her lower arm towards the viewer. Gregor then turned to look out the 							window at the dull weather. Drops
-					</h1>
+					<h1> some content that is displayed above the bgImage </h1>
 				</Parallax>
       </div>
     )
@@ -34,19 +32,19 @@ var TheContainer = React.createClass({
 ```
 ## Background Component
 
-For more flexibility and styling purposes you can now add a ```<Background></Background>``` section to your Parallax Container. Child nodes inside this Background will be positioned like the bgImage behind the other children. Different from the bgImage there is no automatic scaling.
+For more flexibility and styling purposes you can add a ```<Background></Background>``` section to your Parallax Container. Child nodes inside this Background will be positioned like the bgImage behind the other children. Different from the bgImage there is no automatic scaling.
 ```
-var {Parallax, Background} = require('react-parallax');
+import { Parallax, Background } from 'react-parallax';
 
-var TheContainer = React.createClass({
+const TheContainer = React.createClass({
 	render: function () {
     	return (
 			<div>
 				<Parallax strength={300}>
 					<Background>
-						<img src="http://www.fillmurray.com/400/300" alt="fill murray"/>
+						<img src="http://www.fillmurray.com/400/300"/>
 						<div style={{width: 800, height: 300, backgroundColor: '#450093'}}></div>
-						<img src="http://www.fillmurray.com/500/300" alt="fill murray"/>
+						<img src="http://www.fillmurray.com/500/300"/>
 					</Background>
 					<h1>A collection of textile samples lay spread out on the table ...</h1>
 				</Parallax>
@@ -83,7 +81,7 @@ npm install
 For watch on files, live reload, JSX transpiling and browserify, run:
 
 ```sh
-grunt
+npm run dev
 ```
 Port on Windows is 80, 8080 on all other OS by default. Can be set with option -port=8080
 
