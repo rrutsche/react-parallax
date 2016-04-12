@@ -14,8 +14,8 @@
     "dist": "NODE_ENV=production && webpack -p --progress --config webpack.config.build.js"
   },
   "dependencies": {
-    "react": "^0.14.0",
-    "react-dom": "^0.14.0"
+    "react": "^0.14.0 || ^15.0.0-0",
+    "react-dom": "^0.14.0 || ^15.0.0-0"
   },
   "license": "MIT",
   "devDependencies": {
