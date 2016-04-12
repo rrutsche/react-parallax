@@ -2,7 +2,7 @@
 
 > A react component for simple parallax effect
 
-##### Note: As of the recommended ES6 import/export handling the `react-parallax` module won't have any mixed exports anymore. The `Parallax` Component has now also be imported like the `Background` Component: ```import { Parallax } from 'react-parallax';```
+##### Note: As of the recommended ES6 import/export handling the `react-parallax` module won't have any mixed exports anymore. The `Parallax` Component now has to be imported like the `Background` Component: ```import { Parallax } from 'react-parallax';```
 
 ## Install
 
