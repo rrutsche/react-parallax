@@ -97,7 +97,7 @@ class Parallax extends React.Component {
 			return;
 		}
 		let stamp = Date.now();
-		if (stamp - this.timestamp >= 10 && isScrolledIntoView(this.node, this.canUseDOM)) {
+		if (stamp - this.timestamp >= 10 /*&& isScrolledIntoView(this.node, this.canUseDOM)*/) {
 			window.requestAnimationFrame(this.updatePosition);
 			this.timestamp = stamp;
 		}
@@ -155,7 +155,8 @@ class Parallax extends React.Component {
 		if (rect && this.bg && this.splitChildren.bgChildren.length > 0) {
 			this.setBackgroundPosition(rect.top);
 		}
-		// getPosition(this.node, this.canUseDOM);
+		let position = getPosition(this.node, this.canUseDOM);
+		console.log(position, Math.floor(((rect.top + this.contentHeight - 0.25*this.props.strength) / this.windowHeight) * this.props.strength) * -1);
 	}
 
 	/**
