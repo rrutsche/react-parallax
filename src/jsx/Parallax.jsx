@@ -156,7 +156,7 @@ class Parallax extends React.Component {
 			this.setBackgroundPosition(rect.top);
 		}
 		let position = getPosition(this.node, this.canUseDOM);
-		console.log(position, Math.floor(((rect.top + this.contentHeight - 0.25*this.props.strength) / this.windowHeight) * this.props.strength) * -1);
+		// console.log(position, Math.floor(((rect.top + this.contentHeight - 0.25*this.props.strength) / this.windowHeight) * this.props.strength) * -1);
 	}
 
 	/**
