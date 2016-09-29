@@ -19,7 +19,7 @@ class Parallax extends React.Component {
 		this.windowHeight = getWindowHeight(this.canUseDOM);
 		this.childStyle = this.getChildStyle();
 		this.timestamp = Date.now();
-		this.autobind();		
+		this.autobind();
 	}
 
 	componentWillReceiveProps(nextProps) {
@@ -39,9 +39,7 @@ class Parallax extends React.Component {
 	render() {
 		return (
 			<div className={'react-parallax ' + (this.props.className ? this.props.className : '')}>
-				{this.props.bgImage ? (
-					<img className="react-parallax-bgimage" src={this.props.bgImage} ref="bgImage" alt=""/>
-				) : ''}
+				{this.props.bgImage && <img className="react-parallax-bgimage" src={this.props.bgImage} ref="bgImage" alt=""/>}
 				{this.splitChildren.bgChildren.length > 0 ? (
 					<div className="react-parallax-background-children" ref={(bg) => this.bgMounted(bg)}>
 						{this.splitChildren.bgChildren}
@@ -164,7 +162,7 @@ class Parallax extends React.Component {
 	setImagePosition(top, autoHeight=false) {
 		let height = this.props.bgHeight || (autoHeight ? 'auto' : Math.floor(this.contentHeight + Math.abs(this.props.strength)) + 'px');
 		let width = this.props.bgWidth || (!autoHeight ? 'auto' : this.contentWidth + 'px');
-		
+
 		// don't do unneccessary style processing if parallax is disabled
 		if (this.props.disabled === true) {
 			return;
@@ -179,7 +177,7 @@ class Parallax extends React.Component {
 		this.img.style.transform = 'translate3d(-50%, ' + backPos + 'px, 0)';
 		this.img.style.height = height;
 		this.img.style.width = width;
-		
+
 		if (this.props.blur) {
 			this.img.style.WebkitFilter = 'blur(' + this.props.blur + 'px)';
 			this.img.style.filter = 'blur(' + this.props.blur + 'px)';
@@ -198,7 +196,7 @@ class Parallax extends React.Component {
 	setInitialBackgroundStyles(node) {
 		if (node) {
 			node.style.position = 'absolute';
-			node.style.left = '50%';
+			node.style.left = this.props.disabled ? 0 : '50%';
 			node.style.WebkitTransformStyle = 'preserve-3d';
 			node.style.WebkitBackfaceVisibility = 'hidden';
 			node.style.MozBackfaceVisibility = 'hidden';
