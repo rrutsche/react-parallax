@@ -155,8 +155,6 @@ class Parallax extends React.Component {
 		if (rect && this.bg && this.splitChildren.bgChildren.length > 0) {
 			this.setBackgroundPosition(rect.top);
 		}
-		let position = getPosition(this.node, this.canUseDOM);
-		// console.log(position, Math.floor(((rect.top + this.contentHeight - 0.25*this.props.strength) / this.windowHeight) * this.props.strength) * -1);
 	}
 
 	/**
@@ -176,10 +174,14 @@ class Parallax extends React.Component {
 		// @TODO: change position calculation to avoid position lag on small screens with large parallax content
 		// calculate content position relative to window height with centered anchor
 		// let yPercentage = 100 * (top + this.contentHeight * 0.5) / (this.windowHeight);
-
+		let percentage = getPosition(this.node, this.canUseDOM);
+		let pos = (percentage * -(this.contentHeight + 0.5 * this.props.strength));
 		let backPos = backPos = Math.floor(((top + this.contentHeight - 0.25*this.props.strength) / this.windowHeight) * this.props.strength) * -1;
-		this.img.style.WebkitTransform = 'translate3d(-50%, ' + backPos + 'px, 0)';
-		this.img.style.transform = 'translate3d(-50%, ' + backPos + 'px, 0)';
+		
+		console.log(percentage, this.contentHeight, pos);
+		
+		this.img.style.WebkitTransform = 'translate3d(-50%, ' + pos + 'px, 0)';
+		this.img.style.transform = 'translate3d(-50%, ' + pos + 'px, 0)';
 		
 		if (this.props.blur) {
 			this.img.style.WebkitFilter = 'blur(' + this.props.blur + 'px)';

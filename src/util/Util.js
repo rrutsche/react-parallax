@@ -33,6 +33,7 @@ export function getPosition(node, canUseDOM) {
 	}
 	let element = node;
 	let height = node.getBoundingClientRect().height;
+	let range = height
     let y = 0;
   
     while(element) {
@@ -40,28 +41,37 @@ export function getPosition(node, canUseDOM) {
         element = element.offsetParent;
     }
 
-    y = y > window.innerHeight ? window.innerHeight : (y < (-height) ? 0 : y);
-    // this is a value between 0 - 1 where 0 is top and 1 is bottom of the screen
-    let relativePosition = y / window.innerHeight;
-    // the relative anchor represents the relative position on screen including the DOMNode height
-    // so value does not get 0 before bottom of element reaches top of the screen
-    // let relativeAnchor = relativePosition + ((1 - relativePosition) * height / window.innerHeight);
-    let relativeAnchor = height - (relativePosition * height);
+    y = y > window.innerHeight ? window.innerHeight : (y < (-height) ? -height : y);
 
-		// just for testing start
-		let point = document.getElementById('point');
-		if (!point) {
-			point = document.createElement('div');
-			point.id = 'point';
-			point.style.position = 'absolute';
-			point.style.left = 0;
-			point.style.width = '10px';
-			point.style.height = '10px';
-			point.style.backgroundColor = 'red';
-			node.appendChild(point);
-		}
-		point.style.top = relativeAnchor + 'px';
-		// just for testing end
-	console.log('__', relativePosition );
-    return relativeAnchor;
+    return getPercentage(-height, window.innerHeight, y);
+
+ //    // this is a value between 0 - 1 where 0 is top and 1 is bottom of the screen
+ //    let relativePosition = y / window.innerHeight;
+ //    // the relative anchor represents the relative position on screen including the DOMNode height
+ //    // so value does not get 0 before bottom of element reaches top of the screen
+ //    // let relativeAnchor = relativePosition + ((1 - relativePosition) * height / window.innerHeight);
+ //    let relativeAnchor = height - (relativePosition * height);
+
+	// 	// just for testing start
+	// 	let point = document.getElementById('point');
+	// 	if (!point) {
+	// 		point = document.createElement('div');
+	// 		point.id = 'point';
+	// 		point.style.position = 'absolute';
+	// 		point.style.left = 0;
+	// 		point.style.width = '10px';
+	// 		point.style.height = '10px';
+	// 		point.style.backgroundColor = 'red';
+	// 		node.appendChild(point);
+	// 	}
+	// 	// point.style.top = relativeAnchor + 'px';
+	// 	// just for testing end
+	// // console.log('__', relativePosition );
+ //    return relativeAnchor;
+}
+
+export function getPercentage(startpos, endpos, currentpos) {
+     let distance = endpos - startpos;
+     let displacement = currentpos - startpos;
+     return displacement / distance;
 }
