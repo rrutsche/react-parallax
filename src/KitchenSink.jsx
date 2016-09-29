@@ -56,6 +56,12 @@ export default class KitchenSink extends React.Component {
 					<h1 style={fontStyle2} onClick={() => this.changeImage()}>change image</h1>
 					<h1 style={fontStyle2} onClick={() => this.changeChildren()}>change children</h1>
 				</div>
+				<Parallax bgImage={this.state.image} strength={400} log={true} disabled>
+					<br/>
+					{this.state.children}
+					<h1 style={fontStyle2}>A collection of textile samples lay spread out on the table - Samsa was a travelling salesman - and above it there hung a picture that he had recently cut out of an illustrated magazine and housed in a nice, gilded frame. It showed a lady fitted out with a fur hat and fur boa who sat upright, raising a heavy fur muff that covered the whole of her lower arm towards the viewer. Gregor then turned to look out the window at the dull weather. Drops</h1>
+					<br/>
+				</Parallax>
 				<Parallax bgImage={this.state.image} strength={400} log={true}>
 					<br/>
 					{this.state.children}
@@ -67,14 +73,14 @@ export default class KitchenSink extends React.Component {
 					<h1 style={fontStyle2}>A collection of textile samples lay spread out on the table - Samsa was a travelling salesman - and above it there hung a picture that he had recently cut out of an illustrated magazine and housed in a nice, gilded frame. It showed a lady fitted out with a fur hat and fur boa who sat upright, raising a heavy fur muff that covered the whole of her lower arm towards the viewer. Gregor then turned to look out the window at the dull weather. Drops</h1>
 					<br/>
 				</div>
-				{/*<Parallax strength={300}>
+				{<Parallax strength={300} disabled>
 					<Background>
 						<img src="http://www.fillmurray.com/400/300" alt="fill murray"/>
 						<div style={{width: 800, height: 300, backgroundColor: '#450093'}}></div>
 						<img src="http://www.fillmurray.com/500/300" alt="fill murray"/>
 					</Background>
 					<h1 style={fontStyle2}>A collection of textile samples lay spread out on the table - Samsa was a travelling salesman - and above it there hung a picture that he had recently cut out of an illustrated magazine and housed in a nice, gilded frame. It showed a lady fitted out with a fur hat and fur boa who sat upright, raising a heavy fur muff that covered the whole of her lower arm towards the viewer. Gregor then turned to look out the window at the dull weather. Drops</h1>
-				</Parallax>*/}
+				</Parallax>}
 
 				<div>
 					<br/>
