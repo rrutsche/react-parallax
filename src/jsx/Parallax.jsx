@@ -165,6 +165,8 @@ class Parallax extends React.Component {
 	setImagePosition(top, autoHeight=false) {
 		let height = this.props.bgHeight || (autoHeight ? 'auto' : Math.floor(this.contentHeight + Math.abs(this.props.strength)) + 'px');
 		let width = this.props.bgWidth || (!autoHeight ? 'auto' : this.contentWidth + 'px');
+		this.img.style.height = height;
+		this.img.style.width = width;
 		
 		// don't do unneccessary style processing if parallax is disabled
 		if (this.props.disabled === true) {
@@ -178,8 +180,6 @@ class Parallax extends React.Component {
 		let backPos = backPos = Math.floor(((top + this.contentHeight - 0.25*this.props.strength) / this.windowHeight) * this.props.strength) * -1;
 		this.img.style.WebkitTransform = 'translate3d(-50%, ' + backPos + 'px, 0)';
 		this.img.style.transform = 'translate3d(-50%, ' + backPos + 'px, 0)';
-		this.img.style.height = height;
-		this.img.style.width = width;
 		
 		if (this.props.blur) {
 			this.img.style.WebkitFilter = 'blur(' + this.props.blur + 'px)';
@@ -188,6 +188,10 @@ class Parallax extends React.Component {
 	}
 
 	setBackgroundPosition(top) {
+		// don't do unneccessary style processing if parallax is disabled
+		if (this.props.disabled === true) {
+			return;
+		}
 		let backPos = backPos = Math.floor(((top + this.contentHeight - 0.25*this.props.strength) / this.windowHeight) * this.props.strength) * -1;
 		this.bg.style.WebkitTransform = 'translate3d(-50%, ' + backPos + 'px, 0)';
 		this.bg.style.transform = 'translate3d(-50%, ' + backPos + 'px, 0)';
@@ -200,6 +204,8 @@ class Parallax extends React.Component {
 		if (node) {
 			node.style.position = 'absolute';
 			node.style.left = '50%';
+			node.style.WebkitTransform = 'translate3d(-50%, 0, 0)';
+			node.style.transform = 'translate3d(-50%, 0, 0)';
 			node.style.WebkitTransformStyle = 'preserve-3d';
 			node.style.WebkitBackfaceVisibility = 'hidden';
 			node.style.MozBackfaceVisibility = 'hidden';
