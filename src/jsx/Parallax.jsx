@@ -196,7 +196,7 @@ class Parallax extends React.Component {
 	setInitialBackgroundStyles(node) {
 		if (node) {
 			node.style.position = 'absolute';
-			node.style.left = '50%';
+			node.style.left = this.props.disabled ? 0 : '50%';
 			node.style.WebkitTransformStyle = 'preserve-3d';
 			node.style.WebkitBackfaceVisibility = 'hidden';
 			node.style.MozBackfaceVisibility = 'hidden';
