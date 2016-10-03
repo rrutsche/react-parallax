@@ -19,7 +19,7 @@ class Parallax extends React.Component {
 		this.windowHeight = getWindowHeight(this.canUseDOM);
 		this.childStyle = this.getChildStyle();
 		this.timestamp = Date.now();
-		this.autobind();		
+		this.autobind();
 	}
 
 	componentWillReceiveProps(nextProps) {
@@ -167,7 +167,7 @@ class Parallax extends React.Component {
 		let width = this.props.bgWidth || (!autoHeight ? 'auto' : this.contentWidth + 'px');
 		this.img.style.height = height;
 		this.img.style.width = width;
-		
+
 		// don't do unneccessary style processing if parallax is disabled
 		if (this.props.disabled === true) {
 			return;
@@ -177,13 +177,13 @@ class Parallax extends React.Component {
 		let maxTranslation = maxHeight - this.contentHeight;
 		let pos = 0 - (maxTranslation * percentage);
 		// let pos = (percentage * -(this.contentHeight + 0.5 * this.props.strength));
-		
+
 		// old calculation
 		let backPos = backPos = Math.floor(((top + this.contentHeight - 0.25*this.props.strength) / this.windowHeight) * this.props.strength) * -1;
-		
+
 		this.img.style.WebkitTransform = 'translate3d(-50%, ' + pos + 'px, 0)';
 		this.img.style.transform = 'translate3d(-50%, ' + pos + 'px, 0)';
-		
+
 		if (this.props.blur) {
 			this.img.style.WebkitFilter = 'blur(' + this.props.blur + 'px)';
 			this.img.style.filter = 'blur(' + this.props.blur + 'px)';
