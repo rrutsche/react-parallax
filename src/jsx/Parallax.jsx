@@ -181,8 +181,6 @@ class Parallax extends React.Component {
 		// old calculation
 		let backPos = backPos = Math.floor(((top + this.contentHeight - 0.25*this.props.strength) / this.windowHeight) * this.props.strength) * -1;
 		
-		console.log('translate it max:', maxHeight - this.contentHeight);
-		
 		this.img.style.WebkitTransform = 'translate3d(-50%, ' + pos + 'px, 0)';
 		this.img.style.transform = 'translate3d(-50%, ' + pos + 'px, 0)';
 		
