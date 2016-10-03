@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import { isScrolledIntoView, getWindowHeight, canUseDOM, getPosition } from '../util/Util';
+import { isScrolledIntoView, getWindowHeight, canUseDOM, getRelativePosition } from '../util/Util';
 
 class Parallax extends React.Component {
 
@@ -161,7 +161,9 @@ class Parallax extends React.Component {
 	 * sets position for the background image
 	 */
 	setImagePosition(top, autoHeight=false) {
-		let height = this.props.bgHeight || (autoHeight ? 'auto' : Math.floor(this.contentHeight + Math.abs(this.props.strength)) + 'px');
+
+		let maxHeight = Math.floor(this.contentHeight + Math.abs(this.props.strength));
+		let height = this.props.bgHeight || (autoHeight ? 'auto' : maxHeight + 'px');
 		let width = this.props.bgWidth || (!autoHeight ? 'auto' : this.contentWidth + 'px');
 		this.img.style.height = height;
 		this.img.style.width = width;
@@ -171,14 +173,15 @@ class Parallax extends React.Component {
 			return;
 		}
 
-		// @TODO: change position calculation to avoid position lag on small screens with large parallax content
-		// calculate content position relative to window height with centered anchor
-		// let yPercentage = 100 * (top + this.contentHeight * 0.5) / (this.windowHeight);
-		let percentage = getPosition(this.node, this.canUseDOM);
-		let pos = (percentage * -(this.contentHeight + 0.5 * this.props.strength));
+		let percentage = getRelativePosition(this.node, this.canUseDOM);
+		let maxTranslation = maxHeight - this.contentHeight;
+		let pos = 0 - (maxTranslation * percentage);
+		// let pos = (percentage * -(this.contentHeight + 0.5 * this.props.strength));
+		
+		// old calculation
 		let backPos = backPos = Math.floor(((top + this.contentHeight - 0.25*this.props.strength) / this.windowHeight) * this.props.strength) * -1;
 		
-		console.log(percentage, this.contentHeight, pos);
+		console.log('translate it max:', maxHeight - this.contentHeight);
 		
 		this.img.style.WebkitTransform = 'translate3d(-50%, ' + pos + 'px, 0)';
 		this.img.style.transform = 'translate3d(-50%, ' + pos + 'px, 0)';
