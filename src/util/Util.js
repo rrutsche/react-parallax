@@ -42,7 +42,7 @@ export function getRelativePosition(node, canUseDOM) {
 
     y = y > window.innerHeight ? window.innerHeight : y;
 
-    return getPercentage(-height, window.innerHeight, y);
+    return getPercentage(0, window.innerHeight, y);
 
 }
 
