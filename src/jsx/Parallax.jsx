@@ -162,10 +162,6 @@ class Parallax extends React.Component {
 		if (this.bg && this.splitChildren.bgChildren.length > 0) {
 			this.setBackgroundPosition(percentage);
 		}
-
-		if (this.props.contentStyles) {
-			this.updateChildStyle(percentage);
-		}
 	}
 
 	/**
@@ -245,18 +241,6 @@ class Parallax extends React.Component {
 		}
 	}
 
-	updateChildStyle(percentage) {
-		// https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Properties_Reference
-		let factor = 1 - percentage;
-		if (this.props.contentStyles) {
-			let childStyle = this.state.childStyle;
-			this.props.contentStyles.forEach((style) => {
-				let newVal = Math.round(100 * (style.min + (factor * (style.max - style.min)))) / 100;
-				setStyleProp(this.content, style, newVal, this.canUseDOM);
-			});
-		}
-	}
-
 	log() {
 		if (this.props.log) {
 			console.log(arguments);
@@ -278,24 +262,6 @@ Parallax.propTypes = {
 	blur: React.PropTypes.number,
 	imageStyle: React.PropTypes.object,
 	backgroundStyle: React.PropTypes.object,
-	contentStyles: React.PropTypes.arrayOf(React.PropTypes.shape({
-		property: React.PropTypes.oneOf([
-			'blur',
-			'fontSize',
-			'margin',
-			'marginLeft',
-			'marginRight',
-			'marginTop',
-			'marginBottom',
-			'paddingLeft',
-			'paddingRight',
-			'paddingTop',
-			'paddingBottom',
-		]),
-		min: React.PropTypes.number,
-		max: React.PropTypes.number,
-		unit: React.PropTypes.string
-	})),
 };
 Parallax.defaultProps = {
 	strength: 100,
