@@ -66,7 +66,7 @@ export default class KitchenSink extends React.Component {
 				</div>
 				<Parallax
 					bgImage={this.state.image}
-					strength={300}
+					strength={200}
 					contentStyles={[
 						{property: 'blur', min: 0, max: 2}
 					]}>
