@@ -182,6 +182,7 @@ class Parallax extends React.Component {
 
 		let maxTranslation = maxHeight - this.contentHeight;
 		let pos = 0 - (maxTranslation * percentage);
+		this.log('maxTranslation image', percentage);
 
 		this.img.style.WebkitTransform = 'translate3d(-50%, ' + pos + 'px, 0)';
 		this.img.style.transform = 'translate3d(-50%, ' + pos + 'px, 0)';
@@ -201,6 +202,7 @@ class Parallax extends React.Component {
 		let maxHeight = Math.floor(this.contentHeight + Math.abs(this.props.strength));
 		let maxTranslation = maxHeight - this.contentHeight;
 		let pos = 0 - (maxTranslation * percentage);
+		this.log('maxTranslation', percentage);
 
 		this.bg.style.WebkitTransform = 'translate3d(-50%, ' + pos + 'px, 0)';
 		this.bg.style.transform = 'translate3d(-50%, ' + pos + 'px, 0)';

@@ -33,7 +33,6 @@ export function getRelativePosition(node, canUseDOM) {
 	}
 	let element = node;
 	let height = node.getBoundingClientRect().height;
-	let range = height
     let y = 0;
 
     while(element) {
@@ -41,7 +40,7 @@ export function getRelativePosition(node, canUseDOM) {
         element = element.offsetParent;
     }
 
-    y = y > window.innerHeight ? window.innerHeight : (y < (-height) ? -height : y);
+    y = y > window.innerHeight ? window.innerHeight : y;
 
     return getPercentage(-height, window.innerHeight, y);
 

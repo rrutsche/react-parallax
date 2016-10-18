@@ -8,16 +8,16 @@ class Background extends React.Component {
 
 	render() {
 		return (
-			<div className="react-parallax-background">{this.props.children}</div>
+			<div className={'react-parallax-background ' + this.props.className}>{this.props.children}</div>
 		);
 	}
 }
 
+Background.propTypes = {
+	children: React.PropTypes.node,
+	className: React.PropTypes.number
+};
+Background.defaultProps = {
+	className: ''
+};
 export default Background;
-
-// Background.propTypes = {
-// 	children: React.PropTypes.oneOfType([
-// 		React.PropTypes.element,
-// 		React.PropTypes.array
-// 	])
-// };
