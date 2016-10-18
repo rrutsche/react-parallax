@@ -1,12 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import { isScrolledIntoView, getWindowHeight, canUseDOM, getRelativePosition } from '../util/Util';
+import { isScrolledIntoView, getWindowHeight, canUseDOM, getRelativePosition, setStyleProp } from '../util/Util';
 
 class Parallax extends React.Component {
 
 	constructor(props) {
 		super(props);
+
+		this.state = {
+			childStyle: {
+				position: 'relative'
+			}
+		};
 
 		this.canUseDOM = canUseDOM();
 
@@ -14,10 +20,10 @@ class Parallax extends React.Component {
 		this.ReactDOM = ReactDOM.findDOMNode ? ReactDOM : React;
 
 		this.node = null;
+		this.content = null;
 		this.splitChildren = this.getSplitChildren(props);
 
 		this.windowHeight = getWindowHeight(this.canUseDOM);
-		this.childStyle = this.getChildStyle();
 		this.timestamp = Date.now();
 		this.autobind();
 	}
@@ -47,7 +53,7 @@ class Parallax extends React.Component {
 						{this.splitChildren.bgChildren}
 					</div>
 				) : ''}
-				<div className="react-parallax-content" style={this.childStyle} ref="content">
+				<div className="react-parallax-content" style={this.state.childStyle} ref="content">
 					{this.splitChildren.children}
 				</div>
 			</div>
@@ -136,8 +142,8 @@ class Parallax extends React.Component {
 	 */
 	updatePosition() {
 		let autoHeight = false;
-		let content = this.ReactDOM.findDOMNode(this.refs.content);
-		this.contentHeight = content.getBoundingClientRect().height;
+		this.content = this.ReactDOM.findDOMNode(this.refs.content);
+		this.contentHeight = this.content.getBoundingClientRect().height;
 		this.contentWidth = this.node.getBoundingClientRect().width;
 
 		// set autoHeight or autoWidth
@@ -145,22 +151,27 @@ class Parallax extends React.Component {
 			autoHeight = true;
 		}
 
-		// update scroll position
-		let rect = this.node.getBoundingClientRect();
+		// get relative scroll-y position of parallax component in percentage
+		let percentage = getRelativePosition(this.node, this.canUseDOM);
+
 		// update bg image position if set
-		if (rect && this.img) {
-			this.setImagePosition(rect.top, autoHeight);
+		if (this.img) {
+			this.setImagePosition(percentage, autoHeight);
 		}
 		// update position of Background children if exist
-		if (rect && this.bg && this.splitChildren.bgChildren.length > 0) {
-			this.setBackgroundPosition(rect.top);
+		if (this.bg && this.splitChildren.bgChildren.length > 0) {
+			this.setBackgroundPosition(percentage);
+		}
+
+		if (this.props.contentStyles) {
+			this.updateChildStyle(percentage);
 		}
 	}
 
 	/**
 	 * sets position for the background image
 	 */
-	setImagePosition(top, autoHeight=false) {
+	setImagePosition(percentage, autoHeight=false) {
 
 		let maxHeight = Math.floor(this.contentHeight + Math.abs(this.props.strength));
 		let height = this.props.bgHeight || (autoHeight ? 'auto' : maxHeight + 'px');
@@ -173,13 +184,8 @@ class Parallax extends React.Component {
 			return;
 		}
 
-		let percentage = getRelativePosition(this.node, this.canUseDOM);
 		let maxTranslation = maxHeight - this.contentHeight;
 		let pos = 0 - (maxTranslation * percentage);
-		// let pos = (percentage * -(this.contentHeight + 0.5 * this.props.strength));
-
-		// old calculation
-		let backPos = backPos = Math.floor(((top + this.contentHeight - 0.25*this.props.strength) / this.windowHeight) * this.props.strength) * -1;
 
 		this.img.style.WebkitTransform = 'translate3d(-50%, ' + pos + 'px, 0)';
 		this.img.style.transform = 'translate3d(-50%, ' + pos + 'px, 0)';
@@ -190,14 +196,18 @@ class Parallax extends React.Component {
 		}
 	}
 
-	setBackgroundPosition(top) {
+	setBackgroundPosition(percentage) {
 		// don't do unneccessary style processing if parallax is disabled
 		if (this.props.disabled === true) {
 			return;
 		}
-		let backPos = backPos = Math.floor(((top + this.contentHeight - 0.25*this.props.strength) / this.windowHeight) * this.props.strength) * -1;
-		this.bg.style.WebkitTransform = 'translate3d(-50%, ' + backPos + 'px, 0)';
-		this.bg.style.transform = 'translate3d(-50%, ' + backPos + 'px, 0)';
+
+		let maxHeight = Math.floor(this.contentHeight + Math.abs(this.props.strength));
+		let maxTranslation = maxHeight - this.contentHeight;
+		let pos = 0 - (maxTranslation * percentage);
+
+		this.bg.style.WebkitTransform = 'translate3d(-50%, ' + pos + 'px, 0)';
+		this.bg.style.transform = 'translate3d(-50%, ' + pos + 'px, 0)';
 	}
 
 	/**
@@ -235,13 +245,16 @@ class Parallax extends React.Component {
 		}
 	}
 
-	/**
-	 * returns styles for the component content.
-	 */
-	getChildStyle() {
-		return {
-			position: 'relative'
-		};
+	updateChildStyle(percentage) {
+		// https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Properties_Reference
+		let factor = 1 - percentage;
+		if (this.props.contentStyles) {
+			let childStyle = this.state.childStyle;
+			this.props.contentStyles.forEach((style) => {
+				let newVal = Math.round(100 * (style.min + (factor * (style.max - style.min)))) / 100;
+				setStyleProp(this.content, style, newVal, this.canUseDOM);
+			});
+		}
 	}
 
 	log() {
@@ -262,7 +275,27 @@ Parallax.propTypes = {
 	bgWidth: React.PropTypes.string,
 	bgHeight: React.PropTypes.string,
 	strength: React.PropTypes.number,
-	blur: React.PropTypes.number
+	blur: React.PropTypes.number,
+	imageStyle: React.PropTypes.object,
+	backgroundStyle: React.PropTypes.object,
+	contentStyles: React.PropTypes.arrayOf(React.PropTypes.shape({
+		property: React.PropTypes.oneOf([
+			'blur',
+			'fontSize',
+			'margin',
+			'marginLeft',
+			'marginRight',
+			'marginTop',
+			'marginBottom',
+			'paddingLeft',
+			'paddingRight',
+			'paddingTop',
+			'paddingBottom',
+		]),
+		min: React.PropTypes.number,
+		max: React.PropTypes.number,
+		unit: React.PropTypes.string
+	})),
 };
 Parallax.defaultProps = {
 	strength: 100,
