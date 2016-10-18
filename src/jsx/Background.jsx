@@ -15,7 +15,7 @@ class Background extends React.Component {
 
 Background.propTypes = {
 	children: React.PropTypes.node,
-	className: React.PropTypes.number
+	className: React.PropTypes.string
 };
 Background.defaultProps = {
 	className: ''
