@@ -261,7 +261,6 @@ Parallax.propTypes = {
 	strength: React.PropTypes.number,
 	blur: React.PropTypes.number,
 	imageStyle: React.PropTypes.object,
-	backgroundStyle: React.PropTypes.object,
 };
 Parallax.defaultProps = {
 	strength: 100,
