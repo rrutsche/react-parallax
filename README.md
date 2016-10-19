@@ -1,8 +1,8 @@
 # react-parallax
 
-> A react component for simple parallax effect
+A react component for simple parallax effect
 
-##### Note: As of the recommended ES6 import/export handling the `react-parallax` module won't have any mixed exports anymore. The `Parallax` Component now has to be imported like the `Background` Component: ```import { Parallax } from 'react-parallax';```
+---
 
 ## Install
 
@@ -10,7 +10,7 @@
 npm install react-parallax --save
 ```
 
-## [Demo](http://rrutsche.github.io/#parallax)
+### [Demo](http://rrutsche.github.io/#parallax)
 
 ## Default Usage
 
@@ -18,13 +18,13 @@ npm install react-parallax --save
 import { Parallax } from 'react-parallax';
 
 const TheContainer = React.createClass({
-	render: function () {
-  	return (
-    	<div>
-				<Parallax bgImage="assets/1.jpg" strength={400}>
-					<br/>
-					<h1> some content that is displayed above the bgImage </h1>
-				</Parallax>
+  render: function () {
+    return (
+      <div>
+	    <Parallax bgImage="assets/1.jpg" strength={400}>
+		  <br/>
+		  <h1> some content that is displayed above the bgImage </h1>
+		</Parallax>
       </div>
     )
   }
@@ -32,22 +32,22 @@ const TheContainer = React.createClass({
 ```
 ## Background Component
 
-For more flexibility and styling purposes you can add a ```<Background></Background>``` section to your Parallax Container. Child nodes inside this Background will be positioned like the bgImage behind the other children. Different from the bgImage there is no automatic scaling.
+For more flexibility and styling purposes you can add a ```<Background></Background>``` section to your Parallax Container. Child nodes inside this Background will be positioned like the bgImage behind the other children. Compared to the bgImage there is no automatic scaling.
 ```
 import { Parallax, Background } from 'react-parallax';
 
 const TheContainer = React.createClass({
-	render: function () {
-    	return (
-			<div>
-				<Parallax strength={300}>
-					<Background>
-						<img src="http://www.fillmurray.com/400/300"/>
-						<div style={{width: 800, height: 300, backgroundColor: '#450093'}}></div>
-						<img src="http://www.fillmurray.com/500/300"/>
-					</Background>
-					<h1>A collection of textile samples lay spread out on the table ...</h1>
-				</Parallax>
+  render: function () {
+    return (
+	  <div>
+	    <Parallax strength={300}>
+		  <Background>
+		    <img src="http://www.fillmurray.com/400/300"/>
+			<div style={{width: 800, height: 300, backgroundColor: '#450093'}}></div>
+			<img src="http://www.fillmurray.com/500/300"/>
+		  </Background>
+		  <h1>A collection of textile samples lay spread out on the table ...</h1>
+		</Parallax>
       </div>
     )
   }
