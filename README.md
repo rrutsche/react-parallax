@@ -1,10 +1,8 @@
 # react-parallax
-
-A react component for simple parallax effect
-
+##### A react component for simple parallax effect
 ---
 
-## Install
+### Install
 
 ```sh
 npm install react-parallax --save
@@ -39,14 +37,18 @@ import { Parallax, Background } from 'react-parallax';
 const TheContainer = React.createClass({
   render: function () {
     return (
-	  <div>
-	    <Parallax strength={300}>
+      <div>
+        <Parallax strength={300}>
 		  <Background>
 		    <img src="http://www.fillmurray.com/400/300"/>
-			<div style={{width: 800, height: 300, backgroundColor: '#450093'}}></div>
+			<div style={{
+			   width: 800, 
+			   height: 300, 
+			   backgroundColor: '#450093'
+			  }}></div>
 			<img src="http://www.fillmurray.com/500/300"/>
 		  </Background>
-		  <h1>A collection of textile samples lay spread out on the table ...</h1>
+		  <h1>something else</h1>
 		</Parallax>
       </div>
     )
@@ -88,4 +90,3 @@ Port on Windows is 80, 8080 on all other OS by default. Can be set with option -
 # License
 
 MIT
-
