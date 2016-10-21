@@ -1,7 +1,8 @@
 # react-parallax
 ##### A react component for simple parallax effect
----
 
+---
+Position calculation has changed in version 1.0.0 to get rid of some white space edge cases on large screens. I hope it does not break your current setup. In some cases you will have to adjust the `strength` value.
 ### Install
 
 ```sh
