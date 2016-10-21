@@ -153,7 +153,6 @@ class Parallax extends React.Component {
 
 		// get relative scroll-y position of parallax component in percentage
 		let percentage = getRelativePosition(this.node, this.canUseDOM);
-		this.log(percentage);
 
 		// update bg image position if set
 		if (this.img) {
@@ -261,7 +260,7 @@ Parallax.propTypes = {
 	bgHeight: React.PropTypes.string,
 	strength: React.PropTypes.number,
 	blur: React.PropTypes.number,
-	imageStyle: React.PropTypes.object,
+	className: React.PropTypes.string,
 };
 Parallax.defaultProps = {
 	strength: 100,
