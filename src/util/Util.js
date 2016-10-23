@@ -33,12 +33,7 @@ export function getRelativePosition(node, canUseDOM) {
 	}
 	let element = node;
 	let height = node.getBoundingClientRect().height;
-    let y = 0;
-
-    while(element) {
-        y += (element.offsetTop - element.scrollTop + element.clientTop);
-        element = element.offsetParent;
-    }
+    let y = Math.round(element.getBoundingClientRect().top);
 
     y = y > window.innerHeight ? window.innerHeight : y;
 
