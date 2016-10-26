@@ -1,4 +1,4 @@
-# react-parallax
+# react-parallax [![NPM version][npm-image]][npm-url]
 
 ---
 Position calculation has changed in version 1.0.0 to get rid of some white space edge cases on large screens. I hope it does not break your current setup. In some cases you will have to adjust the `strength` value.
@@ -90,3 +90,7 @@ Port on Windows is 80, 8080 on all other OS by default. Can be set with option -
 # License
 
 MIT
+
+
+[npm-image]: https://img.shields.io/npm/v/react-parallax.svg?style=flat-square
+[npm-url]: https://www.npmjs.com/package/react-parallax
