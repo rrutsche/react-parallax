@@ -1,7 +1,7 @@
 {
   "name": "react-parallax",
   "author": "Richard Rutsche",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "A React Component for parallax effect working in client-side and server-side rendering environment",
   "repository": {
     "type": "git",
@@ -14,11 +14,11 @@
     "dist": "NODE_ENV=production && webpack -p --progress --config webpack.config.build.js"
   },
   "keywords": [
-	"react",
-	"reactjs",
-	"parallax",
-	"scroll",
-	"jsx"
+    "react",
+    "reactjs",
+    "parallax",
+    "scroll",
+    "jsx"
   ],
   "dependencies": {
     "react": "^0.14.0 || ^15.0.0-0",
