@@ -13,6 +13,13 @@
     "dev": "NODE_ENV=development && webpack-dev-server --progress --config webpack.config.dev.js",
     "dist": "NODE_ENV=production && webpack -p --progress --config webpack.config.build.js"
   },
+  "keywords": [
+	"react",
+	"reactjs",
+	"parallax",
+	"scroll",
+	"jsx"
+  ],
   "dependencies": {
     "react": "^0.14.0 || ^15.0.0-0",
     "react-dom": "^0.14.0 || ^15.0.0-0"
