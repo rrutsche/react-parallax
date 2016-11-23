@@ -219,6 +219,12 @@ class Parallax extends React.Component {
 			node.style.WebkitBackfaceVisibility = 'hidden';
 			node.style.MozBackfaceVisibility = 'hidden';
 			node.style.MsBackfaceVisibility = 'hidden';
+
+			if (this.props.bgStyle) {
+				Object.keys(this.props.bgStyle).forEach((styleKey) => {
+					node.style[styleKey] = this.props.bgStyle[styleKey];
+				});
+			}
 		}
 	}
 
@@ -249,6 +255,7 @@ class Parallax extends React.Component {
 }
 /**
  * @param {String} bgImage - path to the background image that makes parallax effect visible
+ * @param {String} bgStyle - additional style object for the bg image/children
  * @param {String} bgWidth - set bgImage width manually
  * @param {String} bgHeight - set bgImage height manually
  * @param {Number} strength - parallax effect strength (in pixel), default 100
@@ -256,6 +263,7 @@ class Parallax extends React.Component {
  */
 Parallax.propTypes = {
 	bgImage: React.PropTypes.string,
+	bgStyle: React.PropTypes.object,
 	bgWidth: React.PropTypes.string,
 	bgHeight: React.PropTypes.string,
 	strength: React.PropTypes.number,

@@ -58,6 +58,8 @@ const TheContainer = React.createClass({
 # Props
 
 * bgImage: path to the background image that makes parallax effect visible - (type: String)
+* bgStyle: additional style object for the bg image/children - (type: Object)
+[Valid style attributes](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Properties_Reference)
 * bgWidth: set bgImage width manually - (type: String), eg. '400px', 'auto'
 * bgHeight: set bgImage height manually - (type: String), eg. '400px', 'auto'
 * strength: parallax effect strength (in pixel), default 100. this will define the amount of pixels the background image is translated - (type: Number)
