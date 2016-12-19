@@ -87,7 +87,15 @@ class Parallax extends React.Component {
 		// bg image ref
 		this.img = this.refs.bgImage ? this.ReactDOM.findDOMNode(this.refs.bgImage) : null;
 
-		this.updatePosition();
+		if (this.props.bgImage) {
+			let image = new Image();
+			image.onload = image.onerror = (img) => {
+				this.updatePosition();
+			}
+			image.src = this.props.bgImage;
+		} else {
+			this.updatePosition();
+		}
 		this.setParallaxStyle();
 		this.setInitialBackgroundStyles(this.img);
 		this.setInitialBackgroundStyles(this.bg);
@@ -249,7 +257,7 @@ class Parallax extends React.Component {
 
 	log() {
 		if (this.props.log) {
-			console.log(arguments);
+			console.log(...arguments);
 		}
 	}
 }
