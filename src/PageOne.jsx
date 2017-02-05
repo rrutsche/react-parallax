@@ -50,7 +50,6 @@ export default class PageOne extends React.Component {
 			<div style={style}>
 				<Link to="pagetwo">Page Two</Link>
 				<Parallax
-					log
 					bgImage={this.state.image}
 					strength={200}
 					contentStyles={[
@@ -80,9 +79,27 @@ export default class PageOne extends React.Component {
 					<p>The sails and the English flag were hoisted at ten minutes past three. Mr. Fogg and Aouda, who were seated on deck, cast a last glance at the quay, in the hope of espying Passepartout.  Fix was not without his fears lest chance should direct the steps of the unfortunate servant, whom he had so badly treated, in this direction; in which case an explanation the reverse of satisfactory to the detective must have ensued.  But the Frenchman did not appear, and, without doubt, was still lying under the stupefying influence of the opium.</p>
 					<h1 style={fontStyle2} onClick={() => this.changeImage()}>change image</h1>
 					<h1 style={fontStyle2} onClick={() => this.changeChildren()}>change children</h1>
+					<hr/>
 				</div>
 				<div style={{width: '500px', margin: '20px auto'}}>
 					<Parallax
+						log
+						bgImage={require('./assets/3.jpg')}
+						strength={-200}
+						contentStyles={[
+							{property: 'blur', min: 0, max: 2}
+						]}>
+						<br/>
+						{this.state.children}
+						<h1 style={fontStyle2}>
+							<p>"It's certain," thought he, "though rascal as he is, he is a polite one!"</p>
+							<p>The sails and the English flag were hoisted at ten minutes past three. Mr. Fogg and Aouda, who were seated on deck, cast a last glance at the quay, in the hope of espying Passepartout.  Fix was not without his fears lest chance should direct the steps of the unfortunate servant, whom he had so badly treated, in this direction; in which case an explanation the reverse of satisfactory to the detective must have ensued.  But the Frenchman did not appear, and, without doubt, was still lying under the stupefying influence of the opium.</p>
+						</h1>
+					</Parallax>
+				</div>
+				<div style={{width: '500px', margin: '20px auto'}}>
+					<Parallax
+						log
 						bgImage={require('./assets/3.jpg')}
 						strength={200}
 						contentStyles={[
@@ -96,7 +113,8 @@ export default class PageOne extends React.Component {
 						</h1>
 					</Parallax>
 				</div>
-				<Parallax strength={300}>
+				<hr/>
+				<Parallax strength={-300}>
 					<Background>
 						<img src="http://www.fillmurray.com/400/300" alt="fill murray"/>
 						<div style={{width: 800, height: 300, backgroundColor: '#450093'}}></div>

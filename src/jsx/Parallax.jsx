@@ -155,7 +155,7 @@ class Parallax extends React.Component {
 		this.contentWidth = this.node.getBoundingClientRect().width;
 
 		// set autoHeight or autoWidth
-		if (this.img && (this.img.naturalWidth / this.img.naturalHeight < this.contentWidth / (this.contentHeight + this.props.strength))) {
+		if (this.img && (this.img.naturalWidth / this.img.naturalHeight < this.contentWidth / this.getImageHeight() )) {
 			autoHeight = true;
 		}
 
@@ -173,13 +173,21 @@ class Parallax extends React.Component {
 	}
 
 	/**
+	 * The image height depends on parallax direction. If strength value is negative we have to give it more height
+	 * so there is no white space at start/end of container visiblility.
+	 */
+	getImageHeight() {
+		const inverse = this.props.strength < 0;
+		return Math.floor(this.contentHeight + ((inverse ? 2.5 : 1) * Math.abs(this.props.strength)));
+	}
+
+	/**
 	 * sets position for the background image
 	 */
 	setImagePosition(percentage, autoHeight=false) {
 
-		let maxHeight = Math.floor(this.contentHeight + Math.abs(this.props.strength));
-		let height = this.props.bgHeight || (autoHeight ? 'auto' : maxHeight + 'px');
-		let width = this.props.bgWidth || (!autoHeight ? 'auto' : this.contentWidth + 'px');
+		const height = this.props.bgHeight || (autoHeight ? 'auto' : this.getImageHeight() + 'px');
+		const width = this.props.bgWidth || (!autoHeight ? 'auto' : this.contentWidth + 'px');
 		this.img.style.height = height;
 		this.img.style.width = width;
 
@@ -188,8 +196,8 @@ class Parallax extends React.Component {
 			return;
 		}
 
-		let maxTranslation = maxHeight - this.contentHeight;
-		let pos = 0 - (maxTranslation * percentage);
+		const inverse = this.props.strength < 0;
+		const pos = (inverse ? this.props.strength : 0) - (this.props.strength * percentage);
 
 		this.img.style.WebkitTransform = 'translate3d(-50%, ' + pos + 'px, 0)';
 		this.img.style.transform = 'translate3d(-50%, ' + pos + 'px, 0)';
@@ -206,9 +214,8 @@ class Parallax extends React.Component {
 			return;
 		}
 
-		let maxHeight = Math.floor(this.contentHeight + Math.abs(this.props.strength));
-		let maxTranslation = maxHeight - this.contentHeight;
-		let pos = 0 - (maxTranslation * percentage);
+		const inverse = this.props.strength < 0;
+		const pos = (inverse ? this.props.strength : 0) - (this.props.strength * percentage);
 
 		this.bg.style.WebkitTransform = 'translate3d(-50%, ' + pos + 'px, 0)';
 		this.bg.style.transform = 'translate3d(-50%, ' + pos + 'px, 0)';
