@@ -63,9 +63,11 @@ const TheContainer = React.createClass({
 * bgWidth: set bgImage width manually - (type: String), eg. '400px', 'auto'
 * bgHeight: set bgImage height manually - (type: String), eg. '400px', 'auto'
 * strength: parallax effect strength (in pixel), default 100. this will define the amount of pixels the background image is translated - (type: Number)
-* blur: pixel value for background image blur, default: 0 - (type: Number)
+* blur: 
+    1) pixel value for background image blur, default: 0 - (type: Number)
+    2) or object in format `{min:0, max:5}` for dynamic blur depending on scroll position
 * disabled: turns off parallax effect if set to true, default: false - (type: Boolean)
-* className: set an additional className - (type: String) // as replacement for removed bgColor prop
+* className: set an additional className - (type: String)
 
 
 
