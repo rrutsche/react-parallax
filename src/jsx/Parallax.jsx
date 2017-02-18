@@ -25,6 +25,7 @@ class Parallax extends React.Component {
 
 		this.windowHeight = getWindowHeight(this.canUseDOM);
 		this.timestamp = Date.now();
+		this.dynamicBlur = !!(props.blur && props.blur.min !== undefined && props.blur.max !== undefined);
 		this.autobind();
 	}
 
@@ -201,11 +202,15 @@ class Parallax extends React.Component {
 
 		this.img.style.WebkitTransform = 'translate3d(-50%, ' + pos + 'px, 0)';
 		this.img.style.transform = 'translate3d(-50%, ' + pos + 'px, 0)';
-
 		if (this.props.blur) {
-			this.img.style.WebkitFilter = 'blur(' + this.props.blur + 'px)';
-			this.img.style.filter = 'blur(' + this.props.blur + 'px)';
+			let blur = this.dynamicBlur ? this.props.blur.min + ((1 - percentage) * this.props.blur.max) : this.props.blur;
+			this.setBlur(this.img, blur);
 		}
+	}
+
+	setBlur(node, blur) {
+		node.style.WebkitFilter = 'blur(' + blur + 'px)';
+		node.style.filter = 'blur(' + blur + 'px)';
 	}
 
 	setBackgroundPosition(percentage) {
@@ -282,12 +287,11 @@ Parallax.propTypes = {
 	bgWidth: React.PropTypes.string,
 	bgHeight: React.PropTypes.string,
 	strength: React.PropTypes.number,
-	blur: React.PropTypes.number,
+	blur: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.object]),
 	className: React.PropTypes.string,
 };
 Parallax.defaultProps = {
 	strength: 100,
-	blur: 0,
 	log: false,
 	disabled: false
 };

@@ -50,6 +50,7 @@ export default class PageOne extends React.Component {
 			<div style={style}>
 				<Link to="pagetwo">Page Two</Link>
 				<Parallax
+					blur={{min: -15, max: 15}}
 					bgImage={this.state.image}
 					strength={200}
 					contentStyles={[
@@ -59,6 +60,7 @@ export default class PageOne extends React.Component {
 					{this.state.children}
 					<h1 style={fontStyle2}>
 						<p>"Queequeg," said I, when they had dragged me, the last man, to the deck, and I was still shaking myself in my jacket to fling off the water; "Queequeg, my fine friend, does this sort of thing often happen?" Without much emotion, though soaked through just like me, he gave me to understand that such things did often happen.</p>
+						<p>"Mr. Stubb," said I, turning to that worthy, who, buttoned up in his oil-jacket, was now calmly smoking his pipe in the rain; "Mr. Stubb, I think I have heard you say that of all whalemen you ever met, our chief mate, Mr. Starbuck, is by far the most careful and prudent. I suppose then, that going plump on a flying whale with your sail set in a foggy squall is the height of a whaleman's discretion?"</p>
 						<p>"Mr. Stubb," said I, turning to that worthy, who, buttoned up in his oil-jacket, was now calmly smoking his pipe in the rain; "Mr. Stubb, I think I have heard you say that of all whalemen you ever met, our chief mate, Mr. Starbuck, is by far the most careful and prudent. I suppose then, that going plump on a flying whale with your sail set in a foggy squall is the height of a whaleman's discretion?"</p>
 					</h1>
 					<br/>
@@ -99,6 +101,7 @@ export default class PageOne extends React.Component {
 				</div>
 				<div style={{width: '500px', margin: '20px auto'}}>
 					<Parallax
+						blur={{min: 0, max: 5}}
 						log
 						bgImage={require('./assets/3.jpg')}
 						strength={200}
