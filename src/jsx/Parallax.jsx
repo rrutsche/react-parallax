@@ -48,12 +48,12 @@ class Parallax extends React.Component {
 			<div className={'react-parallax ' + (this.props.className ? this.props.className : '')}>
 				{this.props.bgImage ? (
 					<img className="react-parallax-bgimage" src={this.props.bgImage} ref="bgImage" alt=""/>
-				) : ''}
+				) : null}
 				{this.splitChildren.bgChildren.length > 0 ? (
 					<div className="react-parallax-background-children" ref={(bg) => this.bgMounted(bg)}>
 						{this.splitChildren.bgChildren}
 					</div>
-				) : ''}
+				) : null}
 				<div className="react-parallax-content" style={this.state.childStyle} ref="content">
 					{this.splitChildren.children}
 				</div>
