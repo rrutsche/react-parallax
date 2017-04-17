@@ -29,60 +29,12 @@ class Parallax extends React.Component {
 		this.autobind();
 	}
 
-	componentWillReceiveProps(nextProps) {
-		this.splitChildren = this.getSplitChildren(nextProps);
-	}
-
-	/**
-	 * bind scope to all functions that will be called via eventlistener
-	 */
-	autobind() {
-		this.onScroll = this.onScroll.bind(this);
-		this.onWindowResize = this.onWindowResize.bind(this);
-		this.updatePosition = this.updatePosition.bind(this);
-		this.onWindowLoad = this.onWindowLoad.bind(this);
-	}
-
-	render() {
-		return (
-			<div className={'react-parallax ' + (this.props.className ? this.props.className : '')}>
-				{this.props.bgImage ? (
-					<img className="react-parallax-bgimage" src={this.props.bgImage} ref="bgImage" alt=""/>
-				) : null}
-				{this.splitChildren.bgChildren.length > 0 ? (
-					<div className="react-parallax-background-children" ref={(bg) => this.bgMounted(bg)}>
-						{this.splitChildren.bgChildren}
-					</div>
-				) : null}
-				<div className="react-parallax-content" style={this.state.childStyle} ref="content">
-					{this.splitChildren.children}
-				</div>
-			</div>
-		);
-	}
-
-
-	/**
-	 * remove all eventlisteners before component is destroyed
-	 */
-	componentWillUnmount() {
-		if (this.canUseDOM) {
-			document.removeEventListener('scroll', this.onScroll, false);
-			window.removeEventListener("resize", this.onWindowResize, false);
-			window.removeEventListener("load", this.onWindowLoad, false);
-		}
-	}
-
 	/**
 	 * bind some eventlisteners for page load, scroll and resize
 	 * save component ref after rendering, update all values and set static style values
 	 */
 	componentDidMount() {
-		if (this.canUseDOM) {
-			document.addEventListener('scroll', this.onScroll, false);
-			window.addEventListener("resize", this.onWindowResize, false);
-			window.addEventListener("load", this.onWindowLoad, false);
-		}
+		this.addListeners(this.props);
 		// ref to component itself
 		this.node = this.ReactDOM.findDOMNode(this);
 		// bg image ref
@@ -100,6 +52,68 @@ class Parallax extends React.Component {
 		this.setParallaxStyle();
 		this.setInitialBackgroundStyles(this.img);
 		this.setInitialBackgroundStyles(this.bg);
+	}
+
+	componentWillReceiveProps(nextProps) {
+		this.splitChildren = this.getSplitChildren(nextProps);
+		if (this.props.parent !== nextProps.parent) {
+			this.removeListeners(nextProps);
+			this.addListeners(nextProps);
+		}
+	}
+
+	/**
+	 * remove all eventlisteners before component is destroyed
+	 */
+	componentWillUnmount() {
+		this.removeListeners();
+	}
+
+	/**
+	 * bind scope to all functions that will be called via eventlistener
+	 */
+	autobind() {
+		this.onScroll = this.onScroll.bind(this);
+		this.onWindowResize = this.onWindowResize.bind(this);
+		this.updatePosition = this.updatePosition.bind(this);
+		this.onWindowLoad = this.onWindowLoad.bind(this);
+	}
+
+	addListeners(props) {
+		this.log('addListeners', props.parent);
+		if (this.canUseDOM && props.parent) {
+			props.parent.addEventListener('scroll', this.onScroll, false);
+			window.addEventListener("resize", this.onWindowResize, false);
+			window.addEventListener("load", this.onWindowLoad, false);
+		}
+	}
+
+	removeListeners(props) {
+		this.log('removeListeners');
+		if (this.canUseDOM && props.parent) {
+			props.parent.removeEventListener('scroll', this.onScroll, false);
+			window.removeEventListener("resize", this.onWindowResize, false);
+			window.removeEventListener("load", this.onWindowLoad, false);
+		}
+	}
+
+	render() {
+		this.log(this.props.parent);
+		return (
+			<div className={'react-parallax ' + (this.props.className ? this.props.className : '')}>
+				{this.props.bgImage ? (
+					<img className="react-parallax-bgimage" src={this.props.bgImage} ref="bgImage" alt=""/>
+				) : null}
+				{this.splitChildren.bgChildren.length > 0 ? (
+					<div className="react-parallax-background-children" ref={(bg) => this.bgMounted(bg)}>
+						{this.splitChildren.bgChildren}
+					</div>
+				) : null}
+				<div className="react-parallax-content" style={this.state.childStyle} ref="content">
+					{this.splitChildren.children}
+				</div>
+			</div>
+		);
 	}
 
 	bgMounted(bg) {
@@ -293,7 +307,8 @@ Parallax.propTypes = {
 Parallax.defaultProps = {
 	strength: 100,
 	log: false,
-	disabled: false
+	disabled: false,
+	parent: document,
 };
 
 export default Parallax;

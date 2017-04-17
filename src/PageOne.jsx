@@ -56,14 +56,6 @@ export default class PageOne extends React.Component {
 					contentStyles={[
 						{property: 'blur', min: 0, max: 2}
 					]}>
-					<br/>
-					{this.state.children}
-					<h1 style={fontStyle2}>
-						<p>"Queequeg," said I, when they had dragged me, the last man, to the deck, and I was still shaking myself in my jacket to fling off the water; "Queequeg, my fine friend, does this sort of thing often happen?" Without much emotion, though soaked through just like me, he gave me to understand that such things did often happen.</p>
-						<p>"Mr. Stubb," said I, turning to that worthy, who, buttoned up in his oil-jacket, was now calmly smoking his pipe in the rain; "Mr. Stubb, I think I have heard you say that of all whalemen you ever met, our chief mate, Mr. Starbuck, is by far the most careful and prudent. I suppose then, that going plump on a flying whale with your sail set in a foggy squall is the height of a whaleman's discretion?"</p>
-						<p>"Mr. Stubb," said I, turning to that worthy, who, buttoned up in his oil-jacket, was now calmly smoking his pipe in the rain; "Mr. Stubb, I think I have heard you say that of all whalemen you ever met, our chief mate, Mr. Starbuck, is by far the most careful and prudent. I suppose then, that going plump on a flying whale with your sail set in a foggy squall is the height of a whaleman's discretion?"</p>
-					</h1>
-					<br/>
 				</Parallax>
 				<h1 style={fontStyle2}>
 					<p>Quieting him with a word of command and a caress, I looked hurriedly through the approaching gloom for a sign of Dejah Thoris, and then, not seeing her, I called her name.  There was an answering murmur from the far corner of the apartment, and with a couple of quick strides I was standing beside her where she crouched among the furs and silks upon an ancient carved wooden seat.  As I waited she rose to her full height and looking me straight in the eye said:</p>
