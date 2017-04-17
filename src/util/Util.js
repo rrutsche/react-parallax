@@ -10,7 +10,7 @@ export function isScrolledIntoView(element, canUseDOM) {
 			elementTop <= window.innerHeight && elementBottom >= window.innerHeight;
 }
 
-export function getWindowHeight(canUseDOM) {
+export function getWindowHeight(canUseDOM, parent) {
 	if (!canUseDOM) {
 		return 0;
 	}
@@ -23,21 +23,34 @@ export function getWindowHeight(canUseDOM) {
 	return w.innerHeight || e.clientHeight || g.clientHeight;
 }
 
+export function getNodeHeight(canUseDOM, parent) {
+	if (!canUseDOM) {
+		return 0;
+	}
+
+	if (parent === document) {
+		return getWindowHeight(canUseDOM);
+	}
+
+	return parent.clientHeight;
+}
+
 export function canUseDOM() {
 	return !!((typeof window !== 'undefined' && window.document && window.document.createElement));
 }
 
-export function getRelativePosition(node, canUseDOM) {
+export function getRelativePosition(node, canUseDOM, parent) {
 	if (!canUseDOM) {
 		return 0;
 	}
 	let element = node;
 	let height = node.getBoundingClientRect().height;
     let y = Math.round(element.getBoundingClientRect().top);
+    const parentHeight = getNodeHeight(canUseDOM, document);
 
-    y = y > window.innerHeight ? window.innerHeight : y;
+    y = y > parentHeight ? parentHeight : y;
 
-    return getPercentage(0, window.innerHeight, y);
+    return getPercentage(0, parentHeight, y);
 
 }
 

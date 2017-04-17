@@ -57,7 +57,7 @@ export default class PageThree extends React.Component {
 			textAlign: 'center',
 			position: 'absolute',
 			top: 0,
-			height: '100%',
+			height: '300px',
 			overflow: 'scroll',
 		};
 		let fontStyle2 = {

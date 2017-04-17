@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import { isScrolledIntoView, getWindowHeight, canUseDOM, getRelativePosition, setStyleProp } from '../util/Util';
+import { isScrolledIntoView, getNodeHeight, canUseDOM, getRelativePosition, setStyleProp } from '../util/Util';
 
 class Parallax extends React.Component {
 
@@ -23,7 +23,7 @@ class Parallax extends React.Component {
 		this.content = null;
 		this.splitChildren = this.getSplitChildren(props);
 
-		this.windowHeight = getWindowHeight(this.canUseDOM);
+		this.parentHeight = getNodeHeight(this.canUseDOM, props.parent);
 		this.timestamp = Date.now();
 		this.dynamicBlur = !!(props.blur && props.blur.min !== undefined && props.blur.max !== undefined);
 		this.autobind();
@@ -59,6 +59,7 @@ class Parallax extends React.Component {
 		if (this.props.parent !== nextProps.parent) {
 			this.removeListeners(nextProps);
 			this.addListeners(nextProps);
+			this.parentHeight = getNodeHeight(this.canUseDOM, nextProps.parent);
 		}
 	}
 
@@ -80,7 +81,6 @@ class Parallax extends React.Component {
 	}
 
 	addListeners(props) {
-		this.log('addListeners', props.parent);
 		if (this.canUseDOM && props.parent) {
 			props.parent.addEventListener('scroll', this.onScroll, false);
 			window.addEventListener("resize", this.onWindowResize, false);
@@ -89,7 +89,6 @@ class Parallax extends React.Component {
 	}
 
 	removeListeners(props) {
-		this.log('removeListeners');
 		if (this.canUseDOM && props.parent) {
 			props.parent.removeEventListener('scroll', this.onScroll, false);
 			window.removeEventListener("resize", this.onWindowResize, false);
@@ -98,7 +97,6 @@ class Parallax extends React.Component {
 	}
 
 	render() {
-		this.log(this.props.parent);
 		return (
 			<div className={'react-parallax ' + (this.props.className ? this.props.className : '')}>
 				{this.props.bgImage ? (
@@ -175,7 +173,7 @@ class Parallax extends React.Component {
 		}
 
 		// get relative scroll-y position of parallax component in percentage
-		let percentage = getRelativePosition(this.node, this.canUseDOM);
+		let percentage = getRelativePosition(this.node, this.canUseDOM, this.props.parent);
 
 		// update bg image position if set
 		if (this.img) {
@@ -266,7 +264,7 @@ class Parallax extends React.Component {
 	 * update window height and positions on window resize
 	 */
 	onWindowResize() {
-		this.windowHeight = getWindowHeight(this.canUseDOM);
+		this.parentHeight = getNodeHeight(this.canUseDOM, this.props.parent);
 		this.updatePosition();
 	}
 
