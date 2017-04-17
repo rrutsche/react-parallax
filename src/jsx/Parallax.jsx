@@ -301,6 +301,7 @@ Parallax.propTypes = {
 	strength: React.PropTypes.number,
 	blur: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.object]),
 	className: React.PropTypes.string,
+	parent: React.PropTypes.node,
 };
 Parallax.defaultProps = {
 	strength: 100,

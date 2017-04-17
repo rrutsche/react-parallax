@@ -68,6 +68,7 @@ const TheContainer = React.createClass({
     2) or object in format `{min:0, max:5}` for dynamic blur depending on scroll position
 * disabled: turns off parallax effect if set to true, default: false - (type: Boolean)
 * className: set an additional className - (type: String)
+* parent: set optional parent for nested scrolling, default: document - (type: Node)
 
 
 
