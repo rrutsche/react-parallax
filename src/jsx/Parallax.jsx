@@ -67,7 +67,7 @@ class Parallax extends React.Component {
 	 * remove all eventlisteners before component is destroyed
 	 */
 	componentWillUnmount() {
-		this.removeListeners();
+		this.removeListeners(this.props);
 	}
 
 	/**
