@@ -10,7 +10,7 @@ export function isScrolledIntoView(element, canUseDOM) {
 			elementTop <= window.innerHeight && elementBottom >= window.innerHeight;
 }
 
-export function getWindowHeight(canUseDOM, parent) {
+export function getWindowHeight(canUseDOM) {
 	if (!canUseDOM) {
 		return 0;
 	}
