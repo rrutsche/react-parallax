@@ -47,7 +47,6 @@ export function getRelativePosition(node, canUseDOM, parent) {
 	let height = node.getBoundingClientRect().height;
     let y = Math.round(element.getBoundingClientRect().top);
     const parentHeight = getNodeHeight(canUseDOM);
-
     y = y > parentHeight ? parentHeight : y;
 
     return getPercentage(0, parentHeight, y);
@@ -64,7 +63,7 @@ export function setStyleProp(node, style, value, canUseDOM) {
 	if (!canUseDOM) {
 		return;
 	}
-	console.log('hello')
+
 	switch(style.property) {
 		case 'blur':
 			node.style.filter = 'blur(' + value + (style.unit || 'px') + ')';
