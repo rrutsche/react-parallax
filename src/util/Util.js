@@ -10,7 +10,7 @@ export function isScrolledIntoView(element, canUseDOM) {
 			elementTop <= window.innerHeight && elementBottom >= window.innerHeight;
 }
 
-export function getWindowHeight(canUseDOM, parent) {
+export function getWindowHeight(canUseDOM) {
 	if (!canUseDOM) {
 		return 0;
 	}
@@ -28,7 +28,7 @@ export function getNodeHeight(canUseDOM, parent) {
 		return 0;
 	}
 
-	if (parent === document) {
+	if (!parent) {
 		return getWindowHeight(canUseDOM);
 	}
 
@@ -46,8 +46,7 @@ export function getRelativePosition(node, canUseDOM, parent) {
 	let element = node;
 	let height = node.getBoundingClientRect().height;
     let y = Math.round(element.getBoundingClientRect().top);
-    const parentHeight = getNodeHeight(canUseDOM, document);
-
+    const parentHeight = getNodeHeight(canUseDOM);
     y = y > parentHeight ? parentHeight : y;
 
     return getPercentage(0, parentHeight, y);
@@ -64,7 +63,7 @@ export function setStyleProp(node, style, value, canUseDOM) {
 	if (!canUseDOM) {
 		return;
 	}
-	console.log('hello')
+
 	switch(style.property) {
 		case 'blur':
 			node.style.filter = 'blur(' + value + (style.unit || 'px') + ')';

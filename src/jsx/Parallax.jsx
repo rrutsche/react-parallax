@@ -23,7 +23,8 @@ class Parallax extends React.Component {
 		this.content = null;
 		this.splitChildren = this.getSplitChildren(props);
 
-		this.parentHeight = getNodeHeight(this.canUseDOM, props.parent);
+		this.parent = props.parent;
+		this.parentHeight = getNodeHeight(this.canUseDOM, this.parent);
 		this.timestamp = Date.now();
 		this.dynamicBlur = !!(props.blur && props.blur.min !== undefined && props.blur.max !== undefined);
 		this.autobind();
@@ -34,6 +35,7 @@ class Parallax extends React.Component {
 	 * save component ref after rendering, update all values and set static style values
 	 */
 	componentDidMount() {
+		this.parent = this.props.parent || document;
 		this.addListeners(this.props);
 		// ref to component itself
 		this.node = this.ReactDOM.findDOMNode(this);
@@ -56,18 +58,19 @@ class Parallax extends React.Component {
 
 	componentWillReceiveProps(nextProps) {
 		this.splitChildren = this.getSplitChildren(nextProps);
-		if (this.props.parent !== nextProps.parent) {
-			this.removeListeners(nextProps);
-			this.addListeners(nextProps);
-			this.parentHeight = getNodeHeight(this.canUseDOM, nextProps.parent);
+		if (nextProps.parent && this.parent !== nextProps.parent) {
+			this.parent = nextProps.parent;
+			this.removeListeners();
+			this.addListeners();
 		}
+		this.parentHeight = getNodeHeight(this.canUseDOM, this.parent);
 	}
 
 	/**
 	 * remove all eventlisteners before component is destroyed
 	 */
 	componentWillUnmount() {
-		this.removeListeners(this.props);
+		this.removeListeners(this.parent);
 	}
 
 	/**
@@ -80,17 +83,17 @@ class Parallax extends React.Component {
 		this.onWindowLoad = this.onWindowLoad.bind(this);
 	}
 
-	addListeners(props) {
-		if (this.canUseDOM && props.parent) {
-			props.parent.addEventListener('scroll', this.onScroll, false);
+	addListeners() {
+		if (this.canUseDOM && this.parent) {
+			this.parent.addEventListener('scroll', this.onScroll, false);
 			window.addEventListener("resize", this.onWindowResize, false);
 			window.addEventListener("load", this.onWindowLoad, false);
 		}
 	}
 
-	removeListeners(props) {
-		if (this.canUseDOM && props.parent) {
-			props.parent.removeEventListener('scroll', this.onScroll, false);
+	removeListeners() {
+		if (this.canUseDOM && this.parent) {
+			this.parent.removeEventListener('scroll', this.onScroll, false);
 			window.removeEventListener("resize", this.onWindowResize, false);
 			window.removeEventListener("load", this.onWindowLoad, false);
 		}
@@ -173,7 +176,7 @@ class Parallax extends React.Component {
 		}
 
 		// get relative scroll-y position of parallax component in percentage
-		let percentage = getRelativePosition(this.node, this.canUseDOM, this.props.parent);
+		let percentage = getRelativePosition(this.node, this.canUseDOM, this.parent);
 
 		// update bg image position if set
 		if (this.img) {
@@ -264,7 +267,7 @@ class Parallax extends React.Component {
 	 * update window height and positions on window resize
 	 */
 	onWindowResize() {
-		this.parentHeight = getNodeHeight(this.canUseDOM, this.props.parent);
+		this.parentHeight = getNodeHeight(this.canUseDOM, this.parent);
 		this.updatePosition();
 	}
 
@@ -301,16 +304,12 @@ Parallax.propTypes = {
 	strength: React.PropTypes.number,
 	blur: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.object]),
 	className: React.PropTypes.string,
-	parent: React.PropTypes.oneOfType([
-		React.PropTypes.instanceOf(HTMLDocument),
-		React.PropTypes.instanceOf(HTMLElement)
-	]),
+	parent: React.PropTypes.any,
 };
 Parallax.defaultProps = {
 	strength: 100,
 	log: false,
 	disabled: false,
-	parent: document,
 };
 
 export default Parallax;
