@@ -28,7 +28,7 @@ export function getNodeHeight(canUseDOM, parent) {
 		return 0;
 	}
 
-	if (parent === document) {
+	if (!parent) {
 		return getWindowHeight(canUseDOM);
 	}
 
@@ -46,7 +46,7 @@ export function getRelativePosition(node, canUseDOM, parent) {
 	let element = node;
 	let height = node.getBoundingClientRect().height;
     let y = Math.round(element.getBoundingClientRect().top);
-    const parentHeight = getNodeHeight(canUseDOM, document);
+    const parentHeight = getNodeHeight(canUseDOM);
 
     y = y > parentHeight ? parentHeight : y;
 

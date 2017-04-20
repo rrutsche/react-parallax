@@ -301,16 +301,12 @@ Parallax.propTypes = {
 	strength: React.PropTypes.number,
 	blur: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.object]),
 	className: React.PropTypes.string,
-	parent: React.PropTypes.oneOfType([
-		React.PropTypes.instanceOf(HTMLDocument),
-		React.PropTypes.instanceOf(HTMLElement)
-	]),
+	parent: React.PropTypes.any,
 };
 Parallax.defaultProps = {
 	strength: 100,
 	log: false,
 	disabled: false,
-	parent: document,
 };
 
 export default Parallax;
