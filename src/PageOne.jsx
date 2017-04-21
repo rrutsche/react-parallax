@@ -53,9 +53,14 @@ export default class PageOne extends React.Component {
 					blur={{min: -15, max: 15}}
 					bgImage={this.state.image}
 					strength={200}
+					// bgClassName="my-cool-bg-classname"
 					contentStyles={[
 						{property: 'blur', min: 0, max: 2}
 					]}>
+					<h1 style={fontStyle2}>
+						<p>"It's certain," thought he, "though rascal as he is, he is a polite one!"</p>
+						<p>The sails and the English flag were hoisted at ten minutes past three. Mr. Fogg and Aouda, who were seated on deck, cast a last glance at the quay, in the hope of espying Passepartout.  Fix was not without his fears lest chance should direct the steps of the unfortunate servant, whom he had so badly treated, in this direction; in which case an explanation the reverse of satisfactory to the detective must have ensued.  But the Frenchman did not appear, and, without doubt, was still lying under the stupefying influence of the opium.</p>
+					</h1>
 				</Parallax>
 				<h1 style={fontStyle2}>
 					<p>Quieting him with a word of command and a caress, I looked hurriedly through the approaching gloom for a sign of Dejah Thoris, and then, not seeing her, I called her name.  There was an answering murmur from the far corner of the apartment, and with a couple of quick strides I was standing beside her where she crouched among the furs and silks upon an ancient carved wooden seat.  As I waited she rose to her full height and looking me straight in the eye said:</p>
