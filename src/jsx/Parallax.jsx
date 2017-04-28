@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
@@ -297,15 +298,15 @@ class Parallax extends React.Component {
  * @param {Number} blur - pixel value for background image blur, default: 0
  */
 Parallax.propTypes = {
-	bgImage: React.PropTypes.string,
-	bgStyle: React.PropTypes.object,
-	bgWidth: React.PropTypes.string,
-	bgHeight: React.PropTypes.string,
-	strength: React.PropTypes.number,
-	blur: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.object]),
-	className: React.PropTypes.string,
-	bgClassName: React.PropTypes.string,
-	parent: React.PropTypes.any,
+	bgImage: PropTypes.string,
+	bgStyle: PropTypes.object,
+	bgWidth: PropTypes.string,
+	bgHeight: PropTypes.string,
+	strength: PropTypes.number,
+	blur: PropTypes.oneOfType([PropTypes.number, PropTypes.object]),
+	className: PropTypes.string,
+	bgClassName: PropTypes.string,
+	parent: PropTypes.any,
 };
 Parallax.defaultProps = {
 	strength: 100,
