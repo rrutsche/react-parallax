@@ -21,8 +21,9 @@
     "jsx"
   ],
   "peerDependencies": {
-    "react": "^0.14.0 || ^15.0.0-0",
-    "react-dom": "^0.14.0 || ^15.0.0-0"
+    "react": "^0.14.9 || ^15.3.0-0",
+    "react-dom": "^0.14.9 || ^15.3.0-0",
+	"prop-types": "^15.5.8"
   },
   "license": "MIT",
   "devDependencies": {
@@ -54,6 +55,7 @@
     "less-loader": "^2.2.2",
     "node-libs-browser": "^1.0.0",
     "node-sass": "^3.4.2",
+    "prop-types": "^15.5.8",
     "react": "^15.5.4",
     "react-addons-test-utils": "^15.4.1",
     "react-dom": "^15.5.4",
