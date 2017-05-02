@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 class Background extends React.Component {
@@ -14,8 +15,8 @@ class Background extends React.Component {
 }
 
 Background.propTypes = {
-	children: React.PropTypes.node,
-	className: React.PropTypes.string
+	children: PropTypes.node,
+	className: PropTypes.string
 };
 Background.defaultProps = {
 	className: ''
