@@ -10,11 +10,9 @@ module.exports = merge(common, {
 	devtool: 'eval',
 	devServer: {
 		host: '0.0.0.0',
-		colors: true,
 		historyApiFallback: true,
 		hot: true,
 		inline: true,
-		progress: true,
 		contentBase: 'www'
 	},
 	plugins: [

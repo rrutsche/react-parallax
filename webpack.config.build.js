@@ -11,26 +11,33 @@ module.exports = merge(common, {
 		'index': './src/jsx/index.jsx',
 	},
 	output: {
-		path: './dist',
+		path: __dirname + '/dist',
 		filename: '[name].js',
 		library: 'react-parallax',
 		libraryTarget: 'umd'
 	},
-	externals: [{
-		'react': {
-			root: 'React',
-			commonjs2: 'react',
-			commonjs: 'react',
-			amd: 'react'
+	externals: [
+		{
+			'react': {
+				root: 'React',
+				commonjs2: 'react',
+				commonjs: 'react',
+				amd: 'react'
+			},
+			'react-dom': {
+				root: 'ReactDOM',
+				commonjs2: 'react-dom',
+				commonjs: 'react-dom',
+				amd: 'react-dom'
+			},
+			'prop-types': {
+				root: 'PropTypes',
+				commonjs2: 'prop-types',
+				commonjs: 'prop-types',
+				amd: 'prop-types'
+			},
 		}
-	}, {
-		'react-dom': {
-			root: 'ReactDOM',
-			commonjs2: 'react-dom',
-			commonjs: 'react-dom',
-			amd: 'react-dom'
-		}
-	}],
+	],
 	plugins: [
 		new webpack.DefinePlugin({
 			'process.env': {
@@ -39,9 +46,8 @@ module.exports = merge(common, {
 		}),
 		new webpack.optimize.UglifyJsPlugin({
 			compress: {
-				warnings: false
+				warnings: true
 			}
 		}),
-		new webpack.optimize.DedupePlugin()
 	]
 });
