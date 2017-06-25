@@ -104,7 +104,7 @@ class Parallax extends React.Component {
 		return (
 			<div className={'react-parallax ' + this.props.className}>
 				{this.props.bgImage ? (
-					<img className={this.props.bgClassName} src={this.props.bgImage} ref="bgImage" alt=""/>
+					<img className={this.props.bgClassName} src={this.props.bgImage} ref="bgImage" alt={this.props.bgImageAlt}/>
 				) : null}
 				{this.splitChildren.bgChildren.length > 0 ? (
 					<div className="react-parallax-background-children" ref={(bg) => this.bgMounted(bg)}>
@@ -298,22 +298,24 @@ class Parallax extends React.Component {
  * @param {Number} blur - pixel value for background image blur, default: 0
  */
 Parallax.propTypes = {
+	bgClassName: PropTypes.string,
+	bgHeight: PropTypes.string,
 	bgImage: PropTypes.string,
+	bgImageAlt: PropTypes.string,
 	bgStyle: PropTypes.object,
 	bgWidth: PropTypes.string,
-	bgHeight: PropTypes.string,
-	strength: PropTypes.number,
 	blur: PropTypes.oneOfType([PropTypes.number, PropTypes.object]),
 	className: PropTypes.string,
-	bgClassName: PropTypes.string,
 	parent: PropTypes.any,
+	strength: PropTypes.number,
 };
 Parallax.defaultProps = {
-	strength: 100,
-	log: false,
-	disabled: false,
-	className: '',
 	bgClassName: 'react-parallax-bgimage',
+	bgImageAlt: '',
+	className: '',
+	disabled: false,
+	log: false,
+	strength: 100,
 };
 
 export default Parallax;

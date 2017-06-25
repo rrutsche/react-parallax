@@ -52,6 +52,7 @@ export default class PageOne extends React.Component {
 				<Parallax
 					blur={{min: -15, max: 15}}
 					bgImage={this.state.image}
+					bgImageAlt={'the dog'}
 					strength={200}
 					// bgClassName="my-cool-bg-classname"
 					contentStyles={[
