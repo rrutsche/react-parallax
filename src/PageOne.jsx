@@ -11,26 +11,19 @@ export default class PageOne extends React.Component {
 			textAlign: 'center',
 			fontWeight: 100
 		};
+		this.backgrounds = {
+			1: require('./assets/4.jpg'),
+			2: require('./assets/sw.jpg'),
+		};
 		this.state = {
-			image: 'https://cdn-images-1.medium.com/max/800/1*sEDRxEgz1JlnkAZFVZr6xA.jpeg',
-			children: <h1 style={fontStyle}>children no1</h1>
+			BG: 1,
+			children: <h1 style={fontStyle}>children no1</h1>,
 		};
 	}
 
-	changeImage() {
+	toggleBackground() {
 		this.setState({
-			image: require('./assets/2.jpg')
-		});
-	}
-
-	changeChildren() {
-		let fontStyle = {
-			fontFamily: 'Helvetica Neue, Arial, sans-serif',
-			textAlign: 'center',
-			fontWeight: 100
-		};
-		this.setState({
-			children: <h1 style={fontStyle}>children no2!!!!</h1>
+			BG: this.state.BG === 1 ? 2 : 1
 		});
 	}
 
@@ -48,90 +41,58 @@ export default class PageOne extends React.Component {
 		};
 		return (
 			<div style={style}>
-				<Link to="pagetwo">Page Two</Link>
+				<div style={{
+						cursor: 'pointer',
+						position: 'fixed',
+						left: 10,
+						top: 10,
+						color: 'black',
+						backgroundColor: 'white',
+						zIndex: 10,
+					}}
+					onClick={() => this.toggleBackground()}
+				>
+					toogle background image 1
+				</div>
 				<Parallax
+					log
 					blur={{min: -15, max: 15}}
-					bgImage={this.state.image}
+					bgImage={this.backgrounds[this.state.BG]}
 					bgImageAlt={'the dog'}
 					strength={200}
-					// bgClassName="my-cool-bg-classname"
 					contentStyles={[
 						{property: 'blur', min: 0, max: 2}
 					]}>
+					<div style={{height: '600px'}}></div>
+				</Parallax>
+				<br/>
+				<Parallax
+					bgImage={require('./assets/4.jpg')}
+					strength={-200}
+					contentStyles={[
+						{property: 'blur', min: 0, max: 2}
+					]}>
+					<br/>
 					<h1 style={fontStyle2}>
 						<p>"It's certain," thought he, "though rascal as he is, he is a polite one!"</p>
 						<p>The sails and the English flag were hoisted at ten minutes past three. Mr. Fogg and Aouda, who were seated on deck, cast a last glance at the quay, in the hope of espying Passepartout.  Fix was not without his fears lest chance should direct the steps of the unfortunate servant, whom he had so badly treated, in this direction; in which case an explanation the reverse of satisfactory to the detective must have ensued.  But the Frenchman did not appear, and, without doubt, was still lying under the stupefying influence of the opium.</p>
 					</h1>
 				</Parallax>
-				<h1 style={fontStyle2}>
-					<p>Quieting him with a word of command and a caress, I looked hurriedly through the approaching gloom for a sign of Dejah Thoris, and then, not seeing her, I called her name.  There was an answering murmur from the far corner of the apartment, and with a couple of quick strides I was standing beside her where she crouched among the furs and silks upon an ancient carved wooden seat.  As I waited she rose to her full height and looking me straight in the eye said:</p>
-				</h1>
-				<Parallax strength={300}>
-					<Background className="custom-bg">
-						<img src="http://www.fillmurray.com/400/300" alt="fill murray"/>
-					</Background>
+				<br/>
+				<Parallax
+					bgImage={require('./assets/air.jpg')}
+					strength={200}
+					contentStyles={[
+						{property: 'blur', min: 0, max: 2}
+					]}>
+					<br/>
 					<h1 style={fontStyle2}>
-						<p>"Plague victims," he announced. "That's the way they died everywhere  in the last days. This must have been a family, running away from the  contagion and perishing here on the Cliff House beach. They&mdash;what are  you doing, Edwin?"</p>
+						<p>"It's certain," thought he, "though rascal as he is, he is a polite one!"</p>
+						<p>The sails and the English flag were hoisted at ten minutes past three. Mr. Fogg and Aouda, who were seated on deck, cast a last glance at the quay, in the hope of espying Passepartout.  Fix was not without his fears lest chance should direct the steps of the unfortunate servant, whom he had so badly treated, in this direction; in which case an explanation the reverse of satisfactory to the detective must have ensued.  But the Frenchman did not appear, and, without doubt, was still lying under the stupefying influence of the opium.</p>
 					</h1>
 				</Parallax>
-				<div style={fontStyle2}>
-					<p>"It's certain," thought he, "though rascal as he is, he is a polite one!"</p>
-					<p>The sails and the English flag were hoisted at ten minutes past three. Mr. Fogg and Aouda, who were seated on deck, cast a last glance at the quay, in the hope of espying Passepartout.  Fix was not without his fears lest chance should direct the steps of the unfortunate servant, whom he had so badly treated, in this direction; in which case an explanation the reverse of satisfactory to the detective must have ensued.  But the Frenchman did not appear, and, without doubt, was still lying under the stupefying influence of the opium.</p>
-					<h1 style={fontStyle2} onClick={() => this.changeImage()}>change image</h1>
-					<h1 style={fontStyle2} onClick={() => this.changeChildren()}>change children</h1>
-					<hr/>
-				</div>
-				<div style={{width: '500px', margin: '20px auto'}}>
-					<Parallax
-						log
-						bgImage={require('./assets/3.jpg')}
-						strength={-200}
-						contentStyles={[
-							{property: 'blur', min: 0, max: 2}
-						]}>
-						<br/>
-						{this.state.children}
-						<h1 style={fontStyle2}>
-							<p>"It's certain," thought he, "though rascal as he is, he is a polite one!"</p>
-							<p>The sails and the English flag were hoisted at ten minutes past three. Mr. Fogg and Aouda, who were seated on deck, cast a last glance at the quay, in the hope of espying Passepartout.  Fix was not without his fears lest chance should direct the steps of the unfortunate servant, whom he had so badly treated, in this direction; in which case an explanation the reverse of satisfactory to the detective must have ensued.  But the Frenchman did not appear, and, without doubt, was still lying under the stupefying influence of the opium.</p>
-						</h1>
-					</Parallax>
-				</div>
-				<div style={{width: '500px', margin: '20px auto'}}>
-					<Parallax
-						blur={{min: 0, max: 5}}
-						log
-						bgImage={require('./assets/3.jpg')}
-						strength={200}
-						contentStyles={[
-							{property: 'blur', min: 0, max: 2}
-						]}>
-						<br/>
-						{this.state.children}
-						<h1 style={fontStyle2}>
-							<p>"It's certain," thought he, "though rascal as he is, he is a polite one!"</p>
-							<p>The sails and the English flag were hoisted at ten minutes past three. Mr. Fogg and Aouda, who were seated on deck, cast a last glance at the quay, in the hope of espying Passepartout.  Fix was not without his fears lest chance should direct the steps of the unfortunate servant, whom he had so badly treated, in this direction; in which case an explanation the reverse of satisfactory to the detective must have ensued.  But the Frenchman did not appear, and, without doubt, was still lying under the stupefying influence of the opium.</p>
-						</h1>
-					</Parallax>
-				</div>
-				<hr/>
-				<Parallax strength={-300}>
-					<Background>
-						<img src="http://www.fillmurray.com/400/300" alt="fill murray"/>
-						<div style={{width: 800, height: 300, backgroundColor: '#450093'}}></div>
-						<img src="http://www.fillmurray.com/500/300" alt="fill murray"/>
-					</Background>
-					<h1 style={fontStyle2}>A collection of textile samples lay spread out on the table - Samsa was a travelling salesman - and above it there hung a picture that he had recently cut out of an illustrated magazine and housed in a nice, gilded frame. It showed a lady fitted out with a fur hat and fur boa who sat upright, raising a heavy fur muff that covered the whole of her lower arm towards the viewer. Gregor then turned to look out the window at the dull weather. Drops</h1>
-				</Parallax>
-
-				<div>
-					<br/>
-					<h1 style={fontStyle2}>A collection of textile samples lay spread out on the table - Samsa was a travelling salesman - and above it there hung a picture that he had recently cut out of an illustrated magazine and housed in a nice, gilded frame. It showed a lady fitted out with a fur hat and fur boa who sat upright, raising a heavy fur muff that covered the whole of her lower arm towards the viewer. Gregor then turned to look out the window at the dull weather. Drops</h1>
-					<h1 style={fontStyle2}>A collection of textile samples lay spread out on the table - Samsa was a travelling salesman - and above it there hung a picture that he had recently cut out of an illustrated magazine and housed in a nice, gilded frame. It showed a lady fitted out with a fur hat and fur boa who sat upright, raising a heavy fur muff that covered the whole of her lower arm towards the viewer. Gregor then turned to look out the window at the dull weather. Drops</h1>
-					<h1 style={fontStyle2}>A collection of textile samples lay spread out on the table - Samsa was a travelling salesman - and above it there hung a picture that he had recently cut out of an illustrated magazine and housed in a nice, gilded frame. It showed a lady fitted out with a fur hat and fur boa who sat upright, raising a heavy fur muff that covered the whole of her lower arm towards the viewer. Gregor then turned to look out the window at the dull weather. Drops</h1>
-					<h1 style={fontStyle2}>A collection of textile samples lay spread out on the table - Samsa was a travelling salesman - and above it there hung a picture that he had recently cut out of an illustrated magazine and housed in a nice, gilded frame. It showed a lady fitted out with a fur hat and fur boa who sat upright, raising a heavy fur muff that covered the whole of her lower arm towards the viewer. Gregor then turned to look out the window at the dull weather. Drops</h1>
-					<br/>
-				</div>
+				<div style={{height: '800px'}}></div>
+				<Link to="pagetwo">Page Two</Link>
 			</div>
 		);
 	}
