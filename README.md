@@ -7,7 +7,7 @@
 npm install react-parallax --save
 ```
 
-### [Demo](http://rrutsche.github.io/#parallax)
+### [Demo](https://codesandbox.io/embed/r0yEkozrw)
 
 ## Default Usage
 
