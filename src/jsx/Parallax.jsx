@@ -37,6 +37,33 @@ export default class Parallax extends React.Component {
         strength: 100
     };
 
+    static setBlur(node, blur) {
+        node.style.WebkitFilter = `blur(${blur}px)`;
+        node.style.filter = `blur(${blur}px)`;
+    }
+
+    /**
+     * Extracts children with type Background from others and returns an object with both arrays:
+     *  {
+     *      bgChildren: bgChildren, // typeof child === 'Background'
+     *      children: children // rest of this.props.children
+     *   }
+     * @return {Object} splitchildren object
+     */
+    static getSplitChildren(props) {
+        let bgChildren = [];
+        const children = React.Children.toArray(props.children);
+        children.forEach((child, index) => {
+            if (child.type && child.type.prototype && child.type.prototype.isParallaxBackground) {
+                bgChildren = bgChildren.concat(children.splice(index, 1));
+            }
+        });
+        return {
+            bgChildren,
+            children
+        };
+    }
+
     constructor(props) {
         super(props);
 
@@ -54,7 +81,7 @@ export default class Parallax extends React.Component {
 
         this.node = null;
         this.content = null;
-        this.splitChildren = this.getSplitChildren(props);
+        this.splitChildren = Parallax.getSplitChildren(props);
 
         this.bgImageLoaded = false;
 
@@ -188,12 +215,6 @@ export default class Parallax extends React.Component {
         this.bg.style.transform = `translate3d(-50%, ${pos}px, 0)`;
     }
 
-    setBlur(node, blur) {
-        console.log(this);
-        node.style.WebkitFilter = `blur(${blur}px)`;
-        node.style.filter = `blur(${blur}px)`;
-    }
-
     /**
      * sets position for the background image
      */
@@ -216,7 +237,7 @@ export default class Parallax extends React.Component {
         this.img.style.transform = `translate3d(-50%, ${pos}px, 0)`;
         if (blur) {
             const blurValue = this.dynamicBlur ? blur.min + (1 - percentage) * blur.max : blur;
-            this.setBlur(this.img, blurValue);
+            Parallax.setBlur(this.img, blurValue);
         }
     }
 
@@ -229,29 +250,6 @@ export default class Parallax extends React.Component {
         const factor = inverse ? 2.5 : 1;
         const strength = factor * Math.abs(this.props.strength);
         return Math.floor(this.contentHeight + strength);
-    }
-
-    /**
-     * Extracts children with type Background from others and returns an object with both arrays:
-     *  {
-     *      bgChildren: bgChildren, // typeof child === 'Background'
-     *      children: children // rest of this.props.children
-     *   }
-     * @return {Object} splitchildren object
-     */
-    getSplitChildren(props) {
-        console.log(this);
-        let bgChildren = [];
-        const children = React.Children.toArray(props.children);
-        children.forEach((child, index) => {
-            if (child.type && child.type.prototype && child.type.prototype.isParallaxBackground) {
-                bgChildren = bgChildren.concat(children.splice(index, 1));
-            }
-        });
-        return {
-            bgChildren,
-            children
-        };
     }
 
     addListeners() {
