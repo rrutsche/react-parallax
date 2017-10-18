@@ -1,70 +1,59 @@
-
-export function isScrolledIntoView(element, canUseDOM) {
-	if (!canUseDOM) {
-		return false;
-	}
-	let elementTop = element.getBoundingClientRect().top,
-		elementBottom = element.getBoundingClientRect().bottom;
-	return elementTop <= 0 && elementBottom >= 0 ||
-			elementTop >= 0 && elementBottom <= window.innerHeight ||
-			elementTop <= window.innerHeight && elementBottom >= window.innerHeight;
+export function isScrolledIntoView(element, useDOM) {
+    if (!useDOM) {
+        return false;
+    }
+    const elementTop = element.getBoundingClientRect().top;
+    const elementBottom = element.getBoundingClientRect().bottom;
+    return (
+        (elementTop <= 0 && elementBottom >= 0) ||
+        (elementTop >= 0 && elementBottom <= window.innerHeight) ||
+        (elementTop <= window.innerHeight && elementBottom >= window.innerHeight)
+    );
 }
 
-export function getWindowHeight(canUseDOM) {
-	if (!canUseDOM) {
-		return 0;
-	}
+export function getWindowHeight(useDOM) {
+    if (!useDOM) {
+        return 0;
+    }
 
-	let w = window,
-		d = document,
-		e = d.documentElement,
-		g = d.getElementsByTagName('body')[0];
+    const w = window;
+    const d = document;
+    const e = d.documentElement;
+    const g = d.getElementsByTagName('body')[0];
 
-	return w.innerHeight || e.clientHeight || g.clientHeight;
+    return w.innerHeight || e.clientHeight || g.clientHeight;
 }
 
-export function getNodeHeight(canUseDOM, parent) {
-	if (!canUseDOM) {
-		return 0;
-	}
+export function getNodeHeight(useDOM, parent) {
+    if (!useDOM) {
+        return 0;
+    }
 
-	if (!parent) {
-		return getWindowHeight(canUseDOM);
-	}
+    if (!parent) {
+        return getWindowHeight(useDOM);
+    }
 
-	return parent.clientHeight;
+    return parent.clientHeight;
 }
 
 export function canUseDOM() {
-	return !!((typeof window !== 'undefined' && window.document && window.document.createElement));
-}
-
-export function getRelativePosition(node, canUseDOM, parent) {
-	if (!canUseDOM) {
-		return 0;
-	}
-	let element = node;
-    let y = Math.round(element.getBoundingClientRect().top);
-    const parentHeight = getNodeHeight(canUseDOM);
-    y = y > parentHeight ? parentHeight : y;
-
-    return getPercentage(0, parentHeight, y);
-
+    return !!(typeof window !== 'undefined' && window.document && window.document.createElement);
 }
 
 export function getPercentage(startpos, endpos, currentpos) {
-     let distance = endpos - startpos;
-     let displacement = currentpos - startpos;
-     return displacement / distance;
+    const distance = endpos - startpos;
+    const displacement = currentpos - startpos;
+    return displacement / distance;
 }
 
-export function setStyleProp(node, style, value, canUseDOM) {
-	if (!canUseDOM) {
-		return;
-	}
+export function getRelativePosition(node, useDOM, parent) {
+    if (!useDOM) {
+        return 0;
+    }
+    const element = node;
+    let y = Math.round(element.getBoundingClientRect().top);
+    const parentHeight = getNodeHeight(useDOM);
+    y = y > parentHeight ? parentHeight : y;
 
-	switch(style.property) {
-		case 'blur':
-			node.style.filter = 'blur(' + value + (style.unit || 'px') + ')';
-	}
+    return getPercentage(0, parentHeight, y);
 }

@@ -2,23 +2,27 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 class Background extends React.Component {
+    isParallaxBackground() {
+        console.log(this);
+        return true;
+    }
 
-	isParallaxBackground() {
-		return true
-	}
-
-	render() {
-		return (
-			<div className={'react-parallax-background ' + this.props.className}>{this.props.children}</div>
-		);
-	}
+    render() {
+        return (
+            <div
+                className={`react-parallax-background ${this.props.className}`}
+            >
+                {this.props.children}
+            </div>
+        );
+    }
 }
 
 Background.propTypes = {
-	children: PropTypes.node,
-	className: PropTypes.string
+    children: PropTypes.node,
+    className: PropTypes.string
 };
 Background.defaultProps = {
-	className: ''
+    className: ''
 };
 export default Background;
