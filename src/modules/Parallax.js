@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import { getNodeHeight, canUseDOM, getRelativePosition } from '../util/Util';
+import { getNodeHeight, canUseDOM, getRelativePosition } from '../util/util';
 
 export default class Parallax extends React.Component {
     /**

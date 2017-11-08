@@ -43,7 +43,7 @@ export function canUseDOM() {
 export function getPercentage(startpos, endpos, currentpos) {
     const distance = endpos - startpos;
     const displacement = currentpos - startpos;
-    return displacement / distance;
+    return displacement / distance || 0;
 }
 
 export function getRelativePosition(node, useDOM, parent) {

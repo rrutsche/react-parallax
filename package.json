@@ -9,7 +9,9 @@
     },
     "main": "dist/index.js",
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1",
+        "test": "jest",
+        "test:watch": "npm run test -- --watch",
+        "test:cover": "npm run test -- --coverage",
         "dev": "NODE_ENV=development && webpack-dev-server --progress --config webpack.config.dev.js",
         "dist": "NODE_ENV=production && webpack -p --progress --config webpack.config.build.js",
         "lint": "eslint src",
@@ -54,7 +56,9 @@
         "husky": "^0.14.3",
         "imports-loader": "^0.7.1",
         "jasmine-core": "^2.4.1",
+        "jest": "^21.2.1",
         "jscs": "^3.0.7",
+        "jsdom": "^11.3.0",
         "json-loader": "^0.5.3",
         "karma": "~0.13.11",
         "karma-chrome-launcher": "~0.2.1",
@@ -91,5 +95,11 @@
                 "git add"
             ]
         }
+    },
+    "jest": {
+        "setupFiles" : ["<rootDir>/setupFile.js"]
+    },
+    "dependencies": {
+        "babel-jest": "^21.2.0"
     }
 }
