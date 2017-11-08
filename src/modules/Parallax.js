@@ -54,7 +54,7 @@ export default class Parallax extends React.Component {
         let bgChildren = [];
         const children = React.Children.toArray(props.children);
         children.forEach((child, index) => {
-            if (child.type && child.type.prototype && child.type.prototype.isParallaxBackground) {
+            if (child.type && child.type.isParallaxBackground) {
                 bgChildren = bgChildren.concat(children.splice(index, 1));
             }
         });
@@ -119,7 +119,7 @@ export default class Parallax extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        this.splitChildren = this.getSplitChildren(nextProps);
+        this.splitChildren = Parallax.getSplitChildren(nextProps);
         if (nextProps.parent && this.parent !== nextProps.parent) {
             this.parent = nextProps.parent;
             this.removeListeners();
