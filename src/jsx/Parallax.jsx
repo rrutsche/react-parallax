@@ -204,6 +204,9 @@ export default class Parallax extends React.Component {
 	updatePosition() {
 		let autoHeight = false;
 		this.content = this.ReactDOM.findDOMNode(this.refs.content);
+		if (!this.content) {
+			return;
+		}
 		this.contentHeight = this.content.getBoundingClientRect().height;
 		this.contentWidth = this.node.getBoundingClientRect().width;
 
