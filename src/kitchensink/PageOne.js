@@ -93,6 +93,10 @@ export default class PageOne extends React.Component {
                     <br />
                     <h1 style={fontStyle2}>
                         <p>
+                            &rdquo;It&rsquo;s certain,&rdquo; thought he, &rdquo;though rascal as he
+                            is, he is a polite one!&rdquo;
+                        </p>
+                        <p>
                             The sails and the English flag were hoisted at ten minutes past three.
                             Mr. Fogg and Aouda, who were seated on deck, cast a last glance at the
                             quay, in the hope of espying Passepartout. Fix was not without his fears

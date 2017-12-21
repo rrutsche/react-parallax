@@ -2,7 +2,13 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import { getNodeHeight, canUseDOM, getRelativePosition } from '../util/util';
+import {
+    getNodeHeight,
+    canUseDOM,
+    getRelativePosition,
+    getSplitChildren,
+    setBlur
+} from '../util/util';
 
 export default class Parallax extends React.Component {
     /**
@@ -25,7 +31,8 @@ export default class Parallax extends React.Component {
         disabled: PropTypes.bool,
         log: PropTypes.bool,
         parent: PropTypes.any,
-        strength: PropTypes.number
+        strength: PropTypes.number,
+        style: PropTypes.object
     };
 
     static defaultProps = {
@@ -36,33 +43,6 @@ export default class Parallax extends React.Component {
         log: false,
         strength: 100
     };
-
-    static setBlur(node, blur) {
-        node.style.WebkitFilter = `blur(${blur}px)`;
-        node.style.filter = `blur(${blur}px)`;
-    }
-
-    /**
-     * Extracts children with type Background from others and returns an object with both arrays:
-     *  {
-     *      bgChildren: bgChildren, // typeof child === 'Background'
-     *      children: children // rest of this.props.children
-     *   }
-     * @return {Object} splitchildren object
-     */
-    static getSplitChildren(props) {
-        let bgChildren = [];
-        const children = React.Children.toArray(props.children);
-        children.forEach((child, index) => {
-            if (child.type && child.type.isParallaxBackground) {
-                bgChildren = bgChildren.concat(children.splice(index, 1));
-            }
-        });
-        return {
-            bgChildren,
-            children
-        };
-    }
 
     constructor(props) {
         super(props);
@@ -81,7 +61,7 @@ export default class Parallax extends React.Component {
 
         this.node = null;
         this.content = null;
-        this.splitChildren = Parallax.getSplitChildren(props);
+        this.splitChildren = getSplitChildren(props);
 
         this.bgImageLoaded = false;
 
@@ -119,7 +99,7 @@ export default class Parallax extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        this.splitChildren = Parallax.getSplitChildren(nextProps);
+        this.splitChildren = getSplitChildren(nextProps);
         if (nextProps.parent && this.parent !== nextProps.parent) {
             this.parent = nextProps.parent;
             this.removeListeners();
@@ -237,7 +217,7 @@ export default class Parallax extends React.Component {
         this.img.style.transform = `translate3d(-50%, ${pos}px, 0)`;
         if (blur) {
             const blurValue = this.dynamicBlur ? blur.min + (1 - percentage) * blur.max : blur;
-            Parallax.setBlur(this.img, blurValue);
+            setBlur(this.img, blurValue);
         }
     }
 
@@ -337,7 +317,7 @@ export default class Parallax extends React.Component {
 
     render() {
         return (
-            <div className={`react-parallax ${this.props.className}`}>
+            <div className={`react-parallax ${this.props.className}`} style={this.props.style}>
                 {this.state.bgImage ? (
                     <img
                         className={this.props.bgClassName}

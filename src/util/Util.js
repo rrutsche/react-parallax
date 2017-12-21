@@ -1,3 +1,5 @@
+import React from 'react';
+
 export function isScrolledIntoView(element, useDOM) {
     if (!useDOM) {
         return false;
@@ -56,4 +58,31 @@ export function getRelativePosition(node, useDOM, parent) {
     y = y > parentHeight ? parentHeight : y;
 
     return getPercentage(0, parentHeight, y);
+}
+
+/**
+ * Extracts children with type Background from others and returns an object with both arrays:
+ *  {
+ *      bgChildren: bgChildren, // typeof child === 'Background'
+ *      children: children // rest of this.props.children
+ *   }
+ * @return {Object} splitchildren object
+ */
+export function getSplitChildren(props) {
+    let bgChildren = [];
+    const children = React.Children.toArray(props.children);
+    children.forEach((child, index) => {
+        if (child.type && child.type.isParallaxBackground) {
+            bgChildren = bgChildren.concat(children.splice(index, 1));
+        }
+    });
+    return {
+        bgChildren,
+        children
+    };
+}
+
+export function setBlur(node, blur) {
+    node.style.WebkitFilter = `blur(${blur}px)`;
+    node.style.filter = `blur(${blur}px)`;
 }

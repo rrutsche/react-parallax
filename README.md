@@ -41,8 +41,8 @@ const TheContainer = React.createClass({
 		  <Background>
 		    <img src="http://www.fillmurray.com/400/300"/>
 			<div style={{
-			   width: 800, 
-			   height: 300, 
+			   width: 800,
+			   height: 300,
 			   backgroundColor: '#450093'
 			  }}></div>
 			<img src="http://www.fillmurray.com/500/300"/>
@@ -63,7 +63,7 @@ const TheContainer = React.createClass({
 * bgWidth: set bgImage width manually - (type: String), eg. '400px', 'auto'
 * bgHeight: set bgImage height manually - (type: String), eg. '400px', 'auto'
 * strength: parallax effect strength (in pixel), default 100. this will define the amount of pixels the background image is translated - (type: Number)
-* blur: 
+* blur:
     1) pixel value for background image blur, default: 0 - (type: Number)
     2) or object in format `{min:0, max:5}` for dynamic blur depending on scroll position
 * disabled: turns off parallax effect if set to true, default: false - (type: Boolean)
@@ -79,7 +79,7 @@ The children are used to display any content inside the react-parallax component
 ## Development
 
 Initial set up, run:
-    
+
 ```sh
 npm install
 ```
@@ -89,7 +89,7 @@ For watch on files, live reload, JSX transpiling and browserify, run:
 ```sh
 npm run dev
 ```
-Port on Windows is 80, 8080 on all other OS by default. Can be set with option -port=8080
+Port 3000 on all OS by default. Can be set with option -port=8080
 
 # License
 
