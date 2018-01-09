@@ -85,7 +85,7 @@
     "lint-staged": {
         "gitDir": "./",
         "linters": {
-            "*.js": [
+            "src/**/*.js": [
                 "prettier --write",
                 "eslint",
                 "git add"

@@ -26,16 +26,16 @@ export function getWindowHeight(useDOM) {
     return w.innerHeight || e.clientHeight || g.clientHeight;
 }
 
-export function getNodeHeight(useDOM, parent) {
+export function getNodeHeight(useDOM, node) {
     if (!useDOM) {
         return 0;
     }
 
-    if (!parent) {
+    if (!node) {
         return getWindowHeight(useDOM);
     }
 
-    return parent.clientHeight;
+    return node.clientHeight;
 }
 
 export function canUseDOM() {

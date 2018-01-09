@@ -9,7 +9,7 @@ process.env.NODE_ENV = 'production';
 
 module.exports = merge(common, {
     entry: {
-        index: './src/modules/index.jsx'
+        index: './src/modules/index.js'
     },
     output: {
         path: path.resolve(ROOT_PATH, 'dist'),
