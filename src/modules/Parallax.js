@@ -277,6 +277,10 @@ export default class Parallax extends React.Component {
         this.contentHeight = this.content.getBoundingClientRect().height;
         this.contentWidth = this.node.getBoundingClientRect().width;
 
+        if (!this.content) {
+            return;
+        }
+
         // set autoHeight or autoWidth
         if (
             this.img &&
