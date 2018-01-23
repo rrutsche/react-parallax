@@ -6,17 +6,18 @@ import image1 from '../assets/4.jpg';
 import image2 from '../assets/sw.jpg';
 import image3 from '../assets/air.jpg';
 import image4 from '../assets/4.jpg';
+import image5 from '../assets/3.jpg';
 
 const style = {
     backgroundColor: '#efefef',
     color: 'white',
-    textAlign: 'center'
+    textAlign: 'center',
 };
 const fontStyle2 = {
     fontFamily: 'Helvetica Neue, Arial, sans-serif',
     textAlign: 'center',
     fontWeight: 100,
-    color: 'darkgrey'
+    color: 'darkgrey',
 };
 
 export default class PageOne extends React.Component {
@@ -24,16 +25,17 @@ export default class PageOne extends React.Component {
         super(props);
         this.backgrounds = {
             1: image1,
-            2: image2
+            2: image2,
+            3: image5,
         };
         this.state = {
-            BG: 1
+            BG: 3,
         };
     }
 
     toggleBackground() {
         this.setState({
-            BG: this.state.BG === 1 ? 2 : 1
+            BG: this.state.BG === 3 ? 2 : 3,
         });
     }
 
@@ -48,7 +50,7 @@ export default class PageOne extends React.Component {
                         top: 10,
                         color: 'black',
                         backgroundColor: 'white',
-                        zIndex: 10
+                        zIndex: 10,
                     }}
                     onClick={() => this.toggleBackground()}
                 >

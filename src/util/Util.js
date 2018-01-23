@@ -1,18 +1,5 @@
 import React from 'react';
 
-export function isScrolledIntoView(element, useDOM) {
-    if (!useDOM) {
-        return false;
-    }
-    const elementTop = element.getBoundingClientRect().top;
-    const elementBottom = element.getBoundingClientRect().bottom;
-    return (
-        (elementTop <= 0 && elementBottom >= 0) ||
-        (elementTop >= 0 && elementBottom <= window.innerHeight) ||
-        (elementTop <= window.innerHeight && elementBottom >= window.innerHeight)
-    );
-}
-
 export function getWindowHeight(useDOM) {
     if (!useDOM) {
         return 0;
@@ -24,6 +11,21 @@ export function getWindowHeight(useDOM) {
     const g = d.getElementsByTagName('body')[0];
 
     return w.innerHeight || e.clientHeight || g.clientHeight;
+}
+
+export function isScrolledIntoView(element, offset = 0, useDOM) {
+    if (!useDOM) {
+        return false;
+    }
+    const elementTop = element.getBoundingClientRect().top + offset;
+    const elementBottom = element.getBoundingClientRect().bottom + offset;
+    console.log(
+        elementTop,
+        elementBottom,
+        getWindowHeight(useDOM),
+        element.getBoundingClientRect().height,
+    );
+    return elementTop <= getWindowHeight(useDOM) && elementBottom >= 0;
 }
 
 export function getNodeHeight(useDOM, node) {
@@ -78,7 +80,7 @@ export function getSplitChildren(props) {
     });
     return {
         bgChildren,
-        children
+        children,
     };
 }
 
