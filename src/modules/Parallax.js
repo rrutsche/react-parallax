@@ -64,6 +64,7 @@ export default class Parallax extends React.Component {
         this.splitChildren = getSplitChildren(props);
 
         this.bgImageLoaded = false;
+        this.bgImageRef = undefined;
 
         this.parent = props.parent;
         this.parentHeight = getNodeHeight(this.canUseDOM, this.parent);
@@ -124,6 +125,7 @@ export default class Parallax extends React.Component {
      */
     componentWillUnmount() {
         this.removeListeners(this.parent);
+        this.releaseImage();
     }
 
     /**
@@ -252,13 +254,26 @@ export default class Parallax extends React.Component {
      * Makes sure that the image was loaded before render
      * @param  {String} bgImage image source
      */
-    loadImage(bgImage) {
-        const image = new Image();
-        image.onload = img => {
+    loadImage(bgImage, id) {
+        this.releaseImage();
+        this.bgImageRef = new Image();
+        this.bgImageRef.onload = img => {
             this.setState({ bgImage }, () => this.updatePosition());
         };
-        image.onerror = image.onload;
-        image.src = bgImage;
+        this.bgImageRef.onerror = this.bgImageRef.onload;
+        this.bgImageRef.src = bgImage;
+    }
+
+    /**
+     * Unbind eventlistener of bg image and delete it
+     * @param  {String} id Image ID
+     */
+    releaseImage() {
+        if (this.bgImageRef) {
+            this.bgImageRef.onload = null;
+            this.bgImageRef.onerror = null;
+            delete this.bgImageRef;
+        }
     }
 
     bgMounted(bg) {
