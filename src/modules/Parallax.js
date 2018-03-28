@@ -24,6 +24,7 @@ export default class Parallax extends React.Component {
         bgHeight: PropTypes.string,
         bgImage: PropTypes.string,
         bgImageAlt: PropTypes.string,
+        bgImageSrcSet: PropTypes.string,
         bgStyle: PropTypes.object,
         bgWidth: PropTypes.string,
         blur: PropTypes.oneOfType([PropTypes.number, PropTypes.object]),
@@ -49,6 +50,7 @@ export default class Parallax extends React.Component {
 
         this.state = {
             bgImage: props.bgImage,
+            bgImageSrcSet: props.bgImageSrcSet,
             childStyle: {
                 position: 'relative'
             }
@@ -78,9 +80,9 @@ export default class Parallax extends React.Component {
     }
 
     /**
-    * bind some eventlisteners for page load, scroll and resize
-    * save component ref after rendering, update all values and set static style values
-    */
+     * bind some eventlisteners for page load, scroll and resize
+     * save component ref after rendering, update all values and set static style values
+     */
     componentDidMount() {
         const { parent } = this.props;
 
@@ -90,7 +92,7 @@ export default class Parallax extends React.Component {
         this.node = this.ReactDOM.findDOMNode(this);
 
         if (this.state.bgImage) {
-            this.loadImage(this.state.bgImage);
+            this.loadImage(this.state.bgImage, this.state.bgImageSrcSet);
         } else {
             this.updatePosition();
         }
@@ -109,7 +111,7 @@ export default class Parallax extends React.Component {
         this.parentHeight = getNodeHeight(this.canUseDOM, this.parent);
 
         if (this.state.bgImage !== nextProps.bgImage) {
-            this.loadImage(nextProps.bgImage);
+            this.loadImage(nextProps.bgImage, nextProps.bgImageSrcSet);
         }
     }
 
@@ -254,7 +256,7 @@ export default class Parallax extends React.Component {
      * Makes sure that the image was loaded before render
      * @param  {String} bgImage image source
      */
-    loadImage(bgImage, id) {
+    loadImage(bgImage, bgImageSrcSet) {
         this.releaseImage();
         this.bgImageRef = new Image();
         this.bgImageRef.onload = img => {
@@ -262,6 +264,9 @@ export default class Parallax extends React.Component {
         };
         this.bgImageRef.onerror = this.bgImageRef.onload;
         this.bgImageRef.src = bgImage;
+        if (bgImageSrcSet) {
+            this.bgImageRef.srcset = bgImageSrcSet;
+        }
     }
 
     /**
@@ -341,6 +346,7 @@ export default class Parallax extends React.Component {
                     <img
                         className={this.props.bgClassName}
                         src={this.state.bgImage}
+                        srcSet={this.state.bgImageSrcSet}
                         ref={bg => (this.img = bg)}
                         alt={this.props.bgImageAlt}
                     />
