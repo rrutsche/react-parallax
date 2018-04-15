@@ -26,34 +26,58 @@ export default class PageOne extends React.Component {
             1: image1,
             2: image2
         };
+        this.srcSets = {
+            1: `${image4} 1x, ${image2} 2x`,
+            2: `${image3} 1x, ${image1} 2x`
+        };
         this.state = {
-            BG: 1
+            BG: 1,
+            srcSet: 1
         };
     }
 
-    toggleBackground() {
+    toggleBackground = () => {
         this.setState({
             BG: this.state.BG === 1 ? 2 : 1
         });
-    }
+    };
+
+    toggleSrcSet = () => {
+        this.setState({
+            srcSet: this.state.srcSet === 1 ? 2 : 1
+        });
+    };
 
     render() {
         return (
             <div style={style}>
-                <button
+                <div
                     style={{
                         cursor: 'pointer',
                         position: 'fixed',
                         left: 10,
                         top: 10,
                         color: 'black',
-                        backgroundColor: 'white',
                         zIndex: 10
                     }}
-                    onClick={() => this.toggleBackground()}
                 >
-                    toogle background image 1
-                </button>
+                    <button
+                        style={{
+                            backgroundColor: 'white'
+                        }}
+                        onClick={this.toggleBackground}
+                    >
+                        toogle background image 1
+                    </button>
+                    <button
+                        style={{
+                            backgroundColor: 'white'
+                        }}
+                        onClick={this.toggleSrcSet}
+                    >
+                        toogle srcSet image 2
+                    </button>
+                </div>
                 <Parallax
                     log
                     blur={{ min: -15, max: 15 }}
@@ -67,6 +91,7 @@ export default class PageOne extends React.Component {
                 <br />
                 <Parallax
                     bgImage={image4}
+                    bgImageSrcSet={this.srcSets[this.state.srcSet]}
                     strength={-200}
                     contentStyles={[{ property: 'blur', min: 0, max: 2 }]}
                 >

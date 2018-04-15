@@ -11,19 +11,13 @@ import {
 } from '../util/util';
 
 export default class Parallax extends React.Component {
-    /**
-     * @param {String} bgImage - path to the background image that makes parallax effect visible
-     * @param {String} bgStyle - additional style object for the bg image/children
-     * @param {String} bgWidth - set bgImage width manually
-     * @param {String} bgHeight - set bgImage height manually
-     * @param {Number} strength - parallax effect strength (in pixel), default 100
-     * @param {Number} blur - pixel value for background image blur, default: 0
-     */
     static propTypes = {
         bgClassName: PropTypes.string,
         bgHeight: PropTypes.string,
         bgImage: PropTypes.string,
         bgImageAlt: PropTypes.string,
+        bgImageSizes: PropTypes.string,
+        bgImageSrcSet: PropTypes.string,
         bgStyle: PropTypes.object,
         bgWidth: PropTypes.string,
         blur: PropTypes.oneOfType([PropTypes.number, PropTypes.object]),
@@ -49,6 +43,8 @@ export default class Parallax extends React.Component {
 
         this.state = {
             bgImage: props.bgImage,
+            bgImageSrcSet: props.bgImageSrcSet,
+            bgImageSizes: props.bgImageSizes,
             childStyle: {
                 position: 'relative'
             }
@@ -74,23 +70,23 @@ export default class Parallax extends React.Component {
             props.blur.min !== undefined &&
             props.blur.max !== undefined
         );
-        this.autobind();
     }
 
     /**
-    * bind some eventlisteners for page load, scroll and resize
-    * save component ref after rendering, update all values and set static style values
-    */
+     * bind some eventlisteners for page load, scroll and resize
+     * save component ref after rendering, update all values and set static style values
+     */
     componentDidMount() {
         const { parent } = this.props;
+        const { bgImage, bgImageSrcSet, bgImageSizes } = this.state;
 
         this.parent = parent || document;
         this.addListeners(this.props);
         // ref to component itself
         this.node = this.ReactDOM.findDOMNode(this);
 
-        if (this.state.bgImage) {
-            this.loadImage(this.state.bgImage);
+        if (bgImage) {
+            this.loadImage(bgImage, bgImageSrcSet, bgImageSizes);
         } else {
             this.updatePosition();
         }
@@ -100,16 +96,17 @@ export default class Parallax extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
+        const { parent, bgImage, bgImageSrcSet, bgImageSizes } = nextProps;
         this.splitChildren = getSplitChildren(nextProps);
-        if (nextProps.parent && this.parent !== nextProps.parent) {
-            this.parent = nextProps.parent;
+        if (parent && this.parent !== parent) {
+            this.parent = parent;
             this.removeListeners();
             this.addListeners();
         }
         this.parentHeight = getNodeHeight(this.canUseDOM, this.parent);
 
-        if (this.state.bgImage !== nextProps.bgImage) {
-            this.loadImage(nextProps.bgImage);
+        if (this.state.bgImage !== bgImage) {
+            this.loadImage(bgImage, bgImageSrcSet, bgImageSizes);
         }
     }
 
@@ -131,16 +128,16 @@ export default class Parallax extends React.Component {
     /**
      * update window height and positions on window resize
      */
-    onWindowResize() {
+    onWindowResize = () => {
         this.parentHeight = getNodeHeight(this.canUseDOM, this.parent);
         this.updatePosition();
-    }
+    };
 
-    onWindowLoad() {
+    onWindowLoad = () => {
         this.updatePosition();
-    }
+    };
 
-    onScroll(event) {
+    onScroll = event => {
         if (!this.canUseDOM) {
             return;
         }
@@ -149,7 +146,7 @@ export default class Parallax extends React.Component {
             window.requestAnimationFrame(this.updatePosition);
             this.timestamp = stamp;
         }
-    }
+    };
 
     /**
      * defines styles for the parallax node that do not change during use
@@ -253,15 +250,26 @@ export default class Parallax extends React.Component {
     /**
      * Makes sure that the image was loaded before render
      * @param  {String} bgImage image source
+     * @param  {String} bgImageSrcSet image srcset attribute
+     * @param  {String} bgImageSizes image size attribute
      */
-    loadImage(bgImage, id) {
+    loadImage(bgImage, bgImageSrcSet, bgImageSizes) {
         this.releaseImage();
         this.bgImageRef = new Image();
         this.bgImageRef.onload = img => {
-            this.setState({ bgImage }, () => this.updatePosition());
+            this.setState(
+                {
+                    bgImage,
+                    bgImageSrcSet,
+                    bgImageSizes
+                },
+                () => this.updatePosition()
+            );
         };
         this.bgImageRef.onerror = this.bgImageRef.onload;
         this.bgImageRef.src = bgImage;
+        this.bgImageRef.srcset = bgImageSrcSet || '';
+        this.bgImageRef.sizes = bgImageSizes || '';
     }
 
     /**
@@ -286,7 +294,7 @@ export default class Parallax extends React.Component {
      * defines, if the background image should have autoHeight or autoWidth to
      * fit the component space optimally
      */
-    updatePosition() {
+    updatePosition = () => {
         let autoHeight = false;
         this.content = this.ReactDOM.findDOMNode(this.refs.content);
         this.contentHeight = this.content.getBoundingClientRect().height;
@@ -316,17 +324,7 @@ export default class Parallax extends React.Component {
         if (this.bg && this.splitChildren.bgChildren.length > 0) {
             this.setBackgroundPosition(percentage);
         }
-    }
-
-    /**
-     * bind scope to all functions that will be called via eventlistener
-     */
-    autobind() {
-        this.onScroll = this.onScroll.bind(this);
-        this.onWindowResize = this.onWindowResize.bind(this);
-        this.updatePosition = this.updatePosition.bind(this);
-        this.onWindowLoad = this.onWindowLoad.bind(this);
-    }
+    };
 
     log(...args) {
         if (this.props.log) {
@@ -335,14 +333,18 @@ export default class Parallax extends React.Component {
     }
 
     render() {
+        const { className, style, bgClassName, bgImageAlt } = this.props;
+        const { bgImage, bgImageSrcSet, bgImageSizes, childStyle } = this.state;
         return (
-            <div className={`react-parallax ${this.props.className}`} style={this.props.style}>
-                {this.state.bgImage ? (
+            <div className={`react-parallax ${className}`} style={style}>
+                {bgImage ? (
                     <img
-                        className={this.props.bgClassName}
-                        src={this.state.bgImage}
+                        className={bgClassName}
+                        src={bgImage}
+                        srcSet={bgImageSrcSet}
+                        sizes={bgImageSizes}
                         ref={bg => (this.img = bg)}
-                        alt={this.props.bgImageAlt}
+                        alt={bgImageAlt}
                     />
                 ) : null}
                 {this.splitChildren.bgChildren.length > 0 ? (
@@ -353,7 +355,7 @@ export default class Parallax extends React.Component {
                         {this.splitChildren.bgChildren}
                     </div>
                 ) : null}
-                <div className="react-parallax-content" style={this.state.childStyle} ref="content">
+                <div className="react-parallax-content" style={childStyle} ref="content">
                     {this.splitChildren.children}
                 </div>
             </div>

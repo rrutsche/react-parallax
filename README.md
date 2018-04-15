@@ -55,6 +55,8 @@ For more flexibility and styling purposes you can add a ```<Background></Backgro
 
 * bgImage: path to the background image that makes parallax effect visible - (type: String)
 * bgImageAlt: alt text for bgImage - (type: String)
+* bgImageSizes: img `sizes` attribute
+* bgImageSrcSet: img `srcset` attribute
 * bgStyle: additional style object for the bg image/children - (type: Object)
 [Valid style attributes](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Properties_Reference)
 * bgClassName: custom classname for image - (type: String)
