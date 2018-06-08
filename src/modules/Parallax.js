@@ -144,7 +144,7 @@ export default class Parallax extends React.Component {
             return;
         }
         const stamp = Date.now();
-        if (stamp - this.timestamp >= 10 && isScrolledIntoView(this.node, 50, this.canUseDOM)) {
+        if (stamp - this.timestamp >= 10 && isScrolledIntoView(this.node, 100, this.canUseDOM)) {
             window.requestAnimationFrame(this.updatePosition);
             this.timestamp = stamp;
         }
