@@ -7,7 +7,8 @@ import {
     canUseDOM,
     getRelativePosition,
     getSplitChildren,
-    setBlur
+    setBlur,
+    isScrolledIntoView,
 } from '../util/util';
 
 export default class Parallax extends React.Component {
@@ -26,7 +27,7 @@ export default class Parallax extends React.Component {
         log: PropTypes.bool,
         parent: PropTypes.any,
         strength: PropTypes.number,
-        style: PropTypes.object
+        style: PropTypes.object,
     };
 
     static defaultProps = {
@@ -35,7 +36,7 @@ export default class Parallax extends React.Component {
         className: '',
         disabled: false,
         log: false,
-        strength: 100
+        strength: 100,
     };
 
     constructor(props) {
@@ -46,8 +47,8 @@ export default class Parallax extends React.Component {
             bgImageSrcSet: props.bgImageSrcSet,
             bgImageSizes: props.bgImageSizes,
             childStyle: {
-                position: 'relative'
-            }
+                position: 'relative',
+            },
         };
 
         this.canUseDOM = canUseDOM();
@@ -142,7 +143,7 @@ export default class Parallax extends React.Component {
             return;
         }
         const stamp = Date.now();
-        if (stamp - this.timestamp >= 10 /*&& isScrolledIntoView(this.node, this.canUseDOM)*/) {
+        if (stamp - this.timestamp >= 10 && isScrolledIntoView(this.node, 100, this.canUseDOM)) {
             window.requestAnimationFrame(this.updatePosition);
             this.timestamp = stamp;
         }
@@ -261,9 +262,9 @@ export default class Parallax extends React.Component {
                 {
                     bgImage,
                     bgImageSrcSet,
-                    bgImageSizes
+                    bgImageSizes,
                 },
-                () => this.updatePosition()
+                () => this.updatePosition(),
             );
         };
         this.bgImageRef.onerror = this.bgImageRef.onload;
