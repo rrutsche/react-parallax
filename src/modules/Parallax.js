@@ -74,7 +74,6 @@ export default class Parallax extends React.Component {
             props.blur.min !== undefined &&
             props.blur.max !== undefined
         );
-        this.autobind();
     }
 
     /**
@@ -130,16 +129,16 @@ export default class Parallax extends React.Component {
     /**
      * update window height and positions on window resize
      */
-    onWindowResize() {
+    onWindowResize = () => {
         this.parentHeight = getNodeHeight(this.canUseDOM, this.parent);
         this.updatePosition();
-    }
+    };
 
-    onWindowLoad() {
+    onWindowLoad = () => {
         this.updatePosition();
-    }
+    };
 
-    onScroll(event) {
+    onScroll = event => {
         if (!this.canUseDOM) {
             return;
         }
@@ -148,7 +147,7 @@ export default class Parallax extends React.Component {
             window.requestAnimationFrame(this.updatePosition);
             this.timestamp = stamp;
         }
-    }
+    };
 
     /**
      * defines styles for the parallax node that do not change during use
@@ -272,7 +271,7 @@ export default class Parallax extends React.Component {
      * defines, if the background image should have autoHeight or autoWidth to
      * fit the component space optimally
      */
-    updatePosition() {
+    updatePosition = () => {
         let autoHeight = false;
         this.content = this.ReactDOM.findDOMNode(this.refs.content);
         this.contentHeight = this.content.getBoundingClientRect().height;
@@ -298,17 +297,7 @@ export default class Parallax extends React.Component {
         if (this.bg && this.splitChildren.bgChildren.length > 0) {
             this.setBackgroundPosition(percentage);
         }
-    }
-
-    /**
-     * bind scope to all functions that will be called via eventlistener
-     */
-    autobind() {
-        this.onScroll = this.onScroll.bind(this);
-        this.onWindowResize = this.onWindowResize.bind(this);
-        this.updatePosition = this.updatePosition.bind(this);
-        this.onWindowLoad = this.onWindowLoad.bind(this);
-    }
+    };
 
     log(...args) {
         if (this.props.log) {
