@@ -8,6 +8,7 @@ import {
     getSplitChildren,
     isScrolledIntoView,
 } from '../util/util';
+import ParallaxChildren from './ParallaxChildren';
 
 const initialStyle = {
     position: 'absolute',
@@ -59,9 +60,6 @@ export default class Parallax extends React.Component {
             bgStyle: {
                 ...initialStyle,
                 ...this.getCustomBgStyle(props),
-            },
-            childStyle: {
-                position: 'relative',
             },
         };
 
@@ -155,6 +153,10 @@ export default class Parallax extends React.Component {
             window.requestAnimationFrame(this.updatePosition);
             this.timestamp = stamp;
         }
+    };
+
+    onContentMount = content => {
+        this.content = content;
     };
 
     /**
@@ -343,7 +345,7 @@ export default class Parallax extends React.Component {
 
     render() {
         const { className, style, bgClassName, bgImageAlt } = this.props;
-        const { bgImage, bgImageSrcSet, bgImageSizes, childStyle } = this.state;
+        const { bgImage, bgImageSrcSet, bgImageSizes } = this.state;
         return (
             <div
                 className={`react-parallax ${className}`}
@@ -370,13 +372,9 @@ export default class Parallax extends React.Component {
                         {this.splitChildren.bgChildren}
                     </div>
                 ) : null}
-                <div
-                    className="react-parallax-content"
-                    style={childStyle}
-                    ref={content => (this.content = content)}
-                >
+                <ParallaxChildren onMount={this.onContentMount}>
                     {this.splitChildren.children}
-                </div>
+                </ParallaxChildren>
             </div>
         );
     }
