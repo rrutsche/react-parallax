@@ -36,6 +36,7 @@ export default class Parallax extends React.Component {
         disabled: PropTypes.bool,
         log: PropTypes.bool,
         parent: PropTypes.any,
+        renderLayer: PropTypes.func,
         strength: PropTypes.number,
         style: PropTypes.object,
     };
@@ -61,6 +62,7 @@ export default class Parallax extends React.Component {
                 ...initialStyle,
                 ...this.getCustomBgStyle(props),
             },
+            percentage: 0,
         };
 
         this.canUseDOM = canUseDOM();
@@ -199,6 +201,7 @@ export default class Parallax extends React.Component {
                 WebkitTransform: transform,
                 transform,
             },
+            percentage,
         });
     }
 
@@ -235,6 +238,7 @@ export default class Parallax extends React.Component {
                 WebkitFilter: filter,
                 filter,
             },
+            percentage,
         });
     }
 
@@ -344,8 +348,8 @@ export default class Parallax extends React.Component {
     }
 
     render() {
-        const { className, style, bgClassName, bgImageAlt } = this.props;
-        const { bgImage, bgImageSrcSet, bgImageSizes } = this.state;
+        const { className, style, bgClassName, bgImageAlt, renderLayer } = this.props;
+        const { bgImage, bgImageSrcSet, bgImageSizes, percentage } = this.state;
         return (
             <div
                 className={`react-parallax ${className}`}
@@ -363,6 +367,7 @@ export default class Parallax extends React.Component {
                         style={this.state.imgStyle}
                     />
                 ) : null}
+                {renderLayer ? renderLayer(Math.min(-(percentage - 1), 1)) : null}
                 {this.splitChildren.bgChildren.length > 0 ? (
                     <div
                         className="react-parallax-background-children"

@@ -7,7 +7,6 @@ class ParallaxChildren extends PureComponent {
         onMount: PropTypes.func,
     };
     render() {
-        console.log('children render');
         const { children, onMount } = this.props;
         return (
             <div
