@@ -93,9 +93,13 @@ export default class PageOne extends React.Component {
                             <div
                                 style={{
                                     position: 'absolute',
-                                    width: '100%',
-                                    height: '100%',
-                                    background: `rgba(255, 125, 0, ${percentage * 0.9})`,
+                                    background: `rgba(255, 125, 0, ${percentage * 1})`,
+                                    left: '50%',
+                                    top: '50%',
+                                    borderRadius: '50%',
+                                    transform: 'translate(-50%,-50%)',
+                                    width: percentage * 500,
+                                    height: percentage * 500,
                                 }}
                             />
 

@@ -54,7 +54,7 @@ export function getRelativePosition(node, useDOM, parent) {
     const maxHeight = height > parentHeight ? height : parentHeight;
     const y = Math.round(top > maxHeight ? maxHeight : top);
 
-    return getPercentage(0, maxHeight, y);
+    return getPercentage(-height, maxHeight, y, height);
 }
 
 /**
