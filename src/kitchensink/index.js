@@ -8,11 +8,11 @@ import PageThree from './PageThree';
 
 render(
     <Router history={browserHistory}>
-        <Route path="/" component={KitchenSink}>
-            <Route path="pageone" component={PageOne} />
+        <Route component={KitchenSink}>
+            <Route path="/" component={PageOne} />
             <Route path="pagetwo" component={PageTwo} />
             <Route path="pagethree" component={PageThree} />
         </Route>
     </Router>,
-    document.getElementById('app')
+    document.getElementById('app'),
 );
