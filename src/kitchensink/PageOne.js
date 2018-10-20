@@ -88,6 +88,8 @@ export default class PageOne extends React.Component {
                     bgImage={this.backgrounds[this.state.BG]}
                     bgImageSrcSet={this.srcSets[this.state.srcSet]}
                     strength={200}
+                    tagName="section"
+                    id="home"
                     renderLayer={percentage => (
                         <div>
                             <div

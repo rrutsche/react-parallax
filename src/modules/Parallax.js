@@ -34,11 +34,13 @@ export default class Parallax extends React.Component {
         blur: PropTypes.oneOfType([PropTypes.number, PropTypes.object]),
         className: PropTypes.string,
         disabled: PropTypes.bool,
+        id: PropTypes.string,
         log: PropTypes.bool,
         parent: PropTypes.any,
         renderLayer: PropTypes.func,
         strength: PropTypes.number,
         style: PropTypes.object,
+        tagName: PropTypes.string,
     };
 
     static defaultProps = {
@@ -48,6 +50,7 @@ export default class Parallax extends React.Component {
         disabled: false,
         log: false,
         strength: 100,
+        tagName: 'div',
     };
 
     constructor(props) {
@@ -348,12 +351,14 @@ export default class Parallax extends React.Component {
     }
 
     render() {
-        const { className, style, bgClassName, bgImageAlt, renderLayer } = this.props;
+        const { className, style, bgClassName, bgImageAlt, renderLayer, id, tagName } = this.props;
         const { bgImage, bgImageSrcSet, bgImageSizes, percentage } = this.state;
+        const CustomTagName = tagName;
         return (
-            <div
+            <CustomTagName
                 className={`react-parallax ${className}`}
                 style={style}
+                id={id}
                 ref={node => (this.node = node)}
             >
                 {bgImage ? (
@@ -380,7 +385,7 @@ export default class Parallax extends React.Component {
                 <ParallaxChildren onMount={this.onContentMount}>
                     {this.splitChildren.children}
                 </ParallaxChildren>
-            </div>
+            </CustomTagName>
         );
     }
 }
