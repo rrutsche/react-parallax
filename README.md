@@ -108,6 +108,10 @@ additional style object for the bg image/children - (type: Object)
 
 custom classname for image - (type: String)
 
+##### contentClassName
+
+custom classname for parallax inner - (type: String) - default: 'react-parallax-content'
+
 ##### bgWidth
 
 set bgImage width manually - (type: String), eg. '400px', 'auto'

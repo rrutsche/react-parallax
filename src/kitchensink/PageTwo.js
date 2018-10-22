@@ -10,18 +10,18 @@ export default class PageTwo extends React.Component {
         const fontStyle = {
             fontFamily: 'Helvetica Neue, Arial, sans-serif',
             textAlign: 'center',
-            fontWeight: 100
+            fontWeight: 100,
         };
         this.state = {
             image:
                 'https://totallycoolpix.com/images/tcp_images_before/1013/itp_shamma_esoof_012__tcp_gallery_image.jpg',
-            children: <h1 style={fontStyle}>children no1</h1>
+            children: <h1 style={fontStyle}>children no1</h1>,
         };
     }
 
     changeImage() {
         this.setState({
-            image: 'http://combiboilersleeds.com/images/rocket/rocket-6.jpg'
+            image: 'http://combiboilersleeds.com/images/rocket/rocket-6.jpg',
         });
     }
 
@@ -29,10 +29,10 @@ export default class PageTwo extends React.Component {
         const fontStyle = {
             fontFamily: 'Helvetica Neue, Arial, sans-serif',
             textAlign: 'center',
-            fontWeight: 100
+            fontWeight: 100,
         };
         this.setState({
-            children: <h1 style={fontStyle}>children no2!!!!</h1>
+            children: <h1 style={fontStyle}>children no2!!!!</h1>,
         });
     }
 
@@ -40,18 +40,18 @@ export default class PageTwo extends React.Component {
         const style = {
             backgroundColor: '#efefef',
             color: 'white',
-            textAlign: 'center'
+            textAlign: 'center',
         };
         const fontStyle2 = {
             fontFamily: 'Helvetica Neue, Arial, sans-serif',
             textAlign: 'center',
             fontWeight: 100,
-            color: 'darkgrey'
+            color: 'darkgrey',
         };
         return (
             <div style={style}>
                 <Link to="pageone">Page One</Link>
-                <Parallax strength={300}>
+                <Parallax strength={300} contentClassName="my-content">
                     <Background className="custom-bg">
                         <img src="http://www.fillmurray.com/500/320" alt="fill murray" />
                     </Background>

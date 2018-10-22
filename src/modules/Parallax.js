@@ -33,6 +33,7 @@ export default class Parallax extends React.Component {
         bgWidth: PropTypes.string,
         blur: PropTypes.oneOfType([PropTypes.number, PropTypes.object]),
         className: PropTypes.string,
+        contentClassName: PropTypes.string,
         disabled: PropTypes.bool,
         log: PropTypes.bool,
         parent: PropTypes.any,
@@ -348,7 +349,14 @@ export default class Parallax extends React.Component {
     }
 
     render() {
-        const { className, style, bgClassName, bgImageAlt, renderLayer } = this.props;
+        const {
+            className,
+            style,
+            bgClassName,
+            contentClassName,
+            bgImageAlt,
+            renderLayer,
+        } = this.props;
         const { bgImage, bgImageSrcSet, bgImageSizes, percentage } = this.state;
         return (
             <div
@@ -377,7 +385,7 @@ export default class Parallax extends React.Component {
                         {this.splitChildren.bgChildren}
                     </div>
                 ) : null}
-                <ParallaxChildren onMount={this.onContentMount}>
+                <ParallaxChildren onMount={this.onContentMount} className={contentClassName}>
                     {this.splitChildren.children}
                 </ParallaxChildren>
             </div>
