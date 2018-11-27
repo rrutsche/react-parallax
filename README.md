@@ -120,6 +120,22 @@ set bgImage width manually - (type: String), eg. '400px', 'auto'
 
 set bgImage height manually - (type: String), eg. '400px', 'auto'
 
+##### bgMaxHeight
+
+set bgImage maxHeight manually - (type: String), eg. '400px', '20em'
+
+##### bgMaxWidth
+
+set bgImage maxWidth manually - (type: String), eg. '400px', '20em'
+
+##### bgMinHeight
+
+set bgImage minHeight manually - (type: String), eg. '400px', '20em'
+
+##### bgMinWidth
+
+set bgImage minWidth manually - (type: String), eg. '400px', '20em'
+
 ##### strength
 
 parallax effect strength (in pixel), default 100. this will define the amount of pixels the background image is translated - (type: Number)
