@@ -52,8 +52,7 @@ export default class Parallax extends React.Component {
 
     constructor(props) {
         super(props);
-        console.log(props);
-        
+
         this.state = {
             bgImage: props.bgImage,
             bgImageSrcSet: props.bgImageSrcSet,
