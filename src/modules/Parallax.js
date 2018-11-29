@@ -212,7 +212,7 @@ export default class Parallax extends React.Component {
         const { disabled, strength, blur } = this.props;
         const height = autoHeight ? 'auto' : `${this.getImageHeight()}px`;
         const width = !autoHeight ? 'auto' : `${this.contentWidth}px`;
-        
+
         // don't do unneccessary style processing if parallax is disabled
         if (disabled === true) {
             return;
