@@ -24,14 +24,12 @@ const initialStyle = {
 export default class Parallax extends React.Component {
     static propTypes = {
         bgClassName: PropTypes.string,
-        bgHeight: PropTypes.string,
         bgImage: PropTypes.string,
         bgImageAlt: PropTypes.string,
         bgImageSizes: PropTypes.string,
         bgImageSrcSet: PropTypes.string,
         bgImageStyle: PropTypes.object,
         bgStyle: PropTypes.object,
-        bgWidth: PropTypes.string,
         blur: PropTypes.oneOfType([PropTypes.number, PropTypes.object]),
         className: PropTypes.string,
         contentClassName: PropTypes.string,
@@ -54,6 +52,7 @@ export default class Parallax extends React.Component {
 
     constructor(props) {
         super(props);
+        console.log(props);
         
         this.state = {
             bgImage: props.bgImage,
