@@ -29,10 +29,7 @@ export default class Parallax extends React.Component {
         bgImageAlt: PropTypes.string,
         bgImageSizes: PropTypes.string,
         bgImageSrcSet: PropTypes.string,
-        bgMaxHeight: PropTypes.string,
-        bgMaxWidth: PropTypes.string,
-        bgMinHeight: PropTypes.string,
-        bgMinWidth: PropTypes.string,
+        bgImageStyle: PropTypes.object,
         bgStyle: PropTypes.object,
         bgWidth: PropTypes.string,
         blur: PropTypes.oneOfType([PropTypes.number, PropTypes.object]),
@@ -57,7 +54,7 @@ export default class Parallax extends React.Component {
 
     constructor(props) {
         super(props);
-
+        
         this.state = {
             bgImage: props.bgImage,
             bgImageSrcSet: props.bgImageSrcSet,
@@ -214,13 +211,9 @@ export default class Parallax extends React.Component {
      * sets position for the background image
      */
     setImagePosition(percentage, autoHeight = false) {
-        const { bgMinWidth, bgMinHeight, bgMaxHeight, bgMaxWidth, bgHeight, bgWidth, disabled, strength, blur } = this.props;
-        const height = bgHeight || (autoHeight ? 'auto' : `${this.getImageHeight()}px`);
-        const width = bgWidth || (!autoHeight ? 'auto' : `${this.contentWidth}px`);
-        const minWidth = bgMinWidth || null;
-        const minHeight = bgMinHeight || null;
-        const maxHeight = bgMaxHeight || null;
-        const maxWidth = bgMaxWidth || null;
+        const { disabled, strength, blur } = this.props;
+        const height = autoHeight ? 'auto' : `${this.getImageHeight()}px`;
+        const width = !autoHeight ? 'auto' : `${this.contentWidth}px`;
         
         // don't do unneccessary style processing if parallax is disabled
         if (disabled === true) {
@@ -241,10 +234,6 @@ export default class Parallax extends React.Component {
             imgStyle: {
                 ...this.state.imgStyle,
                 height,
-                maxHeight,
-                maxWidth,
-                minWidth,
-                minHeight,
                 width,
                 WebkitTransform: transform,
                 transform,
@@ -384,7 +373,7 @@ export default class Parallax extends React.Component {
                         sizes={bgImageSizes}
                         ref={bg => (this.img = bg)}
                         alt={bgImageAlt}
-                        style={this.state.imgStyle}
+                        style={{...this.state.imgStyle, ...this.props.bgImageStyle}}
                     />
                 ) : null}
                 {renderLayer ? renderLayer(Math.min(-(percentage - 1), 1)) : null}

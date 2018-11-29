@@ -112,29 +112,9 @@ custom classname for image - (type: String)
 
 custom classname for parallax inner - (type: String) - default: 'react-parallax-content'
 
-##### bgWidth
+##### bgImageStyle
 
-set bgImage width manually - (type: String), eg. '400px', 'auto'
-
-##### bgHeight
-
-set bgImage height manually - (type: String), eg. '400px', 'auto'
-
-##### bgMaxHeight
-
-set bgImage maxHeight manually - (type: String), eg. '400px', '20em'
-
-##### bgMaxWidth
-
-set bgImage maxWidth manually - (type: String), eg. '400px', '20em'
-
-##### bgMinHeight
-
-set bgImage minHeight manually - (type: String), eg. '400px', '20em'
-
-##### bgMinWidth
-
-set bgImage minWidth manually - (type: String), eg. '400px', '20em'
+set background image styling - (type: Object), eg. {height: '50px', maxWidth: '75px', opacity: '.5'}
 
 ##### strength
 
