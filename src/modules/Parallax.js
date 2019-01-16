@@ -24,13 +24,12 @@ const initialStyle = {
 export default class Parallax extends React.Component {
     static propTypes = {
         bgClassName: PropTypes.string,
-        bgHeight: PropTypes.string,
         bgImage: PropTypes.string,
         bgImageAlt: PropTypes.string,
         bgImageSizes: PropTypes.string,
         bgImageSrcSet: PropTypes.string,
+        bgImageStyle: PropTypes.object,
         bgStyle: PropTypes.object,
-        bgWidth: PropTypes.string,
         blur: PropTypes.oneOfType([PropTypes.number, PropTypes.object]),
         className: PropTypes.string,
         contentClassName: PropTypes.string,
@@ -210,9 +209,9 @@ export default class Parallax extends React.Component {
      * sets position for the background image
      */
     setImagePosition(percentage, autoHeight = false) {
-        const { bgHeight, bgWidth, disabled, strength, blur } = this.props;
-        const height = bgHeight || (autoHeight ? 'auto' : `${this.getImageHeight()}px`);
-        const width = bgWidth || (!autoHeight ? 'auto' : `${this.contentWidth}px`);
+        const { disabled, strength, blur } = this.props;
+        const height = autoHeight ? 'auto' : `${this.getImageHeight()}px`;
+        const width = !autoHeight ? 'auto' : `${this.contentWidth}px`;
 
         // don't do unneccessary style processing if parallax is disabled
         if (disabled === true) {
@@ -372,7 +371,7 @@ export default class Parallax extends React.Component {
                         sizes={bgImageSizes}
                         ref={bg => (this.img = bg)}
                         alt={bgImageAlt}
-                        style={this.state.imgStyle}
+                        style={{ ...this.state.imgStyle, ...this.props.bgImageStyle }}
                     />
                 ) : null}
                 {renderLayer ? renderLayer(Math.min(-(percentage - 1), 1)) : null}
