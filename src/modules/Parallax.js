@@ -371,7 +371,7 @@ export default class Parallax extends React.Component {
                         sizes={bgImageSizes}
                         ref={bg => (this.img = bg)}
                         alt={bgImageAlt}
-                        style={{...this.state.imgStyle, ...this.props.bgImageStyle}}
+                        style={{ ...this.state.imgStyle, ...this.props.bgImageStyle }}
                     />
                 ) : null}
                 {renderLayer ? renderLayer(Math.min(-(percentage - 1), 1)) : null}
