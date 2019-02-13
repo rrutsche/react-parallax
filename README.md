@@ -1,5 +1,11 @@
 # react-parallax [![NPM version][npm-image]][npm-url]
 
+## Donate
+
+This project is maintained during evenings and weekends, please consider either donating or contributing in other ways.
+
+<a href="https://www.buymeacoffee.com/rrutsche" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Donate" style="height: auto !important;width: auto !important;" ></a>
+
 ### Install
 
 ```sh
