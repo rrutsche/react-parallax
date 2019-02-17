@@ -16,7 +16,7 @@
         "dist": "NODE_ENV=production && webpack -p --progress --config webpack.config.build.js",
         "lint": "eslint src",
         "format": "prettier --write \"*/**/*.{js,json,css,scss}\" \"*.js\"",
-        "precommit": "lint-staged && git diff --exit-code"
+        "precommit": "lint-staged"
     },
     "keywords": [
         "react",
