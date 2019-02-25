@@ -1,62 +1,38 @@
 const path = require('path');
-const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-const ROOT_PATH = path.resolve(__dirname);
+const APP_DIR = path.resolve(__dirname, './src');
 
-//Common configuration settings
-module.exports = {
-    resolve: {
-        extensions: ['.js', '.jsx'],
-        modules: ['node_modules']
+const htmlWebpackPlugin = new HtmlWebpackPlugin({
+    template: './src/kitchensink/index.html',
+    inject: 'body',
+});
+
+const JSRules = {
+    test: /\.js$/,
+    exclude: /node_modules/,
+    use: {
+        loader: 'babel-loader',
     },
-    module: {
-        rules: [
-            {
-                test: /\.js$/,
-                loader: 'eslint-loader',
-                enforce: 'pre',
-                exclude: /node_modules/
-            },
-            {
-                test: /\.(js|jsx)$/,
-                loader: 'babel-loader',
-                include: path.resolve(ROOT_PATH, 'src')
-            },
-            {
-                test: /\.json/,
-                loader: 'json-loader'
-            },
-            {
-                test: /\.png$/,
-                loaders: ['url-loader?limit=100000&mimetype=image/png'],
-                exclude: /node_modules/
-            },
-            {
-                test: /\.scss$/,
-                loaders: ['style', 'css', 'sass']
-            },
-            {
-                test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
-                loader: 'url?limit=100000&mimetype=image/svg+xml'
-            },
-            {
-                test: /\.(jpe|jpg|gif|woff|woff2|eot|ttf)(\?.*$|$)/,
-                loader: 'file-loader'
-            }
-        ]
-    },
-    plugins: [
-        new webpack.LoaderOptionsPlugin({
+};
+
+const ImageRules = {
+    test: /\.(jpe?g|png)(\?[a-z0-9=&.]+)?$/,
+    exclude: /inline/,
+    use: [
+        {
+            loader: 'file-loader',
             options: {
-                eslint: {
-                    configFile: '.eslintrc'
-                }
-            }
-        }),
-        new HtmlWebpackPlugin({
-            template: './src/kitchensink/index.html',
-            inject: 'body'
-        })
-    ]
+                name: 'img/[name]_[hash].[ext]',
+            },
+        },
+    ],
+};
+
+module.exports = {
+    entry: ['@babel/polyfill', APP_DIR],
+    module: {
+        rules: [JSRules, ImageRules],
+    },
+    plugins: [htmlWebpackPlugin],
 };

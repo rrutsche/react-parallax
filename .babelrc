@@ -1,21 +1,9 @@
 {
-  "presets": ["stage-0","es2015","react"],
-  "plugins": [
-    "transform-class-properties"
-  ],
-  "env": {
-    "development": {
-      "plugins": [
-        ["react-transform", {
-          "transforms": [
-            {
-              "transform": "react-transform-hmr",
-              "imports": ["react"],
-              "locals": ["module"]
-            }
-          ]
-        }]
-      ]
+    "presets": ["@babel/preset-env", "@babel/preset-react"],
+    "plugins": ["transform-class-properties"],
+    "env": {
+        "development": {
+            "plugins": ["react-hot-loader/babel"]
+        }
     }
-  }
 }

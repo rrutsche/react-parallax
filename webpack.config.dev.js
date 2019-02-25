@@ -10,7 +10,7 @@ module.exports = merge(common, {
     entry: './src/kitchensink/index.js',
     output: {
         path: path.resolve(ROOT_PATH, 'www'),
-        filename: 'bundle.js'
+        filename: 'bundle.js',
     },
     devtool: 'eval',
     devServer: {
@@ -19,14 +19,18 @@ module.exports = merge(common, {
         historyApiFallback: true,
         hot: true,
         inline: true,
-        contentBase: 'www'
+        contentBase: 'www',
     },
     plugins: [
         new webpack.HotModuleReplacementPlugin(),
         new webpack.DefinePlugin({
             'process.env': {
-                NODE_ENV: JSON.stringify('development')
-            }
-        })
-    ]
+                NODE_ENV: JSON.stringify('development'),
+            },
+        }),
+    ],
+    watchOptions: {
+        ignored: ['test/**/*.*', 'dist/**/*.*', 'coverage/**/*.*', 'node_modules/**/*.*'],
+    },
+    stats: 'minimal',
 });

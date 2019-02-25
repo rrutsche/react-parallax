@@ -1,18 +1,17 @@
 import React from 'react';
 import { render } from 'react-dom';
-import { Router, Route, browserHistory } from 'react-router';
-import KitchenSink from './KitchenSink';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import PageOne from './PageOne';
 import PageTwo from './PageTwo';
 import PageThree from './PageThree';
 
 render(
-    <Router history={browserHistory}>
-        <Route component={KitchenSink}>
-            <Route path="/" component={PageOne} />
-            <Route path="pagetwo" component={PageTwo} />
-            <Route path="pagethree" component={PageThree} />
-        </Route>
-    </Router>,
+    <BrowserRouter>
+        <Switch>
+            <Route exact path="/" component={PageOne} />
+            <Route exact path="/pagetwo" component={PageTwo} />
+            <Route exact path="/pagethree" component={PageThree} />
+        </Switch>
+    </BrowserRouter>,
     document.getElementById('app'),
 );

@@ -4,7 +4,6 @@ export function getWindowHeight(useDOM) {
     if (!useDOM) {
         return 0;
     }
-
     const w = window;
     const d = document;
     const e = d.documentElement;
@@ -44,7 +43,7 @@ export function getPercentage(startpos, endpos, currentpos) {
     return displacement / distance || 0;
 }
 
-export function getRelativePosition(node, useDOM, parent) {
+export function getRelativePosition(node, useDOM) {
     if (!useDOM) {
         return 0;
     }
@@ -80,6 +79,8 @@ export function getSplitChildren(props) {
 }
 
 export function setBlur(node, blur) {
+    // eslint-disable-next-line no-param-reassign
     node.style.WebkitFilter = `blur(${blur}px)`;
+    // eslint-disable-next-line no-param-reassign
     node.style.filter = `blur(${blur}px)`;
 }

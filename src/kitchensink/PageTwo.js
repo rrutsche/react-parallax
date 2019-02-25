@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import { Parallax, Background } from '../modules/index';
 
 import image3 from '../assets/3.jpg';
@@ -48,6 +48,7 @@ export default class PageTwo extends React.Component {
             fontWeight: 100,
             color: 'darkgrey',
         };
+        const { image, children } = this.state;
         return (
             <div style={style}>
                 <Link to="pageone">Page One</Link>
@@ -69,12 +70,12 @@ export default class PageTwo extends React.Component {
                 </Parallax>
                 <Parallax
                     log
-                    bgImage={this.state.image}
+                    bgImage={image}
                     strength={200}
                     contentStyles={[{ property: 'blur', min: 0, max: 2 }]}
                 >
                     <br />
-                    {this.state.children}
+                    {children}
                     <h1 style={fontStyle2}>
                         <p>
                             &rdquo;Queequeg,&rdquo; said I, when they had dragged me, the last man,
@@ -135,7 +136,7 @@ export default class PageTwo extends React.Component {
                         contentStyles={[{ property: 'blur', min: 0, max: 2 }]}
                     >
                         <br />
-                        {this.state.children}
+                        {children}
                         <h1 style={fontStyle2}>
                             <p>
                                 &rdquo;It&rsquo;s certain,&rdquo; thought he, &rdquo;though rascal

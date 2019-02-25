@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import { Parallax } from '../modules/index';
 
 import image2 from '../assets/sw.jpg';
@@ -40,18 +40,21 @@ export default class PageOne extends React.Component {
     }
 
     toggleBackground = () => {
+        const { BG } = this.state;
         this.setState({
-            BG: this.state.BG === 1 ? 2 : 1,
+            BG: BG === 1 ? 2 : 1,
         });
     };
 
     toggleSrcSet = () => {
+        const { srcSet } = this.state;
         this.setState({
-            srcSet: this.state.srcSet === 1 ? 2 : 1,
+            srcSet: srcSet === 1 ? 2 : 1,
         });
     };
 
     render() {
+        const { BG, srcSet } = this.state;
         return (
             <div style={style}>
                 <div
@@ -66,6 +69,7 @@ export default class PageOne extends React.Component {
                     }}
                 >
                     <button
+                        type="button"
                         style={{
                             backgroundColor: 'white',
                         }}
@@ -74,6 +78,7 @@ export default class PageOne extends React.Component {
                         toogle background image 1
                     </button>
                     <button
+                        type="button"
                         style={{
                             backgroundColor: 'white',
                         }}
@@ -85,8 +90,8 @@ export default class PageOne extends React.Component {
                 <div style={{ height: '700px' }} />
                 <br />
                 <Parallax
-                    bgImage={this.backgrounds[this.state.BG]}
-                    bgImageSrcSet={this.srcSets[this.state.srcSet]}
+                    bgImage={this.backgrounds[BG]}
+                    bgImageSrcSet={this.srcSets[srcSet]}
                     strength={200}
                     renderLayer={percentage => (
                         <div>
