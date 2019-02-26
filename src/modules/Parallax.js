@@ -73,7 +73,6 @@ class Parallax extends Component {
         } else {
             this.updatePosition();
         }
-        this.setParallaxStyle();
     }
 
     componentWillReceiveProps(nextProps) {
@@ -135,16 +134,6 @@ class Parallax extends Component {
     onContentMount = content => {
         this.content = content;
     };
-
-    /**
-     * defines styles for the parallax node that do not change during use
-     */
-    setParallaxStyle() {
-        if (this.node) {
-            this.node.style.position = 'relative';
-            this.node.style.overflow = 'hidden';
-        }
-    }
 
     setBackgroundPosition(percentage) {
         const { disabled, strength } = this.props;
@@ -327,7 +316,7 @@ class Parallax extends Component {
         return (
             <div
                 className={`react-parallax ${className}`}
-                style={style}
+                style={{ position: 'relative', overflow: 'hidden', ...style }}
                 ref={node => {
                     this.node = node;
                 }}
