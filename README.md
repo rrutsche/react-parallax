@@ -1,12 +1,6 @@
 # react-parallax [![NPM version][npm-image]][npm-url]
 
-## Donate
-
-This project is maintained during evenings and weekends, please consider either donating or contributing in other ways.
-
-<a href="https://www.buymeacoffee.com/rrutsche" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Donate" style="height: auto !important;width: auto !important;" ></a>
-
-### Install
+## Install
 
 ```sh
 npm install react-parallax --save
@@ -15,6 +9,12 @@ yarn add react-parallax
 ```
 
 ### [Demo on codesandbox](https://codesandbox.io/embed/r0yEkozrw?view=preview)
+
+## Buy me a coffee
+
+This project is maintained during evenings and weekends. If you like it, please consider to buy me a coffee ;-) ...or contribute in other ways.
+
+<a href="https://www.buymeacoffee.com/rrutsche" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Donate" style="height: auto !important;width: auto !important;" ></a>
 
 ## Usage
 
