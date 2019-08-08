@@ -75,7 +75,16 @@ class Parallax extends Component {
         }
     }
 
-    componentWillReceiveProps(nextProps) {
+    shouldComponentUpdate(nextProps, nextState) {
+        const { bgImage } = this.props;
+        const { bgImage: stateBgImage } = this.state;
+        if (nextProps.bgImage !== bgImage && nextState.bgImage === stateBgImage) {
+            return false;
+        }
+        return true;
+    }
+
+    componentDidUpdate(nextProps) {
         const { parent, bgImage, bgImageSrcSet, bgImageSizes } = nextProps;
         const { bgImage: stateBgImage } = this.state;
         this.splitChildren = getSplitChildren(nextProps);
@@ -89,15 +98,6 @@ class Parallax extends Component {
         if (stateBgImage !== bgImage) {
             this.loadImage(bgImage, bgImageSrcSet, bgImageSizes);
         }
-    }
-
-    shouldComponentUpdate(nextProps, nextState) {
-        const { bgImage } = this.props;
-        const { bgImage: stateBgImage } = this.state;
-        if (nextProps.bgImage !== bgImage && nextState.bgImage === stateBgImage) {
-            return false;
-        }
-        return true;
     }
 
     /**
