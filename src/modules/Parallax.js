@@ -84,10 +84,10 @@ class Parallax extends Component {
         return true;
     }
 
-    componentDidUpdate(nextProps) {
-        const { parent, bgImage, bgImageSrcSet, bgImageSizes } = nextProps;
+    componentDidUpdate() {
+        const { parent, bgImage, bgImageSrcSet, bgImageSizes } = this.props;
         const { bgImage: stateBgImage } = this.state;
-        this.splitChildren = getSplitChildren(nextProps);
+        this.splitChildren = getSplitChildren(this.props);
         if (parent && this.parent !== parent) {
             this.parent = parent;
             this.removeListeners();
