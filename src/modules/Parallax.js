@@ -75,15 +75,6 @@ class Parallax extends Component {
         }
     }
 
-    shouldComponentUpdate(nextProps, nextState) {
-        const { bgImage } = this.props;
-        const { bgImage: stateBgImage } = this.state;
-        if (nextProps.bgImage !== bgImage && nextState.bgImage === stateBgImage) {
-            return false;
-        }
-        return true;
-    }
-
     componentDidUpdate() {
         const { parent, bgImage, bgImageSrcSet, bgImageSizes } = this.props;
         const { bgImage: stateBgImage } = this.state;
