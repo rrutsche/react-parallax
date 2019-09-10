@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { BlurProp } from '../modules/Parallax';
+import { BlurProp, DynamicBlurProp } from '../modules/Parallax';
 
 export function getWindowHeight(useDOM: boolean) {
     if (!useDOM) {
@@ -87,11 +87,13 @@ export function getSplitChildren(props: SplitChildrenProps): SplitChildrenResult
     };
 }
 
-export const getHasDynamicBlur = (blur: BlurProp) => {
-    if (!blur || typeof blur === 'number') {
-        return false;
-    }
-    return blur.min !== undefined && blur.max !== undefined;
+export const getHasDynamicBlur = (blur: BlurProp) =>
+    typeof blur === 'object' && blur.min !== undefined && blur.max !== undefined;
+
+export const getBlurValue = (isDynamicBlur: boolean, blur: BlurProp, percentage: number) => {
+    return isDynamicBlur
+        ? (blur as DynamicBlurProp).min + (1 - percentage) * (blur as DynamicBlurProp).max
+        : blur;
 };
 
 export function setBlur(node: HTMLElement, blur: number) {

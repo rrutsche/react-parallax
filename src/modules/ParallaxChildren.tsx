@@ -3,7 +3,7 @@ import React from 'react';
 export interface ParallaxChildrenProps {
     className?: string;
     children?: React.ReactNode;
-    onMount(node: HTMLDivElement): undefined;
+    onMount(node: HTMLDivElement): void;
 }
 
 const ParallaxChildren: React.SFC<ParallaxChildrenProps> = ({ children, onMount, className }) => (
