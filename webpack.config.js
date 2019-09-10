@@ -8,12 +8,18 @@ const htmlWebpackPlugin = new HtmlWebpackPlugin({
     inject: 'body',
 });
 
-const JSRules = {
-    test: /\.js$/,
+const TSRules = {
+    test: /\.ts(x?)$/,
     exclude: /node_modules/,
     use: {
-        loader: 'babel-loader',
+        loader: 'ts-loader',
     },
+};
+
+const JSRules = {
+    enforce: 'pre',
+    test: /\.js$/,
+    loader: 'source-map-loader',
 };
 
 const ImageRules = {
@@ -30,9 +36,12 @@ const ImageRules = {
 };
 
 module.exports = {
+    resolve: {
+        extensions: ['.ts', '.tsx'],
+    },
     entry: ['@babel/polyfill', APP_DIR],
     module: {
-        rules: [JSRules, ImageRules],
+        rules: [TSRules, JSRules, ImageRules],
     },
     plugins: [htmlWebpackPlugin],
 };

@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React, { Component } from 'react';
+import React from 'react';
 
 import {
     getNodeHeight,
@@ -7,8 +7,32 @@ import {
     getRelativePosition,
     getSplitChildren,
     isScrolledIntoView,
+    getHasDynamicBlur,
 } from '../util/Util';
 import ParallaxChildren from './ParallaxChildren';
+
+import { SplitChildrenResultType } from '../util/Util';
+
+export type BlurProp = number | { min: number; max: number };
+
+type ParallaxProps = {
+    blur?: BlurProp;
+    children?: React.ReactNode;
+    bgImage?: string;
+    bgImageSrcSet?: string;
+    bgImageSizes?: string;
+    bgStyle?: { [key: string]: any };
+    parent?: HTMLElement;
+};
+
+type ParallaxState = {
+    bgImage: string;
+    bgImageSrcSet: string;
+    bgImageSizes: string;
+    bgStyle?: { [key: string]: any };
+    imgStyle: { [key: string]: any };
+    percentage: number;
+};
 
 const initialStyle = {
     position: 'absolute',
@@ -21,8 +45,19 @@ const initialStyle = {
     MsBackfaceVisibility: 'hidden',
 };
 
-class Parallax extends Component {
-    constructor(props) {
+class Parallax extends React.Component<ParallaxProps, ParallaxState> {
+    canUseDOM: boolean;
+    node: HTMLElement;
+    content: HTMLElement;
+    splitChildren: SplitChildrenResultType;
+    bgImageLoaded: boolean;
+    bgImageRef: HTMLImageElement;
+    parent: HTMLElement | Document;
+    parentHeight: number;
+    timestamp: number;
+    dynamicBlur: boolean;
+
+    constructor(props: ParallaxProps) {
         super(props);
 
         this.state = {
@@ -49,11 +84,7 @@ class Parallax extends Component {
         this.parent = props.parent;
         this.parentHeight = getNodeHeight(this.canUseDOM, this.parent);
         this.timestamp = Date.now();
-        this.dynamicBlur = !!(
-            props.blur &&
-            props.blur.min !== undefined &&
-            props.blur.max !== undefined
-        );
+        this.dynamicBlur = getHasDynamicBlur(props.blur);
     }
 
     /**
@@ -95,7 +126,7 @@ class Parallax extends Component {
      * remove all eventlisteners before component is destroyed
      */
     componentWillUnmount() {
-        this.removeListeners(this.parent);
+        this.removeListeners();
         this.releaseImage();
     }
 
