@@ -1,7 +1,7 @@
 const path = require('path');
 const merge = require('webpack-merge');
 const webpack = require('webpack');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 const common = require('./webpack.config.js');
 
 const ROOT_PATH = path.resolve(__dirname);
@@ -10,7 +10,7 @@ process.env.NODE_ENV = 'production';
 
 module.exports = merge(common, {
     entry: {
-        index: path.resolve(ROOT_PATH, 'src/modules/index.js'),
+        index: path.resolve(ROOT_PATH, 'src/modules/index.tsx'),
     },
     output: {
         path: path.resolve(ROOT_PATH, 'dist'),
@@ -44,8 +44,7 @@ module.exports = merge(common, {
     ],
     optimization: {
         minimizer: [
-            new UglifyJsPlugin({
-                cache: true,
+            new TerserPlugin({
                 parallel: true,
                 sourceMap: true,
             }),

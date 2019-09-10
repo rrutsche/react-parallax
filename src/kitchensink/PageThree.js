@@ -7,22 +7,27 @@ export default class PageThree extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            theParentRef: null
+            theParentRef: null,
         };
     }
-    onParentRefMounted(ref) {
-        if (!this.state.theParentRef) {
+
+    onParentRefMounted(ref): void {
+        const { theParentRef } = this.state;
+        if (!theParentRef) {
             this.setState({
-                theParentRef: ref
+                theParentRef: ref,
             });
         }
     }
 
-    getParentRef() {
-        return this.state.theParentRef;
+    getParentRef(): HTMLDivElement {
+        const { theParentRef } = this.state;
+        return theParentRef;
     }
 
-    render() {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    render(): any {
+        const { theParentRef } = this.state;
         const style = {
             backgroundColor: '#efefef',
             color: 'white',
@@ -30,13 +35,13 @@ export default class PageThree extends React.Component {
             position: 'absolute',
             top: 0,
             height: '300px',
-            overflow: 'scroll'
+            overflow: 'scroll',
         };
         const fontStyle2 = {
             fontFamily: 'Helvetica Neue, Arial, sans-serif',
             textAlign: 'center',
             fontWeight: 100,
-            color: 'darkgrey'
+            color: 'darkgrey',
         };
         return (
             <div style={style} ref={ref => this.onParentRefMounted(ref)}>
@@ -64,7 +69,7 @@ export default class PageThree extends React.Component {
                     death penalty? Ooh, name it after me! Really?!
                 </h1>
                 <Parallax
-                    parent={this.state.theParentRef}
+                    parent={theParentRef}
                     log
                     bgImage={image3}
                     strength={-200}

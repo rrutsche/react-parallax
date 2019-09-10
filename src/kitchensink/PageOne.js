@@ -39,21 +39,22 @@ export default class PageOne extends React.Component {
         };
     }
 
-    toggleBackground = () => {
+    toggleBackground = (): void => {
         const { BG } = this.state;
         this.setState({
             BG: BG === 1 ? 2 : 1,
         });
     };
 
-    toggleSrcSet = () => {
+    toggleSrcSet = (): void => {
         const { srcSet } = this.state;
         this.setState({
             srcSet: srcSet === 1 ? 2 : 1,
         });
     };
 
-    render() {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    render(): any {
         const { BG, srcSet } = this.state;
         return (
             <div style={style}>

@@ -19,13 +19,13 @@ export default class PageTwo extends React.Component {
         };
     }
 
-    changeImage() {
+    changeImage(): void {
         this.setState({
             image: 'http://combiboilersleeds.com/images/rocket/rocket-6.jpg',
         });
     }
 
-    changeChildren() {
+    changeChildren(): void {
         const fontStyle = {
             fontFamily: 'Helvetica Neue, Arial, sans-serif',
             textAlign: 'center',
@@ -36,7 +36,8 @@ export default class PageTwo extends React.Component {
         });
     }
 
-    render() {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    render(): any {
         const style = {
             backgroundColor: '#efefef',
             color: 'white',

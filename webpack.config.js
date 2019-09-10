@@ -1,19 +1,11 @@
 const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const APP_DIR = path.resolve(__dirname, './src');
 
-const htmlWebpackPlugin = new HtmlWebpackPlugin({
-    template: './src/kitchensink/index.html',
-    inject: 'body',
-});
-
 const TSRules = {
-    test: /\.ts(x?)$/,
+    test: /\.(js|jsx|tsx|ts)$/,
     exclude: /node_modules/,
-    use: {
-        loader: 'ts-loader',
-    },
+    loader: 'babel-loader',
 };
 
 const JSRules = {
@@ -37,11 +29,10 @@ const ImageRules = {
 
 module.exports = {
     resolve: {
-        extensions: ['.ts', '.tsx'],
+        extensions: ['*', '.js', '.jsx', '.tsx', '.ts'],
     },
     entry: ['@babel/polyfill', APP_DIR],
     module: {
         rules: [TSRules, JSRules, ImageRules],
     },
-    plugins: [htmlWebpackPlugin],
 };

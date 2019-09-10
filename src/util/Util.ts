@@ -76,7 +76,7 @@ export function getSplitChildren(props: SplitChildrenProps): SplitChildrenResult
     const children = React.Children.toArray(props.children);
     children.forEach((child, index) => {
         // @TODO get rid of any
-        const c = child as any;
+        const c = <any>child;
         if (c.type && c.type.isParallaxBackground) {
             bgChildren = bgChildren.concat(children.splice(index, 1));
         }

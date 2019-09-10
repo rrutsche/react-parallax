@@ -1,13 +1,16 @@
 {
+    "plugins": ["@typescript-eslint", "jest"],
     "extends": [
         "airbnb",
+        "airbnb-typescript",
         "plugin:react/recommended",
         "prettier",
         "prettier/react",
         "prettier/standard",
+        "prettier/@typescript-eslint",
+        "plugin:@typescript-eslint/recommended",
         "plugin:jest/recommended"
     ],
-    "parser": "babel-eslint",
     "env": {
         "browser": true,
         "node": true,
@@ -20,7 +23,11 @@
         "react/button-has-type": "off",
         "no-underscore-dangle": "off",
         "curly": "error",
-        "import/no-extraneous-dependencies": 0
+        "import/no-extraneous-dependencies": 0,
+        "@typescript-eslint/explicit-function-return-type": [
+            "error",
+            { "allowExpressions": true, "allowTypedFunctionExpressions": true }
+        ]
     },
     "globals": {
         "expect": true,

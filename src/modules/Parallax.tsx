@@ -9,10 +9,10 @@ import {
     isScrolledIntoView,
     getHasDynamicBlur,
     getBlurValue,
-} from '../util/Util';
+} from '../util/util';
 import ParallaxChildren from './ParallaxChildren';
 
-import { SplitChildrenResultType } from '../util/Util';
+import { SplitChildrenResultType } from '../util/util';
 
 export type DynamicBlurProp = { min: number; max: number };
 export type BlurProp = number | DynamicBlurProp;
