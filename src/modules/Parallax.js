@@ -300,7 +300,6 @@ class Parallax extends Component {
     }
 
     render() {
-        console.log('hi from new module')
         const {
             className,
             style,
