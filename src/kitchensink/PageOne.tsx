@@ -13,22 +13,30 @@ const image1 =
 const style = {
     backgroundColor: '#efefef',
     color: 'white',
-    textAlign: 'center',
+    textAlign: 'center' as const,
 };
 const fontStyle2 = {
     fontFamily: 'Helvetica Neue, Arial, sans-serif',
-    textAlign: 'center',
+    textAlign: 'center' as const,
     fontWeight: 100,
     color: 'darkgrey',
 };
 
-export default class PageOne extends React.Component {
-    constructor(props) {
+type PageOneProps = {};
+type PageOneState = {
+    BG: number;
+    srcSet?: number;
+};
+
+export default class PageOne extends React.Component<PageOneProps, PageOneState> {
+    srcSets: { [key: string]: string };
+    backgrounds: { [key: string]: string };
+    constructor(props: PageOneProps) {
         super(props);
         this.backgrounds = {
-            1: image1,
-            2: image2,
-            3: image5,
+            '1': image1,
+            '2': image2,
+            '3': image5,
         };
         this.srcSets = {
             1: `${image4} 1x, ${image2} 2x`,
@@ -111,7 +119,7 @@ export default class PageOne extends React.Component {
 
                             <div
                                 style={{
-                                    zIndex: '100',
+                                    zIndex: 100,
                                     position: 'absolute',
                                     top: percentage * 0,
                                     left: percentage * 0,
@@ -121,7 +129,7 @@ export default class PageOne extends React.Component {
                             </div>
                             <div
                                 style={{
-                                    zIndex: '100',
+                                    zIndex: 100,
                                     position: 'absolute',
                                     bottom: percentage * 0,
                                     left: percentage * 0,

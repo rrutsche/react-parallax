@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import React from 'react';
 
 import {
@@ -22,7 +21,7 @@ export type BgImageSizesProp = string;
 
 type ParallaxProps = {
     bgClassName?: string;
-    bgImageStyle: { [key: string]: any };
+    bgImageStyle?: { [key: string]: any };
     blur?: BlurProp;
     children?: React.ReactNode;
     className?: string;
@@ -35,9 +34,9 @@ type ParallaxProps = {
     bgStyle?: { [key: string]: any };
     log?: boolean;
     parent?: HTMLElement;
-    renderLayer: (percentage: number) => any;
+    renderLayer?: (percentage: number) => any;
     strength?: number;
-    style: { [key: string]: any };
+    style?: { [key: string]: any };
 };
 
 type ParallaxState = {

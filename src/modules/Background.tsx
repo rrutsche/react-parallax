@@ -19,5 +19,3 @@ class Background extends Component<BackgroundProps, {}> {
 }
 
 export default Background;
-
-const test = <Background />;

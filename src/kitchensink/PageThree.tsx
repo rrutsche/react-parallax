@@ -3,15 +3,20 @@ import { Parallax } from '../modules/index';
 
 import image3 from '../assets/3.jpg';
 
-export default class PageThree extends React.Component {
-    constructor(props) {
+type PageThreeProps = {};
+type PageThreeState = {
+    theParentRef: HTMLDivElement | null;
+};
+
+export default class PageThree extends React.Component<PageThreeProps, PageThreeState> {
+    constructor(props: PageThreeProps) {
         super(props);
         this.state = {
             theParentRef: null,
         };
     }
 
-    onParentRefMounted(ref): void {
+    onParentRefMounted(ref: HTMLDivElement): void {
         const { theParentRef } = this.state;
         if (!theParentRef) {
             this.setState({
@@ -31,15 +36,15 @@ export default class PageThree extends React.Component {
         const style = {
             backgroundColor: '#efefef',
             color: 'white',
-            textAlign: 'center',
-            position: 'absolute',
+            textAlign: 'center' as const,
+            position: 'absolute' as const,
             top: 0,
             height: '300px',
             overflow: 'scroll',
         };
         const fontStyle2 = {
             fontFamily: 'Helvetica Neue, Arial, sans-serif',
-            textAlign: 'center',
+            textAlign: 'center' as const,
             fontWeight: 100,
             color: 'darkgrey',
         };
@@ -68,13 +73,7 @@ export default class PageThree extends React.Component {
                     round one. Now what? Five hours? Aw, man! Couldn&rsquo;t you just get me the
                     death penalty? Ooh, name it after me! Really?!
                 </h1>
-                <Parallax
-                    parent={theParentRef}
-                    log
-                    bgImage={image3}
-                    strength={-200}
-                    contentStyles={[{ property: 'blur', min: 0, max: 2 }]}
-                >
+                <Parallax parent={theParentRef} log bgImage={image3} strength={-200}>
                     <h1 style={fontStyle2}>
                         And I&rsquo;d do it again! And perhaps a third time! But that would be it.
                         Tell her she looks thin. What are their names? Tell her she looks thin.

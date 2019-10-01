@@ -13,7 +13,7 @@ const htmlWebpackPlugin = new HtmlWebpackPlugin({
 });
 
 module.exports = merge(common, {
-    entry: './src/kitchensink/index.js',
+    entry: './src/kitchensink/index.tsx',
     output: {
         path: path.resolve(ROOT_PATH, 'www'),
         filename: 'bundle.js',

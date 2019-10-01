@@ -27,7 +27,8 @@
         "@typescript-eslint/explicit-function-return-type": [
             "error",
             { "allowExpressions": true, "allowTypedFunctionExpressions": true }
-        ]
+        ],
+        "@typescript-eslint/no-var-require": 0
     },
     "globals": {
         "expect": true,

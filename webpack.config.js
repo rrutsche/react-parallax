@@ -5,7 +5,7 @@ const APP_DIR = path.resolve(__dirname, './src');
 const TSRules = {
     test: /\.(js|jsx|tsx|ts)$/,
     exclude: /node_modules/,
-    loader: 'babel-loader',
+    loaders: ['babel-loader', 'ts-loader'],
 };
 
 const JSRules = {
