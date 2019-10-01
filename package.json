@@ -1,7 +1,7 @@
 {
     "name": "react-parallax",
     "author": "Richard Rutsche",
-    "version": "2.2.1",
+    "version": "3.0.0-rc1",
     "description": "A React Component for parallax effect working in client-side and server-side rendering environment",
     "repository": {
         "type": "git",
