@@ -13,7 +13,8 @@
         "test:watch": "npm run test -- --watch",
         "test:cover": "npm run test -- --coverage",
         "dev": "NODE_ENV=development && webpack-dev-server --mode development --config webpack.config.dev.js",
-        "dist": "NODE_ENV=production && webpack --mode production --config webpack.config.build.js",
+        "prebuild": "tsc --declaration --emitDeclarationOnly --listEmittedFiles --outFile dist/index.d.ts",
+        "build": "NODE_ENV=production && webpack --mode production --config webpack.config.build.js",
         "lint": "tsc --noEmit && eslint src",
         "format": "prettier --write \"*/**/*.{js,json,css,scss}\" \"*.js\"",
         "check-types": "tsc"
