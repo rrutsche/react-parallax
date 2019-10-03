@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Parallax } from '../modules/index';
+import { Parallax } from '../index';
 
 import image2 from '../assets/sw.jpg';
 import image3 from '../assets/air.jpg';

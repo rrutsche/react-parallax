@@ -1,5 +1,5 @@
 import React from 'react';
-import { Parallax } from '../modules/index';
+import { Parallax } from '../index';
 
 import image3 from '../assets/3.jpg';
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Parallax, Background } from '../modules/index';
+import { Parallax, Background } from '../index';
 
 import image3 from '../assets/3.jpg';
 

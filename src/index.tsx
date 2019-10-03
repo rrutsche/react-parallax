@@ -1,6 +1,5 @@
-import Parallax from './Parallax';
-
-import Background from './Background';
+import Parallax from './modules/Parallax';
+import Background from './modules/Background';
 
 export { Parallax, Background };
 
