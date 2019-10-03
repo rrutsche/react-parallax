@@ -13,5 +13,5 @@ render(
             <Route exact path="/pagethree" component={PageThree} />
         </Switch>
     </BrowserRouter>,
-    document.getElementById('app'),
+    document.getElementById('root'),
 );

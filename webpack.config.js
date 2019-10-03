@@ -31,7 +31,7 @@ module.exports = {
     resolve: {
         extensions: ['*', '.js', '.jsx', '.tsx', '.ts'],
     },
-    entry: ['@babel/polyfill', APP_DIR],
+    entry: ['@babel/polyfill', '@types', APP_DIR],
     module: {
         rules: [TSRules, JSRules, ImageRules],
     },

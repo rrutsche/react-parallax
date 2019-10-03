@@ -8,13 +8,13 @@
         "url": "https://github.com/RRutsche/react-parallax.git"
     },
     "main": "dist/index.js",
-    "types": "@types/index.d.ts",
+    "types": "@types/index.ts",
     "scripts": {
         "test": "jest",
         "test:watch": "npm run test -- --watch",
         "test:cover": "npm run test -- --coverage",
-        "dev": "NODE_ENV=development && webpack-dev-server --mode development --config webpack.config.dev.js",
-        "build": "NODE_ENV=production && webpack --mode production --config webpack.config.build.js",
+        "dev": "parcel src/kitchensink/index.html --port 3000 --out-dir .dev",
+        "build": "parcel build src/modules/index.tsx --target=node",
         "lint": "tsc --noEmit && eslint src",
         "format": "prettier --write \"*/**/*.{js,json,css,scss}\" \"*.js\"",
         "check-types": "tsc"
@@ -35,6 +35,7 @@
         "@babel/core": "^7.3.3",
         "@babel/plugin-proposal-class-properties": "^7.5.5",
         "@babel/plugin-proposal-object-rest-spread": "^7.5.5",
+        "@babel/plugin-transform-typescript": "^7.6.0",
         "@babel/polyfill": "^7.2.5",
         "@babel/preset-env": "^7.3.1",
         "@babel/preset-react": "^7.0.0",
@@ -79,6 +80,7 @@
         "lint-staged": "^8.1.4",
         "node-libs-browser": "^2.0.0",
         "node-sass": "^4.5.2",
+        "parcel-bundler": "^1.12.3",
         "prettier": "^1.7.4",
         "react": "^16.0.0",
         "react-addons-test-utils": "^15.6.2",

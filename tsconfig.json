@@ -10,11 +10,13 @@
         "lib": ["dom", "es2015", "es2016"],
         "target": "es6",
         "module": "es6",
-        "allowSyntheticDefaultImports": true,
         "noUnusedParameters": true,
-        "removeComments": false,
-        "preserveConstEnums": true,
-        "skipLibCheck": true
+        "skipLibCheck": true,
+        "isolatedModules": true,
+        "baseUrl": "./src",
+        "paths": {
+            "~*": ["./*"]
+        }
     },
     "include": ["src", "@types"],
     "exclude": ["node_modules"]
