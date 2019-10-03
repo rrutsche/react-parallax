@@ -1,10 +1,6 @@
 import React from 'react';
 
-export interface ParallaxChildrenProps {
-    className?: string;
-    children?: React.ReactNode;
-    onMount(node: HTMLDivElement): void;
-}
+import { ParallaxChildrenProps } from '../../@types';
 
 const ParallaxChildren: React.SFC<ParallaxChildrenProps> = ({ children, onMount, className }) => (
     <div

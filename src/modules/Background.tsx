@@ -1,10 +1,8 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-export interface BackgroundProps {
-    className?: string;
-}
+import { Background as BackgroundClass } from '../../@types';
 
-class Background extends Component<BackgroundProps, {}> {
+class Background extends BackgroundClass {
     static defaultProps = {
         className: '',
     };

@@ -8,12 +8,12 @@
         "url": "https://github.com/RRutsche/react-parallax.git"
     },
     "main": "dist/index.js",
+    "types": "@types/index.d.ts",
     "scripts": {
         "test": "jest",
         "test:watch": "npm run test -- --watch",
         "test:cover": "npm run test -- --coverage",
         "dev": "NODE_ENV=development && webpack-dev-server --mode development --config webpack.config.dev.js",
-        "prebuild": "tsc --declaration --emitDeclarationOnly --listEmittedFiles --outFile dist/index.d.ts",
         "build": "NODE_ENV=production && webpack --mode production --config webpack.config.build.js",
         "lint": "tsc --noEmit && eslint src",
         "format": "prettier --write \"*/**/*.{js,json,css,scss}\" \"*.js\"",
@@ -27,8 +27,8 @@
         "jsx"
     ],
     "peerDependencies": {
-        "react": "^0.14.9 || ^15.3.0-0 || 16.x.x",
-        "react-dom": "^0.14.9 || ^15.3.0-0 || 16.x.x"
+        "react": "16.x.x",
+        "react-dom": "16.x.x"
     },
     "license": "MIT",
     "devDependencies": {

@@ -1,6 +1,14 @@
 import React from 'react';
 
 import {
+    ParallaxProps,
+    BgImageProp,
+    BgImageSrcSetProp,
+    BgImageSizesProp,
+    Parallax as ParallaxClass,
+} from '../../@types';
+
+import {
     getNodeHeight,
     canUseDOM,
     getRelativePosition,
@@ -13,41 +21,6 @@ import ParallaxChildren from './ParallaxChildren';
 
 import { SplitChildrenResultType } from '../util/util';
 
-export type DynamicBlurProp = { min: number; max: number };
-export type BlurProp = number | DynamicBlurProp;
-export type BgImageProp = string;
-export type BgImageSrcSetProp = string;
-export type BgImageSizesProp = string;
-
-type ParallaxProps = {
-    bgClassName?: string;
-    bgImageStyle?: { [key: string]: any };
-    blur?: BlurProp;
-    children?: React.ReactNode;
-    className?: string;
-    contentClassName?: string;
-    disabled?: boolean;
-    bgImage?: BgImageProp;
-    bgImageAlt?: string;
-    bgImageSrcSet?: BgImageSrcSetProp;
-    bgImageSizes?: BgImageSizesProp;
-    bgStyle?: { [key: string]: any };
-    log?: boolean;
-    parent?: HTMLElement;
-    renderLayer?: (percentage: number) => any;
-    strength?: number;
-    style?: { [key: string]: any };
-};
-
-type ParallaxState = {
-    bgImage: string;
-    bgImageSrcSet: string;
-    bgImageSizes: string;
-    bgStyle?: { [key: string]: any };
-    imgStyle: { [key: string]: any };
-    percentage: number;
-};
-
 const initialStyle = {
     position: 'absolute',
     left: '50%',
@@ -59,7 +32,7 @@ const initialStyle = {
     MsBackfaceVisibility: 'hidden',
 };
 
-class Parallax extends React.Component<ParallaxProps, ParallaxState> {
+class Parallax extends ParallaxClass {
     bg: HTMLDivElement;
     canUseDOM: boolean;
     contentHeight: number;

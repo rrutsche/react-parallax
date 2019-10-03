@@ -1,5 +1,5 @@
-import * as React from 'react';
-import { BlurProp, DynamicBlurProp } from '../modules/Parallax';
+import React from 'react';
+import { BlurProp, DynamicBlurProp } from '../../@types';
 
 export function getWindowHeight(useDOM: boolean) {
     if (!useDOM) {
