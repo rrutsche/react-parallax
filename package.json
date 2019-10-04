@@ -1,7 +1,7 @@
 {
     "name": "react-parallax",
     "author": "Richard Rutsche",
-    "version": "3.0.0",
+    "version": "3.0.20",
     "description": "A React Component for parallax effect working in client-side and server-side rendering environment",
     "repository": {
         "type": "git",
@@ -67,6 +67,7 @@
         "react-dom": "^16.0.0",
         "react-hot-loader": "^4.12.14",
         "react-router-dom": "^4.3.1",
+        "terser-webpack-plugin": "^2.1.2",
         "ts-loader": "^6.2.0",
         "typescript": "^3.6.2",
         "webpack": "^4.41.0",
@@ -95,8 +96,5 @@
         "setupFiles": [
             "<rootDir>/setupFile.js"
         ]
-    },
-    "dependencies": {
-        "terser-webpack-plugin": "^2.1.2"
     }
 }
