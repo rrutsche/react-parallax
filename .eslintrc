@@ -28,7 +28,7 @@
             "error",
             { "allowExpressions": true, "allowTypedFunctionExpressions": true }
         ],
-        "@typescript-eslint/no-var-require": 0
+        "@typescript-eslint/no-var-requires": 0
     },
     "globals": {
         "expect": true,
