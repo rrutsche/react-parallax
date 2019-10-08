@@ -2,10 +2,18 @@
 
 ## Install
 
+🎉 Typescript support will be in the next release `3.0.0`! You can already install it now by adding the `next` flag.
+
+### install release candidate with
+
 ```sh
-npm install react-parallax --save
-# or
-yarn add react-parallax
+npm install react-parallax@next --save
+```
+
+### install current stable release
+
+```sh
+npm install react-parallax
 ```
 
 ### [Demo on codesandbox](https://codesandbox.io/embed/r0yEkozrw?view=preview)
