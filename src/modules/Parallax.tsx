@@ -107,15 +107,19 @@ class Parallax extends ParallaxClass {
         }
     }
 
-    componentDidUpdate() {
+    componentDidUpdate(prevProps) {
         const { parent, bgImage, bgImageSrcSet, bgImageSizes } = this.props;
         const { bgImage: stateBgImage } = this.state;
         this.splitChildren = getSplitChildren(this.props);
-        if (parent && this.parent !== parent) {
+
+        if (prevProps.parent !== parent) {
+            this.removeListeners(prevProps.parent);
             this.parent = parent;
-            this.removeListeners();
-            this.addListeners();
+            if (parent) {
+                this.addListeners();
+            }
         }
+
         this.parentHeight = getNodeHeight(this.canUseDOM, this.parent);
 
         if (stateBgImage !== bgImage) {
@@ -309,9 +313,11 @@ class Parallax extends ParallaxClass {
         }
     }
 
-    removeListeners() {
-        if (this.canUseDOM && this.parent) {
-            this.parent.removeEventListener('scroll', this.onScroll, false);
+    removeListeners(parent) {
+        if (this.canUseDOM) {
+            if (parent) {
+                parent.removeEventListener('scroll', this.onScroll, false);
+            }
             window.removeEventListener('resize', this.onWindowResize, false);
             window.removeEventListener('load', this.onWindowLoad, false);
         }
