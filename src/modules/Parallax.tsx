@@ -107,7 +107,7 @@ class Parallax extends ParallaxClass {
         }
     }
 
-    componentDidUpdate(prevProps) {
+    componentDidUpdate(prevProps: ParallaxProps) {
         const { parent, bgImage, bgImageSrcSet, bgImageSizes } = this.props;
         const { bgImage: stateBgImage } = this.state;
         this.splitChildren = getSplitChildren(this.props);
@@ -131,7 +131,7 @@ class Parallax extends ParallaxClass {
      * remove all eventlisteners before component is destroyed
      */
     componentWillUnmount() {
-        this.removeListeners();
+        this.removeListeners(this.props.parent);
         this.releaseImage();
     }
 
@@ -313,7 +313,7 @@ class Parallax extends ParallaxClass {
         }
     }
 
-    removeListeners(parent) {
+    removeListeners(parent?: HTMLElement) {
         if (this.canUseDOM) {
             if (parent) {
                 parent.removeEventListener('scroll', this.onScroll, false);
