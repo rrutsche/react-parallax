@@ -7,7 +7,7 @@
         "type": "git",
         "url": "https://github.com/RRutsche/react-parallax.git"
     },
-    "main": "dist/index.js",
+    "main": "lib/index.js",
     "types": "@types/index.ts",
     "scripts": {
         "test": "jest",

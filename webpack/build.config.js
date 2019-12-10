@@ -7,7 +7,7 @@ const common = require('./base.config.js');
 module.exports = merge(common, {
     entry: path.resolve(__dirname, '../src'),
     output: {
-        path: path.resolve(__dirname, '../dist/'),
+        path: path.resolve(__dirname, '../lib/'),
         filename: 'index.js',
         library: 'react-parallax',
         libraryTarget: 'umd',
