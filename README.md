@@ -12,7 +12,9 @@ yarn add react-parallax
 
 ### [Demo on codesandbox](https://codesandbox.io/embed/r0yEkozrw?view=preview)
 
-## Buy me a coffee
+## Contribute
+
+If you find any bug or have problems and/or ideas regarding this library feel free to open an issue or pull request. Either way please create a working example so I can reproduce it. Link to a repository or even easier - fork the demo codesandbox project. This would help a lot. 
 
 This project is maintained during evenings and weekends. If you like it, please consider to buy me a coffee ;-) ...or contribute in other ways.
 
