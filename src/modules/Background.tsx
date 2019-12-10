@@ -6,6 +6,7 @@ class Background extends BackgroundClass {
     static defaultProps = {
         className: '',
     };
+
     static isParallaxBackground() {
         return true;
     }

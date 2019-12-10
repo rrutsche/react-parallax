@@ -17,17 +17,14 @@
         "mocha": true
     },
     "rules": {
-        "react/jsx-filename-extension": ["error", { "extensions": [".js", ".jsx"] }],
+        "react/jsx-filename-extension": ["error", { "extensions": [".tsx"] }],
         "import/prefer-default-export": 0,
         "no-console": "off",
         "react/button-has-type": "off",
         "no-underscore-dangle": "off",
         "curly": "error",
         "import/no-extraneous-dependencies": 0,
-        "@typescript-eslint/explicit-function-return-type": [
-            "error",
-            { "allowExpressions": true, "allowTypedFunctionExpressions": true }
-        ],
+        "@typescript-eslint/explicit-function-return-type": 0,
         "@typescript-eslint/no-var-requires": 0
     },
     "globals": {

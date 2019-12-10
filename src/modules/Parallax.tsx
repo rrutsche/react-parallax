@@ -16,10 +16,9 @@ import {
     isScrolledIntoView,
     getHasDynamicBlur,
     getBlurValue,
+    SplitChildrenResultType,
 } from '../util/util';
 import ParallaxChildren from './ParallaxChildren';
-
-import { SplitChildrenResultType } from '../util/util';
 
 const initialStyle = {
     position: 'absolute',
@@ -34,18 +33,31 @@ const initialStyle = {
 
 class Parallax extends ParallaxClass {
     bg: HTMLDivElement;
+
     canUseDOM: boolean;
+
     contentHeight: number;
+
     contentWidth: number;
+
     node: HTMLElement;
+
     content: HTMLElement;
+
     img: HTMLImageElement;
+
     splitChildren: SplitChildrenResultType;
+
     bgImageLoaded: boolean;
+
     bgImageRef: HTMLImageElement;
+
     parent: HTMLElement | Document;
+
     parentHeight: number;
+
     timestamp: number;
+
     isDynamicBlur: boolean;
 
     static defaultProps = {
