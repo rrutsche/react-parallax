@@ -1,5 +1,12 @@
-import PropTypes from 'prop-types';
-import React, { Component } from 'react';
+import React from 'react';
+
+import {
+    ParallaxProps,
+    BgImageProp,
+    BgImageSrcSetProp,
+    BgImageSizesProp,
+    Parallax as ParallaxClass,
+} from '../../@types';
 
 import {
     getNodeHeight,
@@ -7,7 +14,10 @@ import {
     getRelativePosition,
     getSplitChildren,
     isScrolledIntoView,
-} from '../util/Util';
+    getHasDynamicBlur,
+    getBlurValue,
+    SplitChildrenResultType,
+} from '../util/util';
 import ParallaxChildren from './ParallaxChildren';
 
 const initialStyle = {
@@ -21,8 +31,45 @@ const initialStyle = {
     MsBackfaceVisibility: 'hidden',
 };
 
-class Parallax extends Component {
-    constructor(props) {
+class Parallax extends ParallaxClass {
+    bg: HTMLDivElement;
+
+    canUseDOM: boolean;
+
+    contentHeight: number;
+
+    contentWidth: number;
+
+    node: HTMLElement;
+
+    content: HTMLElement;
+
+    img: HTMLImageElement;
+
+    splitChildren: SplitChildrenResultType;
+
+    bgImageLoaded: boolean;
+
+    bgImageRef: HTMLImageElement;
+
+    parent: HTMLElement | Document;
+
+    parentHeight: number;
+
+    timestamp: number;
+
+    isDynamicBlur: boolean;
+
+    static defaultProps = {
+        bgClassName: 'react-parallax-bgimage',
+        bgImageAlt: '',
+        className: '',
+        contentClassName: '',
+        disabled: false,
+        strength: 100,
+    };
+
+    constructor(props: ParallaxProps) {
         super(props);
 
         this.state = {
@@ -49,11 +96,7 @@ class Parallax extends Component {
         this.parent = props.parent;
         this.parentHeight = getNodeHeight(this.canUseDOM, this.parent);
         this.timestamp = Date.now();
-        this.dynamicBlur = !!(
-            props.blur &&
-            props.blur.min !== undefined &&
-            props.blur.max !== undefined
-        );
+        this.isDynamicBlur = getHasDynamicBlur(props.blur);
     }
 
     /**
@@ -75,13 +118,13 @@ class Parallax extends Component {
         }
     }
 
-    componentDidUpdate(prevProps) {
+    componentDidUpdate(prevProps: ParallaxProps) {
         const { parent, bgImage, bgImageSrcSet, bgImageSizes } = this.props;
         const { bgImage: stateBgImage } = this.state;
         this.splitChildren = getSplitChildren(this.props);
 
         if (prevProps.parent !== parent) {
-            this.removeListeners(prevProps.parent);
+            this.removeListeners(this.parent);
             this.parent = parent;
             if (parent) {
                 this.addListeners();
@@ -126,11 +169,11 @@ class Parallax extends Component {
         }
     };
 
-    onContentMount = content => {
+    onContentMount = (content: HTMLElement) => {
         this.content = content;
     };
 
-    setBackgroundPosition(percentage) {
+    setBackgroundPosition(percentage: number) {
         const { disabled, strength } = this.props;
         // don't do unneccessary style processing if parallax is disabled
         if (disabled === true) {
@@ -155,7 +198,7 @@ class Parallax extends Component {
     /**
      * sets position for the background image
      */
-    setImagePosition(percentage, autoHeight = false) {
+    setImagePosition(percentage: number, autoHeight = false) {
         const { disabled, strength, blur } = this.props;
         const height = autoHeight ? 'auto' : `${this.getImageHeight()}px`;
         const width = !autoHeight ? 'auto' : `${this.contentWidth}px`;
@@ -172,8 +215,7 @@ class Parallax extends Component {
         const transform = `translate3d(-50%, ${pos}px, 0)`;
         let filter = 'none';
         if (blur) {
-            const blurValue = this.dynamicBlur ? blur.min + (1 - percentage) * blur.max : blur;
-            filter = `blur(${blurValue}px)`;
+            filter = `blur(${getBlurValue(this.isDynamicBlur, blur, percentage)}px)`;
         }
 
         this.setState({
@@ -225,7 +267,7 @@ class Parallax extends Component {
         }
 
         // get relative scroll-y position of parallax component in percentage
-        const percentage = getRelativePosition(this.node, this.canUseDOM, this.parent);
+        const percentage = getRelativePosition(this.node, this.canUseDOM);
 
         // update bg image position if set
         if (this.img) {
@@ -239,11 +281,12 @@ class Parallax extends Component {
 
     /**
      * Makes sure that the image was loaded before render
-     * @param  {String} bgImage image source
-     * @param  {String} bgImageSrcSet image srcset attribute
-     * @param  {String} bgImageSizes image size attribute
      */
-    loadImage(bgImage, bgImageSrcSet, bgImageSizes) {
+    loadImage(
+        bgImage: BgImageProp,
+        bgImageSrcSet: BgImageSrcSetProp,
+        bgImageSizes: BgImageSizesProp,
+    ) {
         this.releaseImage();
         this.bgImageRef = new Image();
         this.bgImageRef.onload = () => {
@@ -264,7 +307,6 @@ class Parallax extends Component {
 
     /**
      * Unbind eventlistener of bg image and delete it
-     * @param  {String} id Image ID
      */
     releaseImage() {
         if (this.bgImageRef) {
@@ -282,20 +324,13 @@ class Parallax extends Component {
         }
     }
 
-    removeListeners(parent) {
+    removeListeners(parent?: HTMLElement | Document) {
         if (this.canUseDOM) {
             if (parent) {
                 parent.removeEventListener('scroll', this.onScroll, false);
             }
             window.removeEventListener('resize', this.onWindowResize, false);
             window.removeEventListener('load', this.onWindowLoad, false);
-        }
-    }
-
-    log(...args) {
-        const { log } = this.props;
-        if (log) {
-            console.log(args);
         }
     }
 
@@ -350,44 +385,5 @@ class Parallax extends Component {
         );
     }
 }
-
-Parallax.propTypes = {
-    bgClassName: PropTypes.string,
-    bgImage: PropTypes.string,
-    bgImageAlt: PropTypes.string,
-    bgImageSizes: PropTypes.string,
-    bgImageSrcSet: PropTypes.string,
-    bgImageStyle: PropTypes.shape({}),
-    bgStyle: PropTypes.shape({}),
-    blur: PropTypes.oneOfType([PropTypes.number, PropTypes.object]),
-    className: PropTypes.string,
-    contentClassName: PropTypes.string,
-    disabled: PropTypes.bool,
-    log: PropTypes.bool,
-    // eslint-disable-next-line react/forbid-prop-types
-    parent: PropTypes.any,
-    renderLayer: PropTypes.func,
-    strength: PropTypes.number,
-    style: PropTypes.shape({}),
-};
-
-Parallax.defaultProps = {
-    bgClassName: 'react-parallax-bgimage',
-    bgImage: undefined,
-    bgImageAlt: '',
-    bgImageSizes: undefined,
-    bgImageSrcSet: undefined,
-    bgImageStyle: undefined,
-    bgStyle: undefined,
-    blur: undefined,
-    className: '',
-    contentClassName: '',
-    disabled: false,
-    log: false,
-    parent: undefined,
-    renderLayer: undefined,
-    strength: 100,
-    style: undefined,
-};
 
 export default Parallax;

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Parallax } from '../modules/index';
+import { Parallax } from '../index';
 
 import image2 from '../assets/sw.jpg';
 import image3 from '../assets/air.jpg';
@@ -13,22 +13,30 @@ const image1 =
 const style = {
     backgroundColor: '#efefef',
     color: 'white',
-    textAlign: 'center',
+    textAlign: 'center' as const,
 };
 const fontStyle2 = {
     fontFamily: 'Helvetica Neue, Arial, sans-serif',
-    textAlign: 'center',
+    textAlign: 'center' as const,
     fontWeight: 100,
     color: 'darkgrey',
 };
 
-export default class PageOne extends React.Component {
-    constructor(props) {
+type PageOneProps = {};
+type PageOneState = {
+    BG: number;
+    srcSet?: number;
+};
+
+export default class PageOne extends React.Component<PageOneProps, PageOneState> {
+    srcSets: { [key: string]: string };
+    backgrounds: { [key: string]: string };
+    constructor(props: PageOneProps) {
         super(props);
         this.backgrounds = {
-            1: image1,
-            2: image2,
-            3: image5,
+            '1': image1,
+            '2': image2,
+            '3': image5,
         };
         this.srcSets = {
             1: `${image4} 1x, ${image2} 2x`,
@@ -39,21 +47,22 @@ export default class PageOne extends React.Component {
         };
     }
 
-    toggleBackground = () => {
+    toggleBackground = (): void => {
         const { BG } = this.state;
         this.setState({
             BG: BG === 1 ? 2 : 1,
         });
     };
 
-    toggleSrcSet = () => {
+    toggleSrcSet = (): void => {
         const { srcSet } = this.state;
         this.setState({
             srcSet: srcSet === 1 ? 2 : 1,
         });
     };
 
-    render() {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    render(): any {
         const { BG, srcSet } = this.state;
         return (
             <div style={style}>
@@ -110,7 +119,7 @@ export default class PageOne extends React.Component {
 
                             <div
                                 style={{
-                                    zIndex: '100',
+                                    zIndex: 100,
                                     position: 'absolute',
                                     top: percentage * 0,
                                     left: percentage * 0,
@@ -120,7 +129,7 @@ export default class PageOne extends React.Component {
                             </div>
                             <div
                                 style={{
-                                    zIndex: '100',
+                                    zIndex: 100,
                                     position: 'absolute',
                                     bottom: percentage * 0,
                                     left: percentage * 0,

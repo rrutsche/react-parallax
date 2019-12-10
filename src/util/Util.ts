@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
+import { BlurProp, DynamicBlurProp } from '../../@types';
 
-export function getWindowHeight(useDOM) {
+export function getWindowHeight(useDOM: boolean) {
     if (!useDOM) {
         return 0;
     }
@@ -12,7 +13,7 @@ export function getWindowHeight(useDOM) {
     return w.innerHeight || e.clientHeight || g.clientHeight;
 }
 
-export function isScrolledIntoView(element, offset = 0, useDOM) {
+export function isScrolledIntoView(element: HTMLElement, offset = 0, useDOM: boolean) {
     if (!useDOM) {
         return false;
     }
@@ -21,12 +22,12 @@ export function isScrolledIntoView(element, offset = 0, useDOM) {
     return elementTop <= getWindowHeight(useDOM) && elementBottom >= 0;
 }
 
-export function getNodeHeight(useDOM, node) {
+export function getNodeHeight(useDOM: boolean, node?: HTMLElement | Document) {
     if (!useDOM) {
         return 0;
     }
 
-    if (!node) {
+    if (!node || !('clientHeight' in node)) {
         return getWindowHeight(useDOM);
     }
 
@@ -37,13 +38,13 @@ export function canUseDOM() {
     return !!(typeof window !== 'undefined' && window.document && window.document.createElement);
 }
 
-export function getPercentage(startpos, endpos, currentpos) {
+export function getPercentage(startpos: number, endpos: number, currentpos: number) {
     const distance = endpos - startpos;
     const displacement = currentpos - startpos;
     return displacement / distance || 0;
 }
 
-export function getRelativePosition(node, useDOM) {
+export function getRelativePosition(node: HTMLElement, useDOM: boolean) {
     if (!useDOM) {
         return 0;
     }
@@ -53,22 +54,30 @@ export function getRelativePosition(node, useDOM) {
     const maxHeight = height > parentHeight ? height : parentHeight;
     const y = Math.round(top > maxHeight ? maxHeight : top);
 
-    return getPercentage(-height, maxHeight, y, height);
+    return getPercentage(-height, maxHeight, y);
 }
 
+interface SplitChildrenProps {
+    children?: ReactNode;
+}
+export interface SplitChildrenResultType {
+    bgChildren: Array<ReactNode>;
+    children: Array<ReactNode>;
+}
 /**
  * Extracts children with type Background from others and returns an object with both arrays:
  *  {
  *      bgChildren: bgChildren, // typeof child === 'Background'
  *      children: children // rest of this.props.children
  *   }
- * @return {Object} splitchildren object
  */
-export function getSplitChildren(props) {
-    let bgChildren = [];
+export function getSplitChildren(props: SplitChildrenProps): SplitChildrenResultType {
+    let bgChildren: Array<ReactNode> = [];
     const children = React.Children.toArray(props.children);
     children.forEach((child, index) => {
-        if (child.type && child.type.isParallaxBackground) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const c = child as any;
+        if (c.type && c.type.isParallaxBackground) {
             bgChildren = bgChildren.concat(children.splice(index, 1));
         }
     });
@@ -78,9 +87,18 @@ export function getSplitChildren(props) {
     };
 }
 
-export function setBlur(node, blur) {
+export const getHasDynamicBlur = (blur: BlurProp) =>
+    typeof blur === 'object' && blur.min !== undefined && blur.max !== undefined;
+
+export const getBlurValue = (isDynamicBlur: boolean, blur: BlurProp, percentage: number) => {
+    return isDynamicBlur
+        ? (blur as DynamicBlurProp).min + (1 - percentage) * (blur as DynamicBlurProp).max
+        : blur;
+};
+
+export function setBlur(node: HTMLElement, blur: number) {
     // eslint-disable-next-line no-param-reassign
-    node.style.WebkitFilter = `blur(${blur}px)`;
+    node.style.webkitFilter = `blur(${blur}px)`;
     // eslint-disable-next-line no-param-reassign
     node.style.filter = `blur(${blur}px)`;
 }

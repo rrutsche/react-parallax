@@ -1,42 +1,52 @@
 import React from 'react';
-import { Parallax } from '../modules/index';
+import { Parallax } from '../index';
 
 import image3 from '../assets/3.jpg';
 
-export default class PageThree extends React.Component {
-    constructor(props) {
+type PageThreeProps = {};
+type PageThreeState = {
+    theParentRef: HTMLDivElement | null;
+};
+
+export default class PageThree extends React.Component<PageThreeProps, PageThreeState> {
+    constructor(props: PageThreeProps) {
         super(props);
         this.state = {
-            theParentRef: null
+            theParentRef: null,
         };
     }
-    onParentRefMounted(ref) {
-        if (!this.state.theParentRef) {
+
+    onParentRefMounted(ref: HTMLDivElement): void {
+        const { theParentRef } = this.state;
+        if (!theParentRef) {
             this.setState({
-                theParentRef: ref
+                theParentRef: ref,
             });
         }
     }
 
-    getParentRef() {
-        return this.state.theParentRef;
+    getParentRef(): HTMLDivElement {
+        const { theParentRef } = this.state;
+        return theParentRef;
     }
 
-    render() {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    render(): any {
+        const { theParentRef } = this.state;
         const style = {
             backgroundColor: '#efefef',
             color: 'white',
-            textAlign: 'center',
-            position: 'absolute',
+            textAlign: 'center' as const,
+            position: 'absolute' as const,
             top: 0,
             height: '300px',
-            overflow: 'scroll'
+            overflow: 'scroll',
         };
         const fontStyle2 = {
             fontFamily: 'Helvetica Neue, Arial, sans-serif',
-            textAlign: 'center',
+            textAlign: 'center' as const,
             fontWeight: 100,
-            color: 'darkgrey'
+            color: 'darkgrey',
         };
         return (
             <div style={style} ref={ref => this.onParentRefMounted(ref)}>
@@ -63,13 +73,7 @@ export default class PageThree extends React.Component {
                     round one. Now what? Five hours? Aw, man! Couldn&rsquo;t you just get me the
                     death penalty? Ooh, name it after me! Really?!
                 </h1>
-                <Parallax
-                    parent={this.state.theParentRef}
-                    log
-                    bgImage={image3}
-                    strength={-200}
-                    contentStyles={[{ property: 'blur', min: 0, max: 2 }]}
-                >
+                <Parallax parent={theParentRef} bgImage={image3} strength={-200}>
                     <h1 style={fontStyle2}>
                         And I&rsquo;d do it again! And perhaps a third time! But that would be it.
                         Tell her she looks thin. What are their names? Tell her she looks thin.

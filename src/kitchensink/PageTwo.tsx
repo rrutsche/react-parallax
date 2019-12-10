@@ -1,15 +1,21 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Parallax, Background } from '../modules/index';
+import { Parallax, Background } from '../index';
 
 import image3 from '../assets/3.jpg';
 
-export default class PageTwo extends React.Component {
-    constructor(props) {
+type PageTwoProps = {};
+type PageTwoState = {
+    image: string;
+    children: React.ReactNode;
+};
+
+export default class PageTwo extends React.Component<PageTwoProps, PageTwoState> {
+    constructor(props: PageTwoProps) {
         super(props);
         const fontStyle = {
             fontFamily: 'Helvetica Neue, Arial, sans-serif',
-            textAlign: 'center',
+            textAlign: 'center' as const,
             fontWeight: 100,
         };
         this.state = {
@@ -19,16 +25,16 @@ export default class PageTwo extends React.Component {
         };
     }
 
-    changeImage() {
+    changeImage(): void {
         this.setState({
             image: 'http://combiboilersleeds.com/images/rocket/rocket-6.jpg',
         });
     }
 
-    changeChildren() {
+    changeChildren(): void {
         const fontStyle = {
             fontFamily: 'Helvetica Neue, Arial, sans-serif',
-            textAlign: 'center',
+            textAlign: 'center' as const,
             fontWeight: 100,
         };
         this.setState({
@@ -36,15 +42,16 @@ export default class PageTwo extends React.Component {
         });
     }
 
-    render() {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    render(): any {
         const style = {
             backgroundColor: '#efefef',
             color: 'white',
-            textAlign: 'center',
+            textAlign: 'center' as const,
         };
         const fontStyle2 = {
             fontFamily: 'Helvetica Neue, Arial, sans-serif',
-            textAlign: 'center',
+            textAlign: 'center' as const,
             fontWeight: 100,
             color: 'darkgrey',
         };
@@ -68,12 +75,7 @@ export default class PageTwo extends React.Component {
                         <br />
                     </h1>
                 </Parallax>
-                <Parallax
-                    log
-                    bgImage={image}
-                    strength={200}
-                    contentStyles={[{ property: 'blur', min: 0, max: 2 }]}
-                >
+                <Parallax bgImage={image} strength={200}>
                     <br />
                     {children}
                     <h1 style={fontStyle2}>
@@ -130,11 +132,7 @@ export default class PageTwo extends React.Component {
                     </button>
                 </div>
                 <div style={{ width: '500px', margin: '20px auto' }}>
-                    <Parallax
-                        bgImage={image3}
-                        strength={200}
-                        contentStyles={[{ property: 'blur', min: 0, max: 2 }]}
-                    >
+                    <Parallax bgImage={image3} strength={200}>
                         <br />
                         {children}
                         <h1 style={fontStyle2}>

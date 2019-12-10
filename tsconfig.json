@@ -1,0 +1,23 @@
+{
+    "compilerOptions": {
+        "outDir": "./lib/",
+        "sourceMap": true,
+        "noImplicitAny": true,
+        "jsx": "react",
+        "esModuleInterop": true,
+        "noUnusedLocals": true,
+        "moduleResolution": "node",
+        "lib": ["dom", "es2015", "es2016"],
+        "target": "es6",
+        "module": "es6",
+        "noUnusedParameters": true,
+        "skipLibCheck": true,
+        "isolatedModules": true,
+        "baseUrl": "./src",
+        "paths": {
+            "~*": ["./*"]
+        }
+    },
+    "include": ["src", "@types"],
+    "exclude": ["node_modules"]
+}

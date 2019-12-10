@@ -1,0 +1,49 @@
+import React from 'react';
+
+export type DynamicBlurProp = { min: number; max: number };
+export type BlurProp = number | DynamicBlurProp;
+export type BgImageProp = string;
+export type BgImageSrcSetProp = string;
+export type BgImageSizesProp = string;
+
+export type ParallaxProps = {
+    bgClassName?: string;
+    bgImageStyle?: { [key: string]: any };
+    blur?: BlurProp;
+    children?: React.ReactNode;
+    className?: string;
+    contentClassName?: string;
+    disabled?: boolean;
+    bgImage?: BgImageProp;
+    bgImageAlt?: string;
+    bgImageSrcSet?: BgImageSrcSetProp;
+    bgImageSizes?: BgImageSizesProp;
+    bgStyle?: { [key: string]: any };
+    parent?: HTMLElement;
+    renderLayer?: (percentage: number) => any;
+    strength?: number;
+    style?: { [key: string]: any };
+};
+
+type ParallaxState = {
+    bgImage: string;
+    bgImageSrcSet: string;
+    bgImageSizes: string;
+    bgStyle?: { [key: string]: any };
+    imgStyle: { [key: string]: any };
+    percentage: number;
+};
+
+export type BackgroundProps = {
+    className?: string;
+};
+
+export type ParallaxChildrenProps = {
+    className?: string;
+    children?: React.ReactNode;
+    onMount(node: HTMLDivElement): void;
+};
+
+export class Parallax extends React.Component<ParallaxProps, ParallaxState> {}
+
+export class Background extends React.Component<BackgroundProps, {}> {}

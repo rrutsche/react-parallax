@@ -2,18 +2,12 @@
 
 ## Install
 
-🎉 Typescript support will be in the next release `3.0.0`! You can already install it now by adding the `next` flag.
+🎉 Typescript support since `3.0.0`!
 
-### install release candidate with
-
-```sh
-npm install react-parallax@next --save
-```
-
-### install current stable release
+### install
 
 ```sh
-npm install react-parallax
+yarn add react-parallax
 ```
 
 ### [Demo on codesandbox](https://codesandbox.io/embed/r0yEkozrw?view=preview)
@@ -154,10 +148,6 @@ set an additional className - (type: String)
 ##### parent
 
 set optional parent for nested scrolling, default: document - (type: Node)
-
-##### log
-
-for development, turns console.log on/off - (type: Boolean)
 
 ## Children
 
