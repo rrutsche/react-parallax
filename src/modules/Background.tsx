@@ -7,9 +7,7 @@ class Background extends BackgroundClass {
         className: '',
     };
 
-    static isParallaxBackground() {
-        return true;
-    }
+    static isParallaxBackground = true;
 
     render() {
         const { className, children } = this.props;

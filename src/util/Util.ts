@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { BlurProp, DynamicBlurProp } from '../../@types';
 
 export function getWindowHeight(useDOM: boolean) {
@@ -58,11 +58,11 @@ export function getRelativePosition(node: HTMLElement, useDOM: boolean) {
 }
 
 interface SplitChildrenProps {
-    children?: React.ReactNode;
+    children?: ReactNode;
 }
 export interface SplitChildrenResultType {
-    bgChildren: Array<React.ReactNode>;
-    children: Array<React.ReactNode>;
+    bgChildren: Array<ReactNode>;
+    children: Array<ReactNode>;
 }
 /**
  * Extracts children with type Background from others and returns an object with both arrays:
@@ -72,11 +72,11 @@ export interface SplitChildrenResultType {
  *   }
  */
 export function getSplitChildren(props: SplitChildrenProps): SplitChildrenResultType {
-    let bgChildren: Array<React.ReactNode> = [];
+    let bgChildren: Array<ReactNode> = [];
     const children = React.Children.toArray(props.children);
     children.forEach((child, index) => {
-        // @TODO get rid of any
-        const c = <any>child;
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const c = child as any;
         if (c.type && c.type.isParallaxBackground) {
             bgChildren = bgChildren.concat(children.splice(index, 1));
         }
