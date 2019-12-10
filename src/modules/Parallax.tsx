@@ -124,7 +124,7 @@ class Parallax extends ParallaxClass {
         this.splitChildren = getSplitChildren(this.props);
 
         if (prevProps.parent !== parent) {
-            this.removeListeners(prevProps.parent);
+            this.removeListeners(this.parent);
             this.parent = parent;
             if (parent) {
                 this.addListeners();
@@ -142,7 +142,7 @@ class Parallax extends ParallaxClass {
      * remove all eventlisteners before component is destroyed
      */
     componentWillUnmount() {
-        this.removeListeners(this.props.parent);
+        this.removeListeners(this.parent);
         this.releaseImage();
     }
 
@@ -324,7 +324,7 @@ class Parallax extends ParallaxClass {
         }
     }
 
-    removeListeners(parent?: HTMLElement) {
+    removeListeners(parent?: HTMLElement | Document) {
         if (this.canUseDOM) {
             if (parent) {
                 parent.removeEventListener('scroll', this.onScroll, false);
