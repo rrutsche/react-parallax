@@ -19,7 +19,6 @@ export type ParallaxProps = {
     bgImageSrcSet?: BgImageSrcSetProp;
     bgImageSizes?: BgImageSizesProp;
     bgStyle?: { [key: string]: any };
-    log?: boolean;
     parent?: HTMLElement;
     renderLayer?: (percentage: number) => any;
     strength?: number;

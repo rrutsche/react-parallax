@@ -155,10 +155,6 @@ set an additional className - (type: String)
 
 set optional parent for nested scrolling, default: document - (type: Node)
 
-##### log
-
-for development, turns console.log on/off - (type: Boolean)
-
 ## Children
 
 ... used to display any content inside the react-parallax component

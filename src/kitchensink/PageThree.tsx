@@ -73,7 +73,7 @@ export default class PageThree extends React.Component<PageThreeProps, PageThree
                     round one. Now what? Five hours? Aw, man! Couldn&rsquo;t you just get me the
                     death penalty? Ooh, name it after me! Really?!
                 </h1>
-                <Parallax parent={theParentRef} log bgImage={image3} strength={-200}>
+                <Parallax parent={theParentRef} bgImage={image3} strength={-200}>
                     <h1 style={fontStyle2}>
                         And I&rsquo;d do it again! And perhaps a third time! But that would be it.
                         Tell her she looks thin. What are their names? Tell her she looks thin.

@@ -75,7 +75,7 @@ export default class PageTwo extends React.Component<PageTwoProps, PageTwoState>
                         <br />
                     </h1>
                 </Parallax>
-                <Parallax log bgImage={image} strength={200}>
+                <Parallax bgImage={image} strength={200}>
                     <br />
                     {children}
                     <h1 style={fontStyle2}>

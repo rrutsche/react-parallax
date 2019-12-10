@@ -66,7 +66,6 @@ class Parallax extends ParallaxClass {
         className: '',
         contentClassName: '',
         disabled: false,
-        log: false,
         strength: 100,
     };
 
@@ -332,13 +331,6 @@ class Parallax extends ParallaxClass {
             }
             window.removeEventListener('resize', this.onWindowResize, false);
             window.removeEventListener('load', this.onWindowLoad, false);
-        }
-    }
-
-    log(...args: any) {
-        const { log } = this.props;
-        if (log) {
-            console.log(args);
         }
     }
 
