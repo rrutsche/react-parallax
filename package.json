@@ -5,7 +5,7 @@
     "description": "A React Component for parallax effect working in client-side and server-side rendering environment",
     "repository": {
         "type": "git",
-        "url": "https://github.com/RRutsche/react-parallax.git"
+        "url": "https://github.com/rrutsche/react-parallax.git"
     },
     "main": "lib/index.js",
     "types": "@types/index.ts",
