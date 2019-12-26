@@ -1,10 +1,14 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 
 export type DynamicBlurProp = { min: number; max: number };
 export type BlurProp = number | DynamicBlurProp;
 export type BgImageProp = string;
 export type BgImageSrcSetProp = string;
 export type BgImageSizesProp = string;
+export interface SplitChildrenResultType {
+    bgChildren: Array<ReactNode>;
+    children: Array<ReactNode>;
+}
 
 export type ParallaxProps = {
     bgClassName?: string;
@@ -32,6 +36,7 @@ type ParallaxState = {
     bgStyle?: { [key: string]: any };
     imgStyle: { [key: string]: any };
     percentage: number;
+    splitChildren: SplitChildrenResultType;
 };
 
 export type BackgroundProps = {

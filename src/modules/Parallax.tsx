@@ -9,15 +9,12 @@ import {
 } from '../../@types';
 
 import {
-    getNodeHeight,
-    canUseDOM,
     getRelativePosition,
     getSplitChildren,
-    isScrolledIntoView,
     getHasDynamicBlur,
     getBlurValue,
-    SplitChildrenResultType,
-} from '../util/util';
+} from '../utils/parallax';
+import { getNodeHeight, canUseDOM, isScrolledIntoView } from '../utils/dom';
 import ParallaxChildren from './ParallaxChildren';
 
 const initialStyle = {
@@ -45,8 +42,6 @@ class Parallax extends ParallaxClass {
     content: HTMLElement;
 
     img: HTMLImageElement;
-
-    splitChildren: SplitChildrenResultType;
 
     bgImageLoaded: boolean;
 
@@ -82,14 +77,13 @@ class Parallax extends ParallaxClass {
                 ...props.bgStyle,
             },
             percentage: 0,
+            splitChildren: getSplitChildren(props),
         };
 
         this.canUseDOM = canUseDOM();
 
         this.node = null;
         this.content = null;
-        this.splitChildren = getSplitChildren(props);
-
         this.bgImageLoaded = false;
         this.bgImageRef = undefined;
 
@@ -118,10 +112,15 @@ class Parallax extends ParallaxClass {
         }
     }
 
+    static getDerivedStateFromProps(props: ParallaxProps) {
+        return {
+            splitChildren: getSplitChildren(props),
+        };
+    }
+
     componentDidUpdate(prevProps: ParallaxProps) {
         const { parent, bgImage, bgImageSrcSet, bgImageSizes } = this.props;
         const { bgImage: stateBgImage } = this.state;
-        this.splitChildren = getSplitChildren(this.props);
 
         if (prevProps.parent !== parent) {
             this.removeListeners(this.parent);
@@ -274,7 +273,7 @@ class Parallax extends ParallaxClass {
             this.setImagePosition(percentage, autoHeight);
         }
         // update position of Background children if exist
-        if (this.bg && this.splitChildren.bgChildren.length > 0) {
+        if (this.bg && this.state.splitChildren.bgChildren.length > 0) {
             this.setBackgroundPosition(percentage);
         }
     };
@@ -344,7 +343,15 @@ class Parallax extends ParallaxClass {
             renderLayer,
             bgImageStyle,
         } = this.props;
-        const { bgImage, bgImageSrcSet, bgImageSizes, percentage, imgStyle, bgStyle } = this.state;
+        const {
+            bgImage,
+            bgImageSrcSet,
+            bgImageSizes,
+            percentage,
+            imgStyle,
+            bgStyle,
+            splitChildren,
+        } = this.state;
         return (
             <div
                 className={`react-parallax ${className}`}
@@ -367,7 +374,7 @@ class Parallax extends ParallaxClass {
                     />
                 ) : null}
                 {renderLayer ? renderLayer(Math.min(-(percentage - 1), 1)) : null}
-                {this.splitChildren.bgChildren.length > 0 ? (
+                {splitChildren.bgChildren.length > 0 ? (
                     <div
                         className="react-parallax-background-children"
                         ref={bg => {
@@ -375,11 +382,11 @@ class Parallax extends ParallaxClass {
                         }}
                         style={bgStyle}
                     >
-                        {this.splitChildren.bgChildren}
+                        {splitChildren.bgChildren}
                     </div>
                 ) : null}
                 <ParallaxChildren onMount={this.onContentMount} className={contentClassName}>
-                    {this.splitChildren.children}
+                    {splitChildren.children}
                 </ParallaxChildren>
             </div>
         );

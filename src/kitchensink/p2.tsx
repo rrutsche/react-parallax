@@ -58,7 +58,7 @@ export default class PageTwo extends React.Component<PageTwoProps, PageTwoState>
         const { image, children } = this.state;
         return (
             <div style={style}>
-                <Link to="pageone">Page One</Link>
+                <Link to="/">Page One</Link>
                 <Parallax strength={300} contentClassName="my-content">
                     <Background className="custom-bg">
                         <img src="http://www.fillmurray.com/500/320" alt="fill murray" />

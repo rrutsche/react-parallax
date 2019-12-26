@@ -1,42 +1,6 @@
-import React, { ReactNode } from 'react';
-import { BlurProp, DynamicBlurProp } from '../../@types';
-
-export function getWindowHeight(useDOM: boolean) {
-    if (!useDOM) {
-        return 0;
-    }
-    const w = window;
-    const d = document;
-    const e = d.documentElement;
-    const g = d.getElementsByTagName('body')[0];
-
-    return w.innerHeight || e.clientHeight || g.clientHeight;
-}
-
-export function isScrolledIntoView(element: HTMLElement, offset = 0, useDOM: boolean) {
-    if (!useDOM) {
-        return false;
-    }
-    const elementTop = element.getBoundingClientRect().top - offset;
-    const elementBottom = element.getBoundingClientRect().bottom + offset;
-    return elementTop <= getWindowHeight(useDOM) && elementBottom >= 0;
-}
-
-export function getNodeHeight(useDOM: boolean, node?: HTMLElement | Document) {
-    if (!useDOM) {
-        return 0;
-    }
-
-    if (!node || !('clientHeight' in node)) {
-        return getWindowHeight(useDOM);
-    }
-
-    return node.clientHeight;
-}
-
-export function canUseDOM() {
-    return !!(typeof window !== 'undefined' && window.document && window.document.createElement);
-}
+import { ReactNode, Children } from 'react';
+import { BlurProp, DynamicBlurProp, SplitChildrenResultType } from '../../@types';
+import { getNodeHeight } from './dom';
 
 export function getPercentage(startpos: number, endpos: number, currentpos: number) {
     const distance = endpos - startpos;
@@ -60,10 +24,7 @@ export function getRelativePosition(node: HTMLElement, useDOM: boolean) {
 interface SplitChildrenProps {
     children?: ReactNode;
 }
-export interface SplitChildrenResultType {
-    bgChildren: Array<ReactNode>;
-    children: Array<ReactNode>;
-}
+
 /**
  * Extracts children with type Background from others and returns an object with both arrays:
  *  {
@@ -73,7 +34,8 @@ export interface SplitChildrenResultType {
  */
 export function getSplitChildren(props: SplitChildrenProps): SplitChildrenResultType {
     let bgChildren: Array<ReactNode> = [];
-    const children = React.Children.toArray(props.children);
+
+    const children = Children.toArray(props.children);
     children.forEach((child, index) => {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const c = child as any;

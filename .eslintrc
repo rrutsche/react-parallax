@@ -21,6 +21,7 @@
         "import/prefer-default-export": 0,
         "no-console": "off",
         "react/button-has-type": "off",
+        "react/prop-types": 0,
         "no-underscore-dangle": "off",
         "curly": "error",
         "import/no-extraneous-dependencies": 0,

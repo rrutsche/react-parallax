@@ -1,11 +1,11 @@
 {
     "name": "react-parallax",
     "author": "Richard Rutsche",
-    "version": "3.0.0",
+    "version": "3.0.1",
     "description": "A React Component for parallax effect working in client-side and server-side rendering environment",
     "repository": {
         "type": "git",
-        "url": "https://github.com/RRutsche/react-parallax.git"
+        "url": "https://github.com/rrutsche/react-parallax.git"
     },
     "main": "lib/index.js",
     "types": "@types/index.ts",
@@ -15,7 +15,7 @@
         "test:cover": "npm run test -- --coverage",
         "dev": "npx cross-env NODE_ENV=development webpack-dev-server --mode development --config webpack/dev.config.js",
         "build": "npx cross-env NODE_ENV=production webpack --mode production --config webpack/build.config.js",
-        "lint": "tsc --noEmit && eslint src",
+        "lint": "tsc --noEmit && eslint ./src/**/*.{ts,tsx}",
         "format": "prettier --write \"*/**/*.{ts,tsx,js,json}\" \"*.js\"",
         "check-types": "tsc"
     },
@@ -36,6 +36,8 @@
         "@babel/plugin-proposal-class-properties": "^7.5.5",
         "@babel/preset-env": "^7.6.2",
         "@babel/preset-react": "^7.0.0",
+        "@types/jest": "^24.0.24",
+        "@types/jsdom": "^12.2.4",
         "@types/node": "^12.7.8",
         "@types/react": "^16.9.2",
         "@types/react-dom": "^16.9.0",
@@ -59,7 +61,6 @@
         "html-webpack-plugin": "^3.2.0",
         "husky": "^1.3.1",
         "jest": "^24.1.0",
-        "jscs": "^3.0.7",
         "jsdom": "^13.2.0",
         "lint-staged": "^8.1.4",
         "prettier": "^1.7.4",
@@ -68,6 +69,7 @@
         "react-hot-loader": "^4.12.14",
         "react-router-dom": "^4.3.1",
         "terser-webpack-plugin": "^2.1.2",
+        "ts-jest": "^24.2.0",
         "ts-loader": "^6.2.0",
         "typescript": "^3.6.2",
         "webpack": "^4.41.0",
@@ -82,7 +84,7 @@
         }
     },
     "lint-staged": {
-        "src/**/*.js": [
+        "src/**/*.{ts,tsx}": [
             "prettier --write",
             "eslint",
             "git add"
@@ -90,11 +92,6 @@
         "*.{json,css,scss}": [
             "prettier --write",
             "git add"
-        ]
-    },
-    "jest": {
-        "setupFiles": [
-            "<rootDir>/setupFile.js"
         ]
     }
 }

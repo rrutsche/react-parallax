@@ -30,7 +30,9 @@ type PageOneState = {
 
 export default class PageOne extends React.Component<PageOneProps, PageOneState> {
     srcSets: { [key: string]: string };
+
     backgrounds: { [key: string]: string };
+
     constructor(props: PageOneProps) {
         super(props);
         this.backgrounds = {
@@ -155,7 +157,7 @@ export default class PageOne extends React.Component<PageOneProps, PageOneState>
                     </h1>
                 </Parallax>
                 <div style={{ height: '1200px' }} />
-                <Link to="/pagetwo">Page Two</Link>
+                <Link to="/p2">Page Two</Link>
             </div>
         );
     }
