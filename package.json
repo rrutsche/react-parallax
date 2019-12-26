@@ -15,7 +15,7 @@
         "test:cover": "npm run test -- --coverage",
         "dev": "npx cross-env NODE_ENV=development webpack-dev-server --mode development --config webpack/dev.config.js",
         "build": "npx cross-env NODE_ENV=production webpack --mode production --config webpack/build.config.js",
-        "lint": "tsc --noEmit && eslint src",
+        "lint": "tsc --noEmit && eslint ./src/**/*.{ts,tsx}",
         "format": "prettier --write \"*/**/*.{ts,tsx,js,json}\" \"*.js\"",
         "check-types": "tsc"
     },
@@ -61,7 +61,6 @@
         "html-webpack-plugin": "^3.2.0",
         "husky": "^1.3.1",
         "jest": "^24.1.0",
-        "jscs": "^3.0.7",
         "jsdom": "^13.2.0",
         "lint-staged": "^8.1.4",
         "prettier": "^1.7.4",
