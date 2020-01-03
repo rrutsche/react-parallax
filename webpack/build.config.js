@@ -16,7 +16,14 @@ module.exports = merge(common, {
     },
     optimization: {
         minimize: true,
-        minimizer: [new TerserPlugin({ cache: true, parallel: true, sourceMap: false })],
+        minimizer: [
+            new TerserPlugin({
+                cache: true,
+                parallel: true,
+                sourceMap: false,
+                terserOptions: { keep_fnames: true },
+            }),
+        ],
     },
     externals: {
         react: 'react',
