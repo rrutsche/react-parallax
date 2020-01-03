@@ -19,7 +19,7 @@
         "format": "prettier --write \"*/**/*.{ts,tsx,js,json}\" \"*.js\"",
         "check-types": "tsc",
         "preversion": "npm test",
-        "version": "npm run build && git add .",
+        "version": "npm run build && git add lib",
         "postversion": "git push && git push --tags"
     },
     "keywords": [
