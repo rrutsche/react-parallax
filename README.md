@@ -82,7 +82,6 @@ export default MyComponent;
 ## Background Component
 
 For more flexibility and styling purposes you can add a `<Background></Background>` section to your Parallax Container. Child nodes inside this Background will be positioned like the bgImage behind the other children. Compared to the bgImage there is no automatic scaling (see above).
-
 ## Props
 
 | Name                  |   Type        | Default                   | Description                                                                                                                                                           | example                                                                                                |
@@ -102,10 +101,7 @@ For more flexibility and styling purposes you can add a `<Background></Backgroun
 | **disabled**          | `Booleam`     | `false`                   | turns off parallax effect if set to true                                                                                                                              | `{height: '50px', maxWidth: '75px', opacity: '.5'}`                                                    |
 | **className**         | `String`      |                           | set an additional className                                                                                                                                           |                                                                                                        |
 | **parents**           | `Node`        | `document`                | set optional parent for nested scrolling                                                                                                                              |                                                                                                        |
-
-## Children
-
-... used to display any content inside the react-parallax component
+| **children**          |               |                           | used to display any content inside the react-parallax component                                                                                                       |                                                                                                        |
 
 ## Development
 
