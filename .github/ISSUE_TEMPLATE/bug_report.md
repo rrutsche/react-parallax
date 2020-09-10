@@ -28,5 +28,5 @@ If applicable, add screenshots to help explain your problem.
  - Browser [e.g. chrome, safari]
  - Version [e.g. 22]
 
-**Code**
-If possilbe add a repository or codesandbox link where the issue is reproduced.
+**Code and/or example**
+If possible add a repository or codesandbox link where the issue is reproduced.
