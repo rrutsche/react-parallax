@@ -98,71 +98,24 @@ Child nodes inside this Background will be positioned like the bgImage behind th
 
 ## Props
 
-##### bgImage
-
-path to the background image that makes parallax effect visible - (type: String)
-
-##### bgImageAlt
-
-alt text for bgImage - (type: String)
-
-##### bgImageSizes
-
-img `sizes` attribute
-
-##### bgImageSrcSet
-
-img `srcset` attribute
-
-##### style
-
-style object for the component itself - (type: Object)
-
-##### bgStyle
-
-additional style object for the bg image/children - (type: Object)
-[Valid style attributes](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Properties_Reference)
-
-##### bgClassName
-
-custom classname for image - (type: String)
-
-##### contentClassName
-
-custom classname for parallax inner - (type: String) - default: 'react-parallax-content'
-
-##### bgImageStyle
-
-set background image styling - (type: Object), eg. {height: '50px', maxWidth: '75px', opacity: '.5'}
-
-##### strength
-
-parallax effect strength (in pixel), default 100. this will define the amount of pixels the background image is translated - (type: Number)
-
-##### blur
-
-1. pixel value for background image blur, default: 0 - (type: Number)
-2. or object in format `{min:0, max:5}` for dynamic blur depending on scroll position
-
-#### renderLayer:
-
-Function that gets a percentage value of the current position as parameter for custom calculationa. It renders a layer above the actual background, below `children`. Implement like `renderLayer={percentage => (<div style={{ background:｀rgba(255, 125, 0, ${percentage * 1})｀}}/> )}` - (type: Function)
-
-##### disabled
-
-turns off parallax effect if set to true, default: false - (type: Boolean)
-
-##### className
-
-set an additional className - (type: String)
-
-##### parent
-
-set optional parent for nested scrolling, default: document - (type: Node)
-
-## Children
-
-... used to display any content inside the react-parallax component
+| Name                  |   Type        | Default                   | Description                                                                                                                                                           | example                                                                                                |
+| --------------------- | :-----------: | :-----------------------: | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------| ------------------------------------------------------------------------------------------------------ |
+| **bgImage**           | `String`      |                           | path to the background image that makes parallax effect                                                                                                               |                                                                                                        |
+| **bgImageAlt**        | `String`      |                           | alt text for bgImage.                                                                                                                                                 |                                                                                                        |
+| **bgImageSize**       | `String`      |                           | img `sizes` attribute.                                                                                                                                                |                                                                                                        |
+| **bgImageSrcSet**     | `String`      |                           | img `srcset` attribute                                                                                                                                                |                                                                                                        |
+| **style**             | `Object`      |                           | style object for the component itself                                                                                                                                 |                                                                                                        |
+| **bgStyle**           | `Object`      |                           | additional style object for the bg image/children  [Valid style attributes](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Properties_Reference)                |                                                                                                        |
+| **bgClassName**       | `String`      |                           | custom classname for image                                                                                                                                            |                                                                                                        |
+| **contentClassName**  | `String`      | `react-parallax-content`  | custom classname for parallax inner                                                                                                                                   |                                                                                                        |
+| **bgImageStyle**      | `Object`      |                           | set background image styling                                                                                                                                          | `{height: '50px', maxWidth: '75px', opacity: '.5'}`                                                    |
+| **strength**          | `Number`      | `100`                     | parallax effect strength (in pixel). this will define the amount of pixels the background image is translated                                                         |                                                                                                        |
+| **blur**              | `Number`      | `0` or  `{min:0, max:5}`  | number value for background image blur or object in format `{min:0, max:5}` for dynamic blur depending on scroll position                                             |                                                                                                        |
+| **renderLayer**       | `Function`    |                           | Function that gets a percentage value of the current position as parameter for custom calculationa. It renders a layer above the actual background, below `children`. | `renderLayer={percentage => (<div style={{ background:｀rgba(255, 125, 0, ${percentage * 1})｀}}/> )}`  |
+| **disabled**          | `Booleam`     | `false`                   | turns off parallax effect if set to true                                                                                                                              | `{height: '50px', maxWidth: '75px', opacity: '.5'}`                                                    |
+| **className**         | `String`      |                           | set an additional className                                                                                                                                           |                                                                                                        |
+| **parents**           | `Node`        | `document`                | set optional parent for nested scrolling                                                                                                                              |                                                                                                        |
+| **children**          |               |                           | used to display any content inside the react-parallax component                                                                                                       |                                                                                                        |
 
 ## Development
 
