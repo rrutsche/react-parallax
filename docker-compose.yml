@@ -1,0 +1,9 @@
+version: '3'
+services:
+    visual:
+        build:
+            context: .
+        volumes:
+            - './src:/app/src'
+            - './test:/app/test'
+        command: sh -c "npm run dev & wait-for-it.sh localhost:3000 -- npm run test"
