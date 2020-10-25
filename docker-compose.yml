@@ -1,8 +1,13 @@
+# https://www.alanfoster.me/posts/running-react-unit-tests-within-docker/
+# https://markus.oberlehner.net/blog/using-docker-to-run-visual-regression-tests-with-jest-and-puppeteer/
+# https://blog.logrocket.com/automated-visual-regression-testing-with-jest/
 version: '3'
 services:
     visual:
         build:
             context: .
+        environment:
+            - CI=true
         volumes:
             - './src:/app/src'
             - './test:/app/test'
