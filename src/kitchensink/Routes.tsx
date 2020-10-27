@@ -5,6 +5,7 @@ import Page1 from './p1';
 import Page2 from './p2';
 import Page3 from './p3';
 import Page4 from './p4';
+import { Page5 } from './p5';
 
 const Routes = () => (
     <BrowserRouter>
@@ -13,6 +14,7 @@ const Routes = () => (
             <Route exact path="/p2" component={Page2} />
             <Route exact path="/p3" component={Page3} />
             <Route exact path="/p4" component={Page4} />
+            <Route exact path="/p5" component={Page5} />
         </Switch>
     </BrowserRouter>
 );

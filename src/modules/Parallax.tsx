@@ -267,14 +267,21 @@ class Parallax extends ParallaxClass {
 
         // get relative scroll-y position of parallax component in percentage
         const percentage = getRelativePosition(this.node, this.canUseDOM);
+        const hasBgImage = !!this.img;
+        const hasBgChildren = this.bg && this.state.splitChildren.bgChildren.length > 0;
 
         // update bg image position if set
-        if (this.img) {
+        if (hasBgImage) {
             this.setImagePosition(percentage, autoHeight);
         }
         // update position of Background children if exist
-        if (this.bg && this.state.splitChildren.bgChildren.length > 0) {
+        if (hasBgChildren) {
             this.setBackgroundPosition(percentage);
+        }
+
+        // be sure to set the percentage if neither image nor bg component was set
+        if (!hasBgImage && !hasBgChildren) {
+            this.setState({ percentage });
         }
     };
 
@@ -356,7 +363,7 @@ class Parallax extends ParallaxClass {
             <div
                 className={`react-parallax ${className}`}
                 style={{ position: 'relative', overflow: 'hidden', ...style }}
-                ref={node => {
+                ref={(node) => {
                     this.node = node;
                 }}
             >
@@ -366,7 +373,7 @@ class Parallax extends ParallaxClass {
                         src={bgImage}
                         srcSet={bgImageSrcSet}
                         sizes={bgImageSizes}
-                        ref={bg => {
+                        ref={(bg) => {
                             this.img = bg;
                         }}
                         alt={bgImageAlt}
@@ -377,7 +384,7 @@ class Parallax extends ParallaxClass {
                 {splitChildren.bgChildren.length > 0 ? (
                     <div
                         className="react-parallax-background-children"
-                        ref={bg => {
+                        ref={(bg) => {
                             this.bg = bg;
                         }}
                         style={bgStyle}
