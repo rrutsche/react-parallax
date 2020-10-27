@@ -363,7 +363,7 @@ class Parallax extends ParallaxClass {
             <div
                 className={`react-parallax ${className}`}
                 style={{ position: 'relative', overflow: 'hidden', ...style }}
-                ref={node => {
+                ref={(node) => {
                     this.node = node;
                 }}
             >
@@ -373,18 +373,18 @@ class Parallax extends ParallaxClass {
                         src={bgImage}
                         srcSet={bgImageSrcSet}
                         sizes={bgImageSizes}
-                        ref={bg => {
+                        ref={(bg) => {
                             this.img = bg;
                         }}
                         alt={bgImageAlt}
                         style={{ ...imgStyle, ...bgImageStyle }}
                     />
                 ) : null}
-                {renderLayer ? renderLayer(Math.min(-(percentage - 1), 1)) : null}
+                {renderLayer ? renderLayer(-(percentage - 1)) : null}
                 {splitChildren.bgChildren.length > 0 ? (
                     <div
                         className="react-parallax-background-children"
-                        ref={bg => {
+                        ref={(bg) => {
                             this.bg = bg;
                         }}
                         style={bgStyle}
