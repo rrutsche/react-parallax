@@ -3,7 +3,7 @@ import { Parallax } from '../index';
 
 import image3 from '../assets/3.jpg';
 
-type PageThreeProps = {};
+type PageThreeProps = Record<string, unknown>;
 
 const style = {
     backgroundColor: '#efefef',
@@ -47,7 +47,7 @@ const PageFour: FC<PageThreeProps> = () => {
                 just get me the death penalty? Ooh, name it after me! Really?!
             </h1>
             <Parallax bgImage={image3} strength={200}>
-                <input value={val} onChange={e => setVal(e.target.value)} />
+                <input value={val} onChange={(e) => setVal(e.target.value)} />
                 <h1 style={fontStyle2}>
                     And I&rsquo;d do it again! And perhaps a third time! But that would be it. Tell
                     her she looks thin. What are their names? Tell her she looks thin. Anyhoo, your

@@ -9,7 +9,7 @@ class Background extends BackgroundClass {
 
     static isParallaxBackground = true;
 
-    render() {
+    render(): JSX.Element {
         const { className, children } = this.props;
         return <div className={`react-parallax-background ${className}`}>{children}</div>;
     }

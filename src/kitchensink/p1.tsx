@@ -22,7 +22,7 @@ const fontStyle2 = {
     color: 'darkgrey',
 };
 
-type PageOneProps = {};
+type PageOneProps = Record<string, unknown>;
 type PageOneState = {
     BG: number;
     srcSet?: number;
@@ -104,7 +104,7 @@ export default class PageOne extends React.Component<PageOneProps, PageOneState>
                     bgImage={this.backgrounds[BG]}
                     bgImageSrcSet={this.srcSets[srcSet]}
                     strength={200}
-                    renderLayer={percentage => (
+                    renderLayer={(percentage) => (
                         <div>
                             <div
                                 style={{

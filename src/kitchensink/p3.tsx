@@ -3,7 +3,7 @@ import { Parallax } from '../index';
 
 import image3 from '../assets/3.jpg';
 
-type PageThreeProps = {};
+type PageThreeProps = Record<string, unknown>;
 type PageThreeState = {
     theParentRef: HTMLDivElement | null;
 };
@@ -49,7 +49,7 @@ export default class PageThree extends React.Component<PageThreeProps, PageThree
             color: 'darkgrey',
         };
         return (
-            <div style={style} ref={ref => this.onParentRefMounted(ref)}>
+            <div style={style} ref={(ref) => this.onParentRefMounted(ref)}>
                 <h1 style={fontStyle2}>
                     We need rest. The spirit is willing, but the flesh is spongy and bruised. Um, is
                     this the boring, peaceful kind of taking to the streets? Bender, this is

@@ -7,14 +7,14 @@ const style = {
     textAlign: 'center' as const,
 };
 
-export const Page5 = () => {
+export const Page5 = (): JSX.Element => {
     return (
         <div style={style}>
             <div style={{ height: 1000 }} />
             <Parallax
                 bgImage="https://cdn.pixabay.com/photo/2013/07/12/17/47/test-pattern-152459_1280.png"
                 strength={400}
-                renderLayer={percentage => (
+                renderLayer={(percentage) => (
                     <div
                         style={{
                             position: 'fixed',

@@ -4,7 +4,7 @@ import { Parallax, Background } from '../index';
 
 import image3 from '../assets/3.jpg';
 
-type PageTwoProps = {};
+type PageTwoProps = Record<string, unknown>;
 type PageTwoState = {
     image: string;
     children: React.ReactNode;

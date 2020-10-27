@@ -6,6 +6,7 @@ import {
     BgImageSrcSetProp,
     BgImageSizesProp,
     Parallax as ParallaxClass,
+    SplitChildrenResultType,
 } from '../../@types';
 
 import {
@@ -97,7 +98,7 @@ class Parallax extends ParallaxClass {
      * bind some eventlisteners for page load, scroll and resize
      * save component ref after rendering, update all values and set static style values
      */
-    componentDidMount() {
+    componentDidMount(): void {
         const { parent } = this.props;
         const { bgImage, bgImageSrcSet, bgImageSizes } = this.state;
 
@@ -112,13 +113,17 @@ class Parallax extends ParallaxClass {
         }
     }
 
-    static getDerivedStateFromProps(props: ParallaxProps) {
+    static getDerivedStateFromProps(
+        props: ParallaxProps,
+    ): {
+        splitChildren: SplitChildrenResultType;
+    } {
         return {
             splitChildren: getSplitChildren(props),
         };
     }
 
-    componentDidUpdate(prevProps: ParallaxProps) {
+    componentDidUpdate(prevProps: ParallaxProps): void {
         const { parent, bgImage, bgImageSrcSet, bgImageSizes } = this.props;
         const { bgImage: stateBgImage } = this.state;
 
@@ -140,7 +145,7 @@ class Parallax extends ParallaxClass {
     /**
      * remove all eventlisteners before component is destroyed
      */
-    componentWillUnmount() {
+    componentWillUnmount(): void {
         this.removeListeners(this.parent);
         this.releaseImage();
     }
@@ -148,16 +153,16 @@ class Parallax extends ParallaxClass {
     /**
      * update window height and positions on window resize
      */
-    onWindowResize = () => {
+    onWindowResize = (): void => {
         this.parentHeight = getNodeHeight(this.canUseDOM, this.parent);
         this.updatePosition();
     };
 
-    onWindowLoad = () => {
+    onWindowLoad = (): void => {
         this.updatePosition();
     };
 
-    onScroll = () => {
+    onScroll = (): void => {
         if (!this.canUseDOM) {
             return;
         }
@@ -168,11 +173,11 @@ class Parallax extends ParallaxClass {
         }
     };
 
-    onContentMount = (content: HTMLElement) => {
+    onContentMount = (content: HTMLElement): void => {
         this.content = content;
     };
 
-    setBackgroundPosition(percentage: number) {
+    setBackgroundPosition(percentage: number): void {
         const { disabled, strength } = this.props;
         // don't do unneccessary style processing if parallax is disabled
         if (disabled === true) {
@@ -197,7 +202,7 @@ class Parallax extends ParallaxClass {
     /**
      * sets position for the background image
      */
-    setImagePosition(percentage: number, autoHeight = false) {
+    setImagePosition(percentage: number, autoHeight = false): void {
         const { disabled, strength, blur } = this.props;
         const height = autoHeight ? 'auto' : `${this.getImageHeight()}px`;
         const width = !autoHeight ? 'auto' : `${this.contentWidth}px`;
@@ -235,7 +240,7 @@ class Parallax extends ParallaxClass {
      * The image height depends on parallax direction. If strength value is negative we have to give it more height
      * so there is no white space at start/end of container visiblility.
      */
-    getImageHeight() {
+    getImageHeight(): number {
         const { strength } = this.props;
         const inverse = strength < 0;
         const factor = inverse ? 2.5 : 1;
@@ -248,7 +253,7 @@ class Parallax extends ParallaxClass {
      * defines, if the background image should have autoHeight or autoWidth to
      * fit the component space optimally
      */
-    updatePosition = () => {
+    updatePosition = (): void => {
         if (!this.content) {
             return;
         }
@@ -292,7 +297,7 @@ class Parallax extends ParallaxClass {
         bgImage: BgImageProp,
         bgImageSrcSet: BgImageSrcSetProp,
         bgImageSizes: BgImageSizesProp,
-    ) {
+    ): void {
         this.releaseImage();
         this.bgImageRef = new Image();
         this.bgImageRef.onload = () => {
@@ -314,7 +319,7 @@ class Parallax extends ParallaxClass {
     /**
      * Unbind eventlistener of bg image and delete it
      */
-    releaseImage() {
+    releaseImage(): void {
         if (this.bgImageRef) {
             this.bgImageRef.onload = null;
             this.bgImageRef.onerror = null;
@@ -322,7 +327,7 @@ class Parallax extends ParallaxClass {
         }
     }
 
-    addListeners() {
+    addListeners(): void {
         if (this.canUseDOM && this.parent) {
             this.parent.addEventListener('scroll', this.onScroll, false);
             window.addEventListener('resize', this.onWindowResize, false);
@@ -330,7 +335,7 @@ class Parallax extends ParallaxClass {
         }
     }
 
-    removeListeners(parent?: HTMLElement | Document) {
+    removeListeners(parent?: HTMLElement | Document): void {
         if (this.canUseDOM) {
             if (parent) {
                 parent.removeEventListener('scroll', this.onScroll, false);
@@ -340,7 +345,7 @@ class Parallax extends ParallaxClass {
         }
     }
 
-    render() {
+    render(): JSX.Element {
         const {
             className,
             style,
