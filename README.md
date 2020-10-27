@@ -14,7 +14,7 @@ If you find any bug or have problems and/or ideas regarding this library feel fr
 
 This project is maintained during evenings and weekends. If you like it, please consider to buy me a coffee ;-) ...or contribute in other ways.
 
-<a href="https://www.buymeacoffee.com/rrutsche" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Donate" style="height: auto !important;width: auto !important;" ></a>
+<a href="https://www.buymeacoffee.com/rrutsche"><img src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=&slug=rrutsche&button_colour=FFDD00&font_colour=000000&font_family=Cookie&outline_colour=000000&coffee_colour=ffffff"></a>
 
 ## Usage examples
 
