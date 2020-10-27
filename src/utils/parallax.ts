@@ -8,17 +8,16 @@ export function getPercentage(startpos: number, endpos: number, currentpos: numb
     return displacement / distance || 0;
 }
 
-export function getRelativePosition(node: HTMLElement, useDOM: boolean) {
+export function getRelativePosition(node: HTMLElement, useDOM: boolean, initialPosition = 0) {
     if (!useDOM) {
         return 0;
     }
-    const element = node;
-    const { top, height } = element.getBoundingClientRect();
+    const { top, height } = node.getBoundingClientRect();
     const parentHeight = getNodeHeight(useDOM);
     const maxHeight = height > parentHeight ? height : parentHeight;
     const y = Math.round(top > maxHeight ? maxHeight : top);
 
-    return getPercentage(-height, maxHeight, y);
+    return getPercentage(initialPosition, maxHeight, y);
 }
 
 interface SplitChildrenProps {
