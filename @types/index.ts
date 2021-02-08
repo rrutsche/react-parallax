@@ -52,3 +52,7 @@ export type ParallaxChildrenProps = {
 export class Parallax extends React.Component<ParallaxProps, ParallaxState> {}
 
 export class Background extends React.Component<BackgroundProps, {}> {}
+
+export interface StyleObjectType {
+    [key: string]: string;
+}

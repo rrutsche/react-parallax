@@ -86,7 +86,7 @@ export default class PageOne extends React.Component<PageOneProps, PageOneState>
                         }}
                         onClick={this.toggleBackground}
                     >
-                        toogle background image 1
+                        toggle background image 1
                     </button>
                     <button
                         type="button"
@@ -95,7 +95,7 @@ export default class PageOne extends React.Component<PageOneProps, PageOneState>
                         }}
                         onClick={this.toggleSrcSet}
                     >
-                        toogle srcSet image 2
+                        toggle srcSet image 2
                     </button>
                 </div>
                 <div style={{ height: '700px' }} />

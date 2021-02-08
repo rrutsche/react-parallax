@@ -7,6 +7,7 @@ import {
     BgImageSizesProp,
     Parallax as ParallaxClass,
     SplitChildrenResultType,
+    StyleObjectType,
 } from '../../@types';
 
 import {
@@ -179,22 +180,20 @@ class Parallax extends ParallaxClass {
 
     setBackgroundPosition(percentage: number): void {
         const { disabled, strength } = this.props;
-        // don't do unneccessary style processing if parallax is disabled
-        if (disabled === true) {
-            return;
+        const bgStyle: StyleObjectType = {
+            ...this.state.bgStyle,
+        };
+
+        if (!disabled) {
+            const inverse = strength < 0;
+            const pos = (inverse ? strength : 0) - strength * percentage;
+            const transform = `translate3d(-50%, ${pos}px, 0)`;
+            bgStyle.WebkitTransform = transform;
+            bgStyle.transform = transform;
         }
 
-        const { bgStyle } = this.state;
-        const inverse = strength < 0;
-        const pos = (inverse ? strength : 0) - strength * percentage;
-        const transform = `translate3d(-50%, ${pos}px, 0)`;
-
         this.setState({
-            bgStyle: {
-                ...bgStyle,
-                WebkitTransform: transform,
-                transform,
-            },
+            bgStyle,
             percentage,
         });
     }
@@ -206,32 +205,29 @@ class Parallax extends ParallaxClass {
         const { disabled, strength, blur } = this.props;
         const height = autoHeight ? 'auto' : `${this.getImageHeight()}px`;
         const width = !autoHeight ? 'auto' : `${this.contentWidth}px`;
+        const imgStyle: StyleObjectType = {
+            ...this.state.imgStyle,
+            height,
+            width,
+        };
 
-        // don't do unneccessary style processing if parallax is disabled
-        if (disabled === true) {
-            return;
-        }
+        if (!disabled) {
+            const inverse = strength < 0;
+            const pos = (inverse ? strength : 0) - strength * percentage;
 
-        const { imgStyle } = this.state;
-        const inverse = strength < 0;
-        const pos = (inverse ? strength : 0) - strength * percentage;
-
-        const transform = `translate3d(-50%, ${pos}px, 0)`;
-        let filter = 'none';
-        if (blur) {
-            filter = `blur(${getBlurValue(this.isDynamicBlur, blur, percentage)}px)`;
+            const transform = `translate3d(-50%, ${pos}px, 0)`;
+            let filter = 'none';
+            if (blur) {
+                filter = `blur(${getBlurValue(this.isDynamicBlur, blur, percentage)}px)`;
+            }
+            imgStyle.WebkitTransform = transform;
+            imgStyle.transform = transform;
+            imgStyle.WebkitFilter = filter;
+            imgStyle.filter = filter;
         }
 
         this.setState({
-            imgStyle: {
-                ...imgStyle,
-                height,
-                width,
-                WebkitTransform: transform,
-                transform,
-                WebkitFilter: filter,
-                filter,
-            },
+            imgStyle,
             percentage,
         });
     }
