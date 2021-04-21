@@ -296,7 +296,7 @@ class Parallax extends ParallaxClass {
     ): void {
         this.releaseImage();
         this.bgImageRef = new Image();
-        this.bgImageRef.onload = () => {
+        this.bgImageRef.onload = (e) => {
             this.setState(
                 {
                     bgImage,
@@ -305,6 +305,9 @@ class Parallax extends ParallaxClass {
                 },
                 () => this.updatePosition(),
             );
+            if (this.props.onLoad) {
+                this.props.onLoad(e);
+            }
         };
         this.bgImageRef.onerror = this.bgImageRef.onload;
         this.bgImageRef.src = bgImage;

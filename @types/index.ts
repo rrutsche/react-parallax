@@ -12,17 +12,18 @@ export interface SplitChildrenResultType {
 
 export type ParallaxProps = {
     bgClassName?: string;
+    bgImage?: BgImageProp;
+    bgImageAlt?: string;
+    bgImageSizes?: BgImageSizesProp;
+    bgImageSrcSet?: BgImageSrcSetProp;
     bgImageStyle?: { [key: string]: any };
+    onLoad?: (event: Event) => void;
+    bgStyle?: { [key: string]: any };
     blur?: BlurProp;
     children?: React.ReactNode;
     className?: string;
     contentClassName?: string;
     disabled?: boolean;
-    bgImage?: BgImageProp;
-    bgImageAlt?: string;
-    bgImageSrcSet?: BgImageSrcSetProp;
-    bgImageSizes?: BgImageSizesProp;
-    bgStyle?: { [key: string]: any };
     parent?: HTMLElement;
     renderLayer?: (percentage: number) => any;
     strength?: number;

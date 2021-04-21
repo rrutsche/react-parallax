@@ -32,6 +32,15 @@ module.exports = {
         'import/no-extraneous-dependencies': 0,
         '@typescript-eslint/explicit-function-return-type': 0,
         '@typescript-eslint/no-var-requires': 0,
+        '@typescript-eslint/no-unused-vars': [
+            'error',
+            {
+                vars: 'all',
+                args: 'after-used',
+                ignoreRestSiblings: false,
+                argsIgnorePattern: '^_',
+            },
+        ],
         'react/static-property-placement': 0,
     },
     globals: {
