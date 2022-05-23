@@ -353,6 +353,7 @@ class Parallax extends ParallaxClass {
             bgImageAlt,
             renderLayer,
             bgImageStyle,
+            lazy,
         } = this.props;
         const {
             bgImage,
@@ -382,6 +383,7 @@ class Parallax extends ParallaxClass {
                         }}
                         alt={bgImageAlt}
                         style={{ ...imgStyle, ...bgImageStyle }}
+                        loading={lazy ? 'lazy' : 'eager'}
                     />
                 ) : null}
                 {renderLayer ? renderLayer(-(percentage - 1)) : null}
