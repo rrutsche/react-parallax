@@ -43,6 +43,7 @@ type ParallaxState = {
 
 export type BackgroundProps = {
     className?: string;
+    children?: React.ReactNode
 };
 
 export type ParallaxChildrenProps = {
