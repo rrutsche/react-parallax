@@ -1,14 +1,14 @@
 import React from 'react';
 
 import {
-    ParallaxProps,
     BgImageProp,
-    BgImageSrcSetProp,
     BgImageSizesProp,
-    Parallax as ParallaxClass,
+    BgImageSrcSetProp,
+    ParallaxProps,
+    ParallaxState,
     SplitChildrenResultType,
     StyleObjectType,
-} from '../../@types';
+} from '../types';
 
 import {
     getRelativePosition,
@@ -30,7 +30,7 @@ const initialStyle = {
     MsBackfaceVisibility: 'hidden',
 };
 
-class Parallax extends ParallaxClass {
+class Parallax extends React.Component<ParallaxProps, ParallaxState> {
     bg: HTMLDivElement;
 
     canUseDOM: boolean;
@@ -39,17 +39,17 @@ class Parallax extends ParallaxClass {
 
     contentWidth: number;
 
-    node: HTMLElement;
+    node: HTMLElement | null;
 
-    content: HTMLElement;
+    content: HTMLElement | null;
 
     img: HTMLImageElement;
 
     bgImageLoaded: boolean;
 
-    bgImageRef: HTMLImageElement;
+    bgImageRef: HTMLImageElement | undefined;
 
-    parent: HTMLElement | Document;
+    parent: HTMLElement | Document | undefined;
 
     parentHeight: number;
 
@@ -70,9 +70,9 @@ class Parallax extends ParallaxClass {
         super(props);
 
         this.state = {
-            bgImage: props.bgImage,
-            bgImageSrcSet: props.bgImageSrcSet,
-            bgImageSizes: props.bgImageSizes,
+            bgImage: props.bgImage || this.state.bgImage,
+            bgImageSrcSet: props.bgImageSrcSet || this.state.bgImageSrcSet,
+            bgImageSizes: props.bgImageSizes || this.state.bgImageSizes,
             imgStyle: initialStyle,
             bgStyle: {
                 ...initialStyle,
@@ -114,9 +114,7 @@ class Parallax extends ParallaxClass {
         }
     }
 
-    static getDerivedStateFromProps(
-        props: ParallaxProps,
-    ): {
+    static getDerivedStateFromProps(props: ParallaxProps): {
         splitChildren: SplitChildrenResultType;
     } {
         return {

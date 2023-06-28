@@ -1,6 +1,9 @@
 {
     "compilerOptions": {
-        "outDir": "./lib/",
+        "declaration": true,
+        "declarationDir": "types",
+        // "strict": true,
+        "outDir": "dist",
         "sourceMap": true,
         "noImplicitAny": true,
         "jsx": "react",
@@ -9,7 +12,7 @@
         "moduleResolution": "node",
         "lib": ["dom", "es2015", "es2016"],
         "target": "es6",
-        "module": "commonjs",
+        "module": "ESNext",
         "noUnusedParameters": true,
         "skipLibCheck": true,
         "isolatedModules": true,
@@ -18,6 +21,6 @@
             "~*": ["./*"]
         }
     },
-    "include": ["src", "@types"],
-    "exclude": ["node_modules"]
+    "include": ["src", "src/kitchensink"],
+    "exclude": ["dist", "node_modules", "src/**/*.test.tsx", "src/**/*.stories.tsx"]
 }

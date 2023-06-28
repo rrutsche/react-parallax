@@ -1,5 +1,5 @@
 import { ReactNode, Children } from 'react';
-import { BlurProp, DynamicBlurProp, SplitChildrenResultType } from '../../@types';
+import { BlurProp, DynamicBlurProp, SplitChildrenResultType } from '../types';
 import { getNodeHeight } from './dom';
 
 export const getPercentage = (startpos: number, endpos: number, currentpos: number): number => {
@@ -48,7 +48,7 @@ export const getSplitChildren = (props: SplitChildrenProps): SplitChildrenResult
     };
 };
 
-export const getHasDynamicBlur = (blur: BlurProp): boolean =>
+export const getHasDynamicBlur = (blur?: BlurProp): boolean =>
     typeof blur === 'object' && blur.min !== undefined && blur.max !== undefined;
 
 export const getBlurValue = (

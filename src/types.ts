@@ -31,7 +31,7 @@ export type ParallaxProps = {
     lazy?: boolean;
 };
 
-type ParallaxState = {
+export type ParallaxState = {
     bgImage: string;
     bgImageSrcSet: string;
     bgImageSizes: string;
@@ -43,7 +43,7 @@ type ParallaxState = {
 
 export type BackgroundProps = {
     className?: string;
-    children?: React.ReactNode
+    children?: React.ReactNode;
 };
 
 export type ParallaxChildrenProps = {

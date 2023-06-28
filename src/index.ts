@@ -3,4 +3,9 @@ import Background from './modules/Background';
 
 export { Parallax, Background };
 
-// https://www.typescriptlang.org/docs/handbook/react-&-webpack.html
+/**
+ * husky
+cross-env
+jest
+lint-staged
+ */

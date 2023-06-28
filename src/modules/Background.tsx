@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { Background as BackgroundClass } from '../../@types';
+import { BackgroundProps } from '../types';
 
-class Background extends BackgroundClass {
+class Background extends React.Component<BackgroundProps> {
     static defaultProps = {
         className: '',
     };

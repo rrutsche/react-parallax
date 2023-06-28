@@ -2,10 +2,10 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Parallax } from '../index';
 
-import image2 from '../assets/sw.jpg';
-import image3 from '../assets/air.jpg';
-import image4 from '../assets/4.jpg';
-import image5 from '../assets/3.jpg';
+// import image2 from '../assets/sw.jpg';
+// import image3 from '../assets/air.jpg';
+// import image4 from '../assets/4.jpg';
+// import image5 from '../assets/3.jpg';
 
 const image1 =
     'https://images.fineartamerica.com/images/artworkimages/mediumlarge/1/empire-state-building-black-and-white-square-format-john-farnan.jpg';
@@ -37,12 +37,12 @@ export default class PageOne extends React.Component<PageOneProps, PageOneState>
         super(props);
         this.backgrounds = {
             '1': image1,
-            '2': image2,
-            '3': image5,
+            '2': image1,
+            '3': image1,
         };
         this.srcSets = {
-            1: `${image4} 1x, ${image2} 2x`,
-            2: `${image3} 1x, ${image1} 2x`,
+            1: `${image1} 1x, ${image1} 2x`,
+            2: `${image1} 1x, ${image1} 2x`,
         };
         this.state = {
             BG: 1,
@@ -102,7 +102,7 @@ export default class PageOne extends React.Component<PageOneProps, PageOneState>
                 <br />
                 <Parallax
                     bgImage={this.backgrounds[BG]}
-                    bgImageSrcSet={this.srcSets[srcSet]}
+                    bgImageSrcSet={this.srcSets[srcSet || '']}
                     strength={200}
                     renderLayer={(percentage) => (
                         <div>

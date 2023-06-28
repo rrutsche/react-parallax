@@ -19,8 +19,7 @@ export default class PageTwo extends React.Component<PageTwoProps, PageTwoState>
             fontWeight: 100,
         };
         this.state = {
-            image:
-                'https://totallycoolpix.com/images/tcp_images_before/1013/itp_shamma_esoof_012__tcp_gallery_image.jpg',
+            image: 'https://totallycoolpix.com/images/tcp_images_before/1013/itp_shamma_esoof_012__tcp_gallery_image.jpg',
             children: <h1 style={fontStyle}>children no1</h1>,
         };
     }
