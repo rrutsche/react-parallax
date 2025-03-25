@@ -30,8 +30,8 @@
         "jsx"
     ],
     "peerDependencies": {
-        "react": "16.x.x || 17.x.x || 18.x.x",
-        "react-dom": "16.x.x || 17.x.x || 18.x.x"
+        "react": "^17 || ^18 || ^19",
+        "react-dom": "^17 || ^18 ||^19"
     },
     "license": "MIT",
     "devDependencies": {
